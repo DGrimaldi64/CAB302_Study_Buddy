@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+
+<VBox alignment="CENTER" spacing="15.0" fillWidth="false"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.example.cab302_study_buddy.HelloController">
+    <Label text="Welcome To Study-Buddy" fx:id="welcomeText"/>
+    <HBox spacing="15.0" alignment="CENTER">
+        <Button fx:id="taksBtn" text="Tasks" onAction="#onTasksClick"/>
+        <Button fx:id="calendarBtn" text="Calendar" onAction="#onCalendarClick"/>
+        <Button fx:id="TimerBtn" text="Timer" onAction="#onTimerClick"/>
+        <Button fx:id="rewardsBtn" text="Rewards" onAction="#onRewardslick"/>
+    </HBox>
+    <HBox spacing="15.0" alignment="CENTER">
+        <Button fx:id="studyHelperBtn" text="Study Helper" onAction="#onStudyHelperClick"/>
+        <Button fx:id="analyticsBtn" text="Analytics" onAction="#onAnalyticsClick"/>
+        <Button fx:id="accessibilityBtn" text="Accessibility" onAction="#onAccessibilityClick"/>
+        <Button fx:id="settingsBtn" text="Settings" onAction="#onSettingsClick"/>
+    </HBox>
+</VBox>
