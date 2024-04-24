@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox alignment="CENTER" spacing="15.0" fillWidth="false"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.example.cab302_study_buddy.TimerScene">
+    <Label text="Timer" fx:id="timerTitleText"/>
+    <Label text="00:00:00" fx:id="timerCounterText"/>
+    <HBox spacing="15.0" alignment="CENTER">
+        <Button fx:id="setBtn" text="Set" onAction="#onSetClick"/>
+        <Button fx:id="stopBtn" text="Stop" onAction="#onStopClick"/>
+    </HBox>
+</VBox>

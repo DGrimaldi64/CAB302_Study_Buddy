@@ -3,7 +3,6 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.HBox?>
 
 <VBox alignment="CENTER" spacing="15.0" fillWidth="false"
@@ -11,10 +10,10 @@
       fx:controller="com.example.cab302_study_buddy.HelloController">
     <Label text="Welcome To Study-Buddy" fx:id="welcomeText"/>
     <HBox spacing="15.0" alignment="CENTER">
-        <Button fx:id="taksBtn" text="Tasks" onAction="#onTasksClick"/>
+        <Button fx:id="tasksBtn" text="Tasks" onAction="#onTasksClick"/>
         <Button fx:id="calendarBtn" text="Calendar" onAction="#onCalendarClick"/>
         <Button fx:id="TimerBtn" text="Timer" onAction="#onTimerClick"/>
-        <Button fx:id="rewardsBtn" text="Rewards" onAction="#onRewardslick"/>
+        <Button fx:id="rewardsBtn" text="Rewards" onAction="#onRewardsClick"/>
     </HBox>
     <HBox spacing="15.0" alignment="CENTER">
         <Button fx:id="studyHelperBtn" text="Study Helper" onAction="#onStudyHelperClick"/>
