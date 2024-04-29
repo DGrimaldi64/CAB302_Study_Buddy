@@ -9,10 +9,31 @@
 <VBox alignment="CENTER" spacing="15.0" fillWidth="false"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="com.example.cab302_study_buddy.TimerScene">
-    <Label text="Timer" fx:id="timerTitleText"/>
-    <Label text="00:00:00" fx:id="timerCounterText"/>
-    <HBox spacing="15.0" alignment="CENTER">
-        <Button fx:id="setBtn" text="Set" onAction="#onSetClick"/>
-        <Button fx:id="stopBtn" text="Stop" onAction="#onStopClick"/>
+    <Label text="Timer"/>
+    <Label text="00:00:00" fx:id="timerDisplay"/>
+    <HBox fx:id="timerControls" spacing="15.0" alignment="CENTER">
+        <Button fx:id="setPauseBtn" text="Set" onAction="#onSetPauseClick"/>
+        <Button text="Stop" onAction="#onStopClick"/>
     </HBox>
+    <HBox fx:id="setTime" spacing="5.0" alignment="CENTER" visible="false">
+        <VBox spacing="5.0" alignment="CENTER">
+            <Button text="🞁" onAction="#onHoursUpClick"/>
+            <TextField fx:id="hoursInput" prefWidth="30" onKeyTyped="#onHoursType"/>
+            <Button text="🞃" onAction="#onHoursDownClick"/>
+            <Slider fx:id="hourSlider" blockIncrement="1" max="24" prefWidth="20" visible="false"/>
+        </VBox>
+        <VBox spacing="5.0" alignment="CENTER">
+            <Button text="🞁" onAction="#onMinutesUpClick"/>
+            <TextField fx:id="minutesInput" prefWidth="30" onKeyTyped="#onMinutesType"/>
+            <Button text="🞃" onAction="#onMinutesDownClick"/>
+            <Slider fx:id="minuteSlider" blockIncrement="1" max="59" prefWidth="20" visible="false"/>
+        </VBox>
+        <VBox spacing="5.0" alignment="CENTER">
+            <Button text="🞁" onAction="#onSecondsUpClick"/>
+            <TextField fx:id="secondsInput" prefWidth="30" onKeyTyped="#onSecondsType"/>
+            <Button text="🞃" onAction="#onSecondsDownClick"/>
+            <Slider fx:id="secondSlider" blockIncrement="1" max="59" prefWidth="20" visible="false"/>
+        </VBox>
+    </HBox>
+    <Button fx:id="enterBtn" text="Enter" onAction="#onEnterClick" visible="false"/>
 </VBox>
