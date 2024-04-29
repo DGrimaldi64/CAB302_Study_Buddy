@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<?import javafx.scene.layout.HBox?>
+<VBox alignment="CENTER" prefHeight="400.0" prefWidth="300.0" spacing="10.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.login.LoginPageController">
+  <padding>
+    <Insets bottom="25.0" left="25.0" right="25.0" top="25.0" />
+  </padding>
+  <Label fx:id="messageLabel" text="WELCOME">
+    <font>
+      <Font name="System Bold" size="18.0" />
+    </font>
+  </Label>
+  <ImageView fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
+    <Image url="@icon.png" />
+  </ImageView>
+  <TextField fx:id="usernameField" promptText="Username" />
+  <PasswordField fx:id="passwordField" promptText="Password" />
+  <HBox alignment="CENTER_LEFT" spacing="10.0">
+    <CheckBox fx:id="rememberMeCheckbox" text="Remember on this PC" />
+    <Hyperlink fx:id="forgotPasswordLink" text="Forgot Password?" />
+  </HBox>
+  <Button fx:id="loginButton" onAction="#handleLogin" prefHeight="30.0" prefWidth="200.0" text="LOGIN" />
+  <Hyperlink fx:id="signupLink" onAction="#switchToSignup" text="Don't have an account? Sign up" />
+</VBox>
