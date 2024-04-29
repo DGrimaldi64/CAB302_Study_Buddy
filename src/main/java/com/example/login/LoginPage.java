@@ -14,7 +14,7 @@ public class LoginPage extends Application {
     public void start(Stage primaryStage) throws Exception {
         DatabaseHandler.createTable();
         Parent root = FXMLLoader.load(getClass().getResource("LoginPage.fxml"));
-        primaryStage.setTitle("Login/Signup");
+        primaryStage.setTitle("Study Buddy Login");
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
     }
