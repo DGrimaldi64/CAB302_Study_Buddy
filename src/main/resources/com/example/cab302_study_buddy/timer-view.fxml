@@ -6,9 +6,12 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox alignment="CENTER" spacing="15.0" fillWidth="false"
+<VBox alignment="CENTER" spacing="15.0"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="com.example.cab302_study_buddy.TimerScene">
+    <HBox spacing="15.0">
+        <Button text="←" onAction="#onBackClick"/>
+    </HBox>
     <Label text="Timer"/>
     <Label text="00:00:00" fx:id="timerDisplay"/>
     <HBox fx:id="timerControls" spacing="15.0" alignment="CENTER">
