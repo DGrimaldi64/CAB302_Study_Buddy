@@ -1,7 +1,5 @@
 package com.example.login;
 
-import com.example.cab302_study_buddy.*;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,7 +10,6 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import java.sql.Connection;
 
 import java.io.IOException;
 import java.util.HashMap;
