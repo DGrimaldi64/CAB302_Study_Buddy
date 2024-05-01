@@ -150,7 +150,7 @@ public class TimerScene {
                         int newHours = (convertedTime - ((newMinutes * 60) - newSeconds)) / 3600;
                         String newTime = newHours + ":" + newMinutes + ":" + newSeconds;
 
-                        timerDisplay.setText(newTime);
+                        //timerDisplay.setText(newTime);
 
                         System.out.println(newTime);
                     }
