@@ -55,6 +55,26 @@ public class DatabaseHandler {
         }
     }
 
+    public static String getPasswordForUsername(String username) {
+        String selectQuery = "SELECT password FROM users WHERE username = ?";
+
+        try (Connection conn = DriverManager.getConnection(DB_URL);
+             PreparedStatement stmt = conn.prepareStatement(selectQuery)) {
+
+            stmt.setString(1, username);
+            ResultSet rs = stmt.executeQuery();
+
+            if (rs.next()) {
+                return rs.getString("password");
+            }
+
+        } catch (SQLException e) {
+            showAlert("Error fetching password: " + e.getMessage(), Alert.AlertType.ERROR);
+        }
+
+        return null;
+    }
+
     private static void showAlert(String message, Alert.AlertType alertType) {
         Alert alert = new Alert(alertType);
         alert.setContentText(message);

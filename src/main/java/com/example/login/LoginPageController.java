@@ -34,7 +34,9 @@ public class LoginPageController {
         String username = usernameField.getText();
         String password = passwordField.getText();
 
-        if (users.containsKey(username) && users.get(username).equals(password)) {
+        String storedPassword = DatabaseHandler.getPasswordForUsername(username);
+
+        if (storedPassword != null && storedPassword.equals(password)) {
             messageLabel.setText("Login successful!");
             messageLabel.setTextFill(Color.GREEN);
         } else {
