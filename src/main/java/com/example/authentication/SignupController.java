@@ -1,4 +1,4 @@
-package com.example.login;
+package com.example.authentication;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -53,7 +53,7 @@ public class SignupController {
             showMessage("Please fill in all required fields.", Color.RED);
         } else if (!password.equals(confirmPassword)) {
             showMessage("Passwords do not match.", Color.RED);
-        } else if (LoginPageController.users.containsKey(username)) {
+        } else if (LoginController.users.containsKey(username)) {
             showMessage("Username already exists.", Color.RED);
         } else if (!isValidPhoneOrEmail(phone, email)) {
             showMessage("Invalid phone number or email address.", Color.RED);
@@ -76,7 +76,7 @@ public class SignupController {
 
     @FXML
     private void switchToLogin(ActionEvent event) throws IOException {
-        Parent loginParent = FXMLLoader.load(getClass().getResource("LoginPage.fxml"));
+        Parent loginParent = FXMLLoader.load(getClass().getResource("login-view.fxml"));
         Scene loginScene = new Scene(loginParent);
         Stage window = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
         window.setScene(loginScene);

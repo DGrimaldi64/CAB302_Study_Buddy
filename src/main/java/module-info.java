@@ -4,6 +4,8 @@ module com.example.login {
     requires java.sql;
 
 
-    opens com.example.login to javafx.fxml;
-    exports com.example.login;
+    opens com.example.authentication to javafx.fxml;
+    exports com.example.authentication;
+    exports com.example.cab302_study_buddy;
+    opens com.example.cab302_study_buddy to javafx.fxml;
 }

@@ -1,8 +1,7 @@
-package com.example.login;
+package com.example.authentication;
 
 
 import javafx.scene.control.Alert;
-import javafx.scene.paint.Color;
 
 import java.sql.*;
 

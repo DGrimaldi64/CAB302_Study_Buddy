@@ -1,6 +1,6 @@
 package com.example.timer;
 
-import com.example.login.LoginPage;
+import com.example.cab302_study_buddy.StudyBuddyApplication;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -15,7 +15,7 @@ import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class TimerScene {
+public class TimerController {
 
     // global variables
     private boolean stopCheck = false;
@@ -74,7 +74,7 @@ public class TimerScene {
     protected void onBackClick() throws IOException {
         // change scene to Home
         Stage stage = (Stage)timerDisplay.getScene().getWindow();
-        FXMLLoader fxmlLoader = new FXMLLoader(LoginPage.class.getResource("welcome-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(StudyBuddyApplication.class.getResource("home-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(),1280, 720);
         stage.setScene(scene);
     }
