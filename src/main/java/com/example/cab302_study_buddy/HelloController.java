@@ -1,5 +1,6 @@
 package com.example.cab302_study_buddy;
 
+import com.example.login.LoginPage;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -29,7 +30,7 @@ public class HelloController {
     protected void onTimerClick() throws IOException {
         // change scene to Timer
         Stage stage = (Stage)welcomeText.getScene().getWindow();
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("timer-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(LoginPage.class.getResource("timer-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(),1280, 720);
         stage.setScene(scene);
     }

@@ -1,9 +1,9 @@
-module com.example.cab302_study_buddy {
+module com.example.login {
     requires javafx.controls;
     requires javafx.fxml;
+    requires java.sql;
 
-    requires org.kordamp.bootstrapfx.core;
 
-    opens com.example.cab302_study_buddy to javafx.fxml;
-    exports com.example.cab302_study_buddy;
+    opens com.example.login to javafx.fxml;
+    exports com.example.login;
 }

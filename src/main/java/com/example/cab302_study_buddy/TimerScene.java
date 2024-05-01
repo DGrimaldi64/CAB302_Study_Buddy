@@ -1,5 +1,6 @@
 package com.example.cab302_study_buddy;
 
+import com.example.login.LoginPage;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -76,7 +77,7 @@ public class TimerScene {
     protected void onBackClick() throws IOException {
         // change scene to Home
         Stage stage = (Stage)timerDisplay.getScene().getWindow();
-        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("welcome-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(LoginPage.class.getResource("welcome-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(),1280, 720);
         stage.setScene(scene);
     }
