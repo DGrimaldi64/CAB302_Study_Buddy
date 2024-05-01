@@ -1,5 +1,7 @@
 package com.example.login;
 
+import com.example.cab302_study_buddy.*
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -39,9 +41,26 @@ public class LoginPageController {
         if (storedPassword != null && storedPassword.equals(password)) {
             messageLabel.setText("Login successful!");
             messageLabel.setTextFill(Color.GREEN);
+            switchToHomePage();
         } else {
             messageLabel.setText("Invalid username or password.");
             messageLabel.setTextFill(Color.RED);
+        }
+    }
+    @FXML
+    private void switchToHomePage() {
+        try {
+
+            Stage stage = (Stage)timerDisplay.getScene().getWindow();
+            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("com.example.cab302_study_buddy.welcome-view.fxml"));
+            Scene scene = new Scene(fxmlLoader.load(),1280, 720);
+            stage.setScene(scene);
+
+            // Close the login window
+            Stage loginStage = (Stage) usernameField.getScene().getWindow();
+            loginStage.close();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
