@@ -21,19 +21,19 @@
     <HBox fx:id="setTime" spacing="5.0" alignment="CENTER" visible="false">
         <VBox spacing="5.0" alignment="CENTER">
             <Button text="🞁" onAction="#onHoursUpClick"/>
-            <TextField fx:id="hoursInput" prefWidth="30" onKeyTyped="#onHoursType"/>
+            <TextField fx:id="hoursInput" prefWidth="30" promptText="00" onKeyTyped="#onHoursType"/>
             <Button text="🞃" onAction="#onHoursDownClick"/>
-            <Slider fx:id="hourSlider" blockIncrement="1" max="24" prefWidth="20" visible="false"/>
+            <Slider fx:id="hourSlider" blockIncrement="1" max="99" prefWidth="20" visible="false"/>
         </VBox>
         <VBox spacing="5.0" alignment="CENTER">
             <Button text="🞁" onAction="#onMinutesUpClick"/>
-            <TextField fx:id="minutesInput" prefWidth="30" onKeyTyped="#onMinutesType"/>
+            <TextField fx:id="minutesInput" prefWidth="30" promptText="00" onKeyTyped="#onMinutesType"/>
             <Button text="🞃" onAction="#onMinutesDownClick"/>
             <Slider fx:id="minuteSlider" blockIncrement="1" max="59" prefWidth="20" visible="false"/>
         </VBox>
         <VBox spacing="5.0" alignment="CENTER">
             <Button text="🞁" onAction="#onSecondsUpClick"/>
-            <TextField fx:id="secondsInput" prefWidth="30" onKeyTyped="#onSecondsType"/>
+            <TextField fx:id="secondsInput" prefWidth="30" promptText="00" onKeyTyped="#onSecondsType"/>
             <Button text="🞃" onAction="#onSecondsDownClick"/>
             <Slider fx:id="secondSlider" blockIncrement="1" max="59" prefWidth="20" visible="false"/>
         </VBox>
