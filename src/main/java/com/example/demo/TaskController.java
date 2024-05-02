@@ -1,52 +1,35 @@
 package com.example.demo;
 
-import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.geometry.Insets;
-import javafx.scene.Scene;
+import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 
-public class TaskManager extends Application {
+public class TaskController {
+    @FXML
     private ListView<String> taskListView;
-    private ObservableList<String> tasks;
+    @FXML
     private TextField addTaskTextField;
+    @FXML
+    private Button addButton;
+    @FXML
+    private Button updateButton;
+    @FXML
+    private Button removeButton;
+
+    private ObservableList<String> tasks;
     private TextInputDialog editTaskDialog;
 
-    @Override
-    public void start(Stage primaryStage) {
+    public void initialize() {
         tasks = FXCollections.observableArrayList();
-        taskListView = new ListView<>(tasks);
-        addTaskTextField = new TextField();
-        addTaskTextField.setPromptText("Write your task here...");
-        Button addButton = new Button("Add");
-        addButton.setOnAction(e -> addTask());
-
-        Button updateButton = new Button("Update Task");
-        updateButton.setOnAction(e -> showEditTaskDialog());
-
-        Button removeButton = new Button("Remove Task");
-        removeButton.setOnAction(e -> removeTask());
-
-        HBox inputArea = new HBox(10, addTaskTextField, addButton);
-        HBox buttonArea = new HBox(10, updateButton, removeButton);
-
-        VBox root = new VBox(10, inputArea, taskListView, buttonArea);
-        root.setPadding(new Insets(10));
-
-        Scene scene = new Scene(root, 400, 400);
-        primaryStage.setTitle("Task Manager");
-        primaryStage.setScene(scene);
-        primaryStage.show();
+        taskListView.setItems(tasks);
 
         // Deselect any selected task when the text field or "Add" button is clicked
         addTaskTextField.setOnMouseClicked(event -> taskListView.getSelectionModel().clearSelection());
         addButton.setOnMouseClicked(event -> taskListView.getSelectionModel().clearSelection());
     }
 
+    @FXML
     private void addTask() {
         String task = addTaskTextField.getText().trim();
         if (!task.isEmpty()) {
@@ -56,6 +39,7 @@ public class TaskManager extends Application {
         }
     }
 
+    @FXML
     private void showEditTaskDialog() {
         int selectedIndex = taskListView.getSelectionModel().getSelectedIndex();
         if (selectedIndex >= 0) {
@@ -76,6 +60,7 @@ public class TaskManager extends Application {
         }
     }
 
+    @FXML
     private void removeTask() {
         int selectedIndex = taskListView.getSelectionModel().getSelectedIndex();
         if (selectedIndex >= 0) {
@@ -101,9 +86,5 @@ public class TaskManager extends Application {
         alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
-    }
-
-    public static void main(String[] args) {
-        launch(args);
     }
 }
