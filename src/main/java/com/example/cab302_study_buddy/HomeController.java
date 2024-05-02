@@ -1,6 +1,5 @@
-package com.example.homepage;
+package com.example.cab302_study_buddy;
 
-import com.example.cab302_study_buddy.StudyBuddyApplication;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -17,11 +16,19 @@ public class HomeController {
     @FXML
     protected void onTasksClick() throws IOException {
         // change scene to Tasks
+        Stage stage = (Stage)welcomeText.getScene().getWindow();
+        FXMLLoader fxmlLoader = new FXMLLoader(StudyBuddyApplication.class.getResource("task-view.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(),1280, 720);
+        stage.setScene(scene);
     }
 
     @FXML
     protected void onCalendarClick() throws IOException {
         // change scene to Calendar
+        Stage stage = (Stage)welcomeText.getScene().getWindow();
+        FXMLLoader fxmlLoader = new FXMLLoader(StudyBuddyApplication.class.getResource("calendar-view.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(),1280, 720);
+        stage.setScene(scene);
     }
 
     @FXML

@@ -1,6 +1,5 @@
-package com.example.authentication;
+package com.example.cab302_study_buddy;
 
-import com.example.cab302_study_buddy.StudyBuddyApplication;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,6 +14,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class LoginController {
 
@@ -48,20 +48,20 @@ public class LoginController {
     @FXML
     private void switchToHomePage() throws IOException {
         Stage stage = (Stage)usernameField.getScene().getWindow();
-        FXMLLoader fxmlLoader = new FXMLLoader(StudyBuddyApplication.class.getResource("com.example.cab302_study_buddy.home-view.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(StudyBuddyApplication.class.getResource("home-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(),1280, 720);
         stage.setScene(scene);
         stage.show();
 
         // Close the login window
-        Stage loginStage = (Stage) usernameField.getScene().getWindow();
-        loginStage.close();
+        //Stage loginStage = (Stage) usernameField.getScene().getWindow();
+        //loginStage.close();
     }
 
 
     @FXML
     private void switchToSignup(ActionEvent event) throws IOException {
-        Parent signupParent = FXMLLoader.load(getClass().getResource("signup-view.fxml"));
+        Parent signupParent = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("signup-view.fxml")));
         Scene signupScene = new Scene(signupParent);
         Stage window = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
         window.setScene(signupScene);

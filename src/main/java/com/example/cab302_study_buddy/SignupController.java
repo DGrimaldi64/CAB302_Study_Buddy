@@ -1,4 +1,4 @@
-package com.example.authentication;
+package com.example.cab302_study_buddy;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

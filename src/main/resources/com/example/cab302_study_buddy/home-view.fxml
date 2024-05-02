@@ -7,7 +7,7 @@
 
 <VBox alignment="CENTER" spacing="15.0" fillWidth="false"
       xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.example.homepage.HomeController">
+      fx:controller="com.example.cab302_study_buddy.HomeController">
     <Label text="Welcome To Study-Buddy" fx:id="welcomeText"/>
     <HBox spacing="15.0" alignment="CENTER">
         <Button fx:id="tasksBtn" text="Tasks" onAction="#onTasksClick"/>

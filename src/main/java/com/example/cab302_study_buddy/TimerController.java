@@ -1,6 +1,5 @@
-package com.example.timer;
+package com.example.cab302_study_buddy;
 
-import com.example.cab302_study_buddy.StudyBuddyApplication;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
