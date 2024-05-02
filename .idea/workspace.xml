@@ -5,26 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a666fe26-b739-47f3-a006-51fbdbd9cd9f" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/cab302_study_buddy/CalendarController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/cab302_study_buddy/EventManager.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/cab302_study_buddy/TaskController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/cab302_study_buddy/calendar-view.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/cab302_study_buddy/task-view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_1_05_2024_10_30_am__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_1_05_2024_10_30_am__Changes_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_rebase__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_rebase__Changes_.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/authentication/DatabaseHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cab302_study_buddy/DatabaseHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/authentication/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cab302_study_buddy/LoginController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/authentication/SignupController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cab302_study_buddy/SignupController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/authentication/icon.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cab302_study_buddy/icon.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cab302_study_buddy/StudyBuddyApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cab302_study_buddy/StudyBuddyApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/homepage/HomeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cab302_study_buddy/HomeController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/timer/TimerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cab302_study_buddy/TimerController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/authentication/login-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/cab302_study_buddy/login-view.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/authentication/signup-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/cab302_study_buddy/signup-view.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/homepage/home-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/cab302_study_buddy/home-view.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/timer/timer-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/cab302_study_buddy/timer-view.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/users.db" beforeDir="false" afterPath="$PROJECT_DIR$/users.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cab302_study_buddy/TaskController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cab302_study_buddy/TaskController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/cab302_study_buddy/task-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/cab302_study_buddy/task-view.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,13 +30,6 @@
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
-  </component>
-  <component name="MavenImportPreferences">
-    <option name="generalSettings">
-      <MavenGeneralSettings>
-        <option name="mavenHomeTypeForPersistence" value="WRAPPER" />
-      </MavenGeneralSettings>
-    </option>
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 2
