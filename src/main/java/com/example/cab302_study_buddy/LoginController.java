@@ -15,8 +15,12 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.sql.Connection;
 
 public class LoginController {
+
+
+    Connection connection = DatabaseConnection.getInstance();
 
     @FXML
     private TextField usernameField;

@@ -9,10 +9,12 @@ public class UserLogin {
     private String identifier;
 
     // Constructor
-    public UserLogin(String username, String password)
+    public UserLogin(int id, String username, String password, String identifier)
     {
+        this.id = id;
         this.username = username;
         this.password = password;
+        this.identifier = identifier;
     }
 
     // Getters and setters
