@@ -8,18 +8,24 @@ import java.sql.*;
 public class DatabaseHandler {
     private static final String DB_URL = "jdbc:sqlite:users.db";
 
-    public static void createTable() {
-        String createTableQuery = "CREATE TABLE IF NOT EXISTS users (" +
-                "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                "username TEXT NOT NULL UNIQUE, " +
-                "password TEXT NOT NULL, " +
-                "identifier TEXT)";
+    private Connection connection;
 
-        try (Connection conn = DriverManager.getConnection(DB_URL);
-             Statement stmt = conn.createStatement()) {
-            stmt.execute(createTableQuery);
-        } catch (SQLException e) {
-            showAlert("Error creating table: " + e.getMessage(), Alert.AlertType.ERROR);
+    public DatabaseHandler() {
+        connection = DatabaseConnection.getInstance();
+    }
+
+    public void createTable() {
+        try {
+            Statement createTable = connection.createStatement();
+            createTable.execute(
+                    "CREATE TABLE IF NOT EXISTS users (" +
+                            "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                            "username TEXT NOT NULL UNIQUE, " +
+                            "password TEXT NOT NULL, " +
+                            "identifier TEXT)"
+            );
+        } catch (SQLException ex) {
+            System.err.println(ex);
         }
     }
 
@@ -78,5 +84,13 @@ public class DatabaseHandler {
         Alert alert = new Alert(alertType);
         alert.setContentText(message);
         alert.showAndWait();
+    }
+
+    public void close() {
+        try {
+            connection.close();
+        } catch (SQLException ex) {
+            System.err.println(ex);
+        }
     }
 }
