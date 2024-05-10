@@ -1,5 +1,7 @@
 package com.example.cab302_study_buddy;
 
+import com.example.cab302_study_buddy.database.DatabaseConnection;
+import com.example.cab302_study_buddy.database.DatabaseHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

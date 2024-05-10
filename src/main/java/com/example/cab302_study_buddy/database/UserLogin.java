@@ -1,4 +1,4 @@
-package com.example.cab302_study_buddy;
+package com.example.cab302_study_buddy.database;
 
 
 public class UserLogin {

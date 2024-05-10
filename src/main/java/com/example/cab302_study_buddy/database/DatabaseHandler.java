@@ -1,4 +1,4 @@
-package com.example.cab302_study_buddy;
+package com.example.cab302_study_buddy.database;
 
 
 import javafx.scene.control.Alert;
@@ -9,7 +9,7 @@ import java.util.List;
 
 
 public class DatabaseHandler {
-    private static final String DB_URL = "jdbc:sqlite:users.db";
+
 
     private static Connection connection;
 
@@ -32,7 +32,7 @@ public class DatabaseHandler {
             close(connection);
 
         } catch (SQLException e) {
-            showAlert("Error creating table: " + e.getMessage(), Alert.AlertType.ERROR);
+//            showAlert("Error creating table: " + e.getMessage(), Alert.AlertType.ERROR);
         }
     }
 
@@ -59,7 +59,7 @@ public class DatabaseHandler {
                 return false;
             }
         } catch (SQLException e) {
-            showAlert("Error checking whether username exists: " + e.getMessage(), Alert.AlertType.ERROR);
+//            showAlert("Error checking whether username exists: " + e.getMessage(), Alert.AlertType.ERROR);
         }
 
         return false;
@@ -84,7 +84,7 @@ public class DatabaseHandler {
             }
 
         } catch (SQLException e) {
-            showAlert("Error inserting username: " + e.getMessage(), Alert.AlertType.ERROR);
+//            showAlert("Error inserting username: " + e.getMessage(), Alert.AlertType.ERROR);
         }
     }
 
@@ -99,11 +99,12 @@ public class DatabaseHandler {
             if (rs.next()) {
                 // Need to close connection each time after opening
                 close(connection);
+
                 return rs.getString("password");
             }
 
         } catch (SQLException e) {
-            showAlert("Error fetching password: " + e.getMessage(), Alert.AlertType.ERROR);
+//            showAlert("Error fetching password: " + e.getMessage(), Alert.AlertType.ERROR);
         }
 
         return null;
