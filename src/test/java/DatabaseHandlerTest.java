@@ -1,4 +1,4 @@
-import com.example.cab302_study_buddy.database.DatabaseHandler;
+import com.example.cab302_study_buddy.DatabaseHandler;
 import org.junit.jupiter.api.*;
 import java.sql.SQLException;
 import static org.junit.jupiter.api.Assertions.*;

@@ -1,7 +1,5 @@
 package com.example.cab302_study_buddy;
 
-import com.example.cab302_study_buddy.database.DatabaseConnection;
-import com.example.cab302_study_buddy.database.DatabaseHandler;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -41,6 +39,7 @@ public class LoginController {
         String password = passwordField.getText();
 
         String storedPassword = DatabaseHandler.getPasswordForUsername(username);
+        System.out.println("THIS IS THE PASSWORD " + storedPassword);
 
         if (storedPassword != null && storedPassword.equals(password)) {
             messageLabel.setText("Login successful!");

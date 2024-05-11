@@ -4,19 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a666fe26-b739-47f3-a006-51fbdbd9cd9f" name="Changes" comment="Fixed test suite for database">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/cab302_study_buddy/Launcher.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/cab302_study_buddy/database/DatabaseHandler.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/DatabaseHandlerTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_rebase__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_rebase__Changes_.xml" afterDir="false" />
+    <list default="true" id="a666fe26-b739-47f3-a006-51fbdbd9cd9f" name="Changes" comment="Test suite kind of works for database, will consult again with tutor">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cab302_study_buddy/DatabaseConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cab302_study_buddy/database/DatabaseConnection.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cab302_study_buddy/DatabaseHandler.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cab302_study_buddy/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cab302_study_buddy/LoginController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cab302_study_buddy/SignupController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cab302_study_buddy/SignupController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cab302_study_buddy/UserLogin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cab302_study_buddy/database/UserLogin.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cab302_study_buddy/database/DatabaseConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cab302_study_buddy/DatabaseConnection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cab302_study_buddy/database/DatabaseHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cab302_study_buddy/DatabaseHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cab302_study_buddy/database/UserLogin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cab302_study_buddy/UserLogin.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/DatabaseHandlerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/DatabaseHandlerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/users.db" beforeDir="false" afterPath="$PROJECT_DIR$/users.db" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -78,6 +75,7 @@
     "Downloaded.Files.Path.Enabled": "false",
     "JUnit.DatabaseHandlerTest.executor": "Run",
     "JUnit.DatabaseHandlerTest.testgetPasswordForUsernameTrue.executor": "Run",
+    "JUnit.DatabaseHandlerTest.testisUsernameExistsTrue.executor": "Run",
     "Maven.CAB302_Study_Buddy [clean].executor": "Run",
     "Maven.CAB302_Study_Buddy [org.openjfx:javafx-maven-plugin:0.0.8:run].executor": "Run",
     "Maven.CAB302_Study_Buddy [test].executor": "Run",
@@ -119,7 +117,7 @@
       <recent name="com.example.authentication" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.DatabaseHandlerTest.testgetPasswordForUsernameTrue">
+  <component name="RunManager" selected="JUnit.DatabaseHandlerTest">
     <configuration name="DatabaseHandlerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="User_Authentication" />
       <option name="PACKAGE_NAME" value="" />
@@ -139,10 +137,21 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="DatabaseHandlerTest.testisUsernameExistsTrue" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="User_Authentication" />
+      <option name="PACKAGE_NAME" value="" />
+      <option name="MAIN_CLASS_NAME" value="DatabaseHandlerTest" />
+      <option name="METHOD_NAME" value="testisUsernameExistsTrue" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.DatabaseHandlerTest.testgetPasswordForUsernameTrue" />
         <item itemvalue="JUnit.DatabaseHandlerTest" />
+        <item itemvalue="JUnit.DatabaseHandlerTest.testisUsernameExistsTrue" />
+        <item itemvalue="JUnit.DatabaseHandlerTest.testgetPasswordForUsernameTrue" />
       </list>
     </recent_temporary>
   </component>
@@ -167,13 +176,23 @@
       <workItem from="1714619190908" duration="264000" />
       <workItem from="1714619581086" duration="3945000" />
     </task>
+    <task id="LOCAL-00001" summary="Test suite kind of works for database, will consult again with tutor">
+      <option name="closed" value="true" />
+      <created>1715321279389</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1715321279389</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <option name="LAST_COMMIT_MESSAGE" value="" />
+    <MESSAGE value="Test suite kind of works for database, will consult again with tutor" />
+    <option name="LAST_COMMIT_MESSAGE" value="Test suite kind of works for database, will consult again with tutor" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -182,11 +201,6 @@
           <properties class="java.lang.NullPointerException" package="java.lang" />
           <option name="timeStamp" value="4" />
         </breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/com/example/cab302_study_buddy/database/DatabaseHandler.java</url>
-          <line>95</line>
-          <option name="timeStamp" value="8" />
-        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>

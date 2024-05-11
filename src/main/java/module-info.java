@@ -8,6 +8,4 @@ module com.example.login {
 
     opens com.example.cab302_study_buddy to javafx.fxml;
     exports com.example.cab302_study_buddy;
-    exports com.example.cab302_study_buddy.database;
-    opens com.example.cab302_study_buddy.database to javafx.fxml;
 }
