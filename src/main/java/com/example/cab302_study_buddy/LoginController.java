@@ -17,7 +17,6 @@ import java.util.Map;
 import java.util.Objects;
 
 public class LoginController {
-
     @FXML
     private TextField usernameField;
 
@@ -35,6 +34,7 @@ public class LoginController {
         String password = passwordField.getText();
 
         String storedPassword = DatabaseHandler.getPasswordForUsername(username);
+
 
         if (storedPassword != null && storedPassword.equals(password)) {
             messageLabel.setText("Login successful!");
