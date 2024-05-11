@@ -8,66 +8,96 @@ import java.sql.*;
 public class DatabaseHandler {
     private static final String DB_URL = "jdbc:sqlite:users.db";
 
-    public static void createTable() {
-        String createTableQuery = "CREATE TABLE IF NOT EXISTS users (" +
-                "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                "username TEXT NOT NULL UNIQUE, " +
-                "password TEXT NOT NULL, " +
-                "identifier TEXT)";
+    private static Connection connection;
 
-        try (Connection conn = DriverManager.getConnection(DB_URL);
-             Statement stmt = conn.createStatement()) {
-            stmt.execute(createTableQuery);
+    public DatabaseHandler() {
+        connection = DatabaseConnection.getInstance();
+    }
+
+    public void createTable() {
+        try {
+            Connection connection = DatabaseConnection.getInstance();
+            Statement createTable = connection.createStatement();
+            createTable.execute(
+                    "CREATE TABLE IF NOT EXISTS users (" +
+                            "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                            "username TEXT NOT NULL UNIQUE, " +
+                            "password TEXT NOT NULL, " +
+                            "identifier TEXT)"
+            );
+            // Need to close connection each time after opening
+            close(connection);
+
         } catch (SQLException e) {
             showAlert("Error creating table: " + e.getMessage(), Alert.AlertType.ERROR);
         }
     }
 
-    public static boolean isUsernameExists(String username) {
-        String selectQuery = "SELECT COUNT(*) FROM users WHERE username = ?";
+    public static boolean isUsernameExists(String username) throws SQLException {
 
-        try (Connection conn = DriverManager.getConnection(DB_URL);
-             PreparedStatement stmt = conn.prepareStatement(selectQuery)) {
+        try {
+            Connection connection = DatabaseConnection.getInstance();
+            PreparedStatement getAll = connection.prepareStatement("SELECT * FROM users WHERE username = ?");
+            getAll.setString(1, username);
+            ResultSet results = getAll.executeQuery();
 
-            stmt.setString(1, username);
-            return stmt.executeQuery().getInt(1) > 0;
+            if (results.next()) {
 
+                // Need to close connection each time after opening
+                close(connection);
+
+                return true;
+            } else {
+                return false;
+            }
         } catch (SQLException e) {
-            showAlert("Error checking username: " + e.getMessage(), Alert.AlertType.ERROR);
-            return false;
+           showAlert("Error checking whether username exists: " + e.getMessage() , Alert.AlertType.ERROR);
         }
+
+        return false;
     }
 
     public static void insertUser(String username, String password, String identifier) {
-        String insertQuery = "INSERT INTO users (username, password, identifier) VALUES (?, ?, ?)";
+        try {
+            Connection connection = DatabaseConnection.getInstance();
+            if (!isUsernameExists(username)){
+                PreparedStatement stmt = connection.prepareStatement("INSERT INTO users (username, password, identifier) VALUES (?, ?, ?)");
 
-        try (Connection conn = DriverManager.getConnection(DB_URL);
-             PreparedStatement stmt = conn.prepareStatement(insertQuery)) {
+                stmt.setString(1, username);
+                stmt.setString(2, password);
+                stmt.setString(3, identifier);
+                stmt.execute();
 
-            stmt.setString(1, username);
-            stmt.setString(2, password);
-            stmt.setString(3, identifier);
-            stmt.executeUpdate();
+                // Need to close connection each time after opening
+                close(connection);
+            }
+            else {
+               showAlert("Username already exist: ", Alert.AlertType.ERROR);
+            }
 
         } catch (SQLException e) {
-            showAlert("Username already exist: " + e.getMessage(), Alert.AlertType.ERROR);
+           showAlert("Error inserting username: " + e.getMessage(), Alert.AlertType.ERROR);
         }
     }
 
     public static String getPasswordForUsername(String username) {
-        String selectQuery = "SELECT password FROM users WHERE username = ?";
+        try {
+            Connection connection = DatabaseConnection.getInstance();
+            PreparedStatement getPassword = connection.prepareStatement("SELECT password FROM users WHERE username = ?");
 
-        try (Connection conn = DriverManager.getConnection(DB_URL);
-             PreparedStatement stmt = conn.prepareStatement(selectQuery)) {
+            getPassword.setString(1, username);
+            ResultSet rs = getPassword.executeQuery();
 
-            stmt.setString(1, username);
-            ResultSet rs = stmt.executeQuery();
-
-            if (rs.next()) {
+            if (rs.isBeforeFirst())
+            {
                 return rs.getString("password");
             }
 
+
+
+
         } catch (SQLException e) {
+
             showAlert("Error fetching password: " + e.getMessage(), Alert.AlertType.ERROR);
         }
 
@@ -78,5 +108,13 @@ public class DatabaseHandler {
         Alert alert = new Alert(alertType);
         alert.setContentText(message);
         alert.showAndWait();
+    }
+
+    public static void close(Connection connection) {
+        try {
+            connection.close();
+        } catch (SQLException ex) {
+            System.err.println(ex);
+        }
     }
 }
