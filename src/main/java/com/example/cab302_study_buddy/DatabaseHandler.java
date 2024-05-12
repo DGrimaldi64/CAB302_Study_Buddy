@@ -133,6 +133,28 @@ public class DatabaseHandler {
         return null;
     }
 
+    public static int getIdForUsername(String username) {
+        try {
+            Connection connection = DatabaseConnection.getInstance();
+            PreparedStatement getId = connection.prepareStatement("SELECT id FROM users WHERE username = ?");
+
+            getId.setString(1, username);
+            ResultSet rs = getId.executeQuery();
+
+            if (rs.isBeforeFirst())
+            {
+                return rs.getInt("id");
+            }
+        } catch (SQLException e) {
+
+            showAlert("Error fetching password: " + e.getMessage(), Alert.AlertType.ERROR);
+        }
+
+        return 0;
+    }
+
+
+
     public static void insertTask(String task, int userId) {
         try {
             Connection connection = DatabaseConnection.getInstance();
@@ -140,7 +162,7 @@ public class DatabaseHandler {
             stmt.setString(1, task);
             stmt.setInt(2, userId);
             stmt.execute();
-            close(connection);
+
         } catch (SQLException e) {
             showAlert("Error inserting task: " + e.getMessage(), Alert.AlertType.ERROR);
         }

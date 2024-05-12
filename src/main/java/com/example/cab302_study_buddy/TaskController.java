@@ -5,6 +5,8 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
+import static com.example.cab302_study_buddy.LoginController.current_user;
+
 public class TaskController {
     @FXML
     private ListView<String> taskListView;
@@ -36,7 +38,8 @@ public class TaskController {
     private void addTask() {
         String task = addTaskTextField.getText().trim();
         if (!task.isEmpty()) {
-            DatabaseHandler.insertTask(task, currentUserId); // Insert the new task for the current user
+            System.out.println(current_user.getId());
+            DatabaseHandler.insertTask(task, current_user.getId()); // Insert the new task for the current user
             tasks.add(task); // No need to add task numbers here
             addTaskTextField.clear();
             taskListView.getSelectionModel().clearSelection();

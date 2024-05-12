@@ -22,8 +22,8 @@ class DatabaseHandlerTest {
 
     @Test
     void testgetPasswordForUsernameTrue() {
-        String actual = DatabaseHandler.getPasswordForUsername("Luka");
-        String expected = "1234";
+        String actual = DatabaseHandler.getPasswordForUsername("test");
+        String expected = "test";
         System.out.println(actual);
         assertEquals(expected, actual);
     }

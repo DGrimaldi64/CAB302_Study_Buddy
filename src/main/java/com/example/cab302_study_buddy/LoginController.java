@@ -16,11 +16,15 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
+import static com.example.cab302_study_buddy.DatabaseHandler.getIdForUsername;
+
 
 /**
  * Defines the JavaFX code to display the login page, including calling Database methods
  */
 public class LoginController {
+
+    public static UserLogin current_user = new UserLogin(0, null, null, null);
     @FXML
     private TextField usernameField;
 
@@ -43,6 +47,12 @@ public class LoginController {
         if (storedPassword != null && storedPassword.equals(password)) {
             messageLabel.setText("Login successful!");
             messageLabel.setTextFill(Color.GREEN);
+
+            // Setting data for current user class
+            current_user.setId(getIdForUsername(username));
+            current_user.setUsername(username);
+            current_user.setPassword(password);
+
             switchToHomePage();
         } else {
             messageLabel.setText("Invalid username or password.");
