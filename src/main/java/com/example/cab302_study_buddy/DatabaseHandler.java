@@ -5,6 +5,9 @@ import javafx.scene.control.Alert;
 
 import java.sql.*;
 
+/**
+ * Includes all methods to use the database, including connection parameters
+ */
 public class DatabaseHandler {
     private static final String DB_URL = "jdbc:sqlite:users.db";
 
@@ -14,6 +17,9 @@ public class DatabaseHandler {
         connection = DatabaseConnection.getInstance();
     }
 
+    /**
+     * Creates table with preset fields defined in the function itself
+     */
     public void createTable() {
         try {
             Connection connection = DatabaseConnection.getInstance();
@@ -33,6 +39,12 @@ public class DatabaseHandler {
         }
     }
 
+    /**
+     * Takes a username as string and after searching the database returns true or false whether the row was found
+     * @param username the username of the account
+     * @return bool
+     * @throws SQLException Exception for errors when accessing database
+     */
     public static boolean isUsernameExists(String username) throws SQLException {
 
         try {
@@ -57,6 +69,12 @@ public class DatabaseHandler {
         return false;
     }
 
+    /**
+     * Creates a new entry in the users.db database using the corresponding parameters
+     * @param username username of account
+     * @param password password of account
+     * @param identifier identifier of account
+     */
     public static void insertUser(String username, String password, String identifier) {
         try {
             Connection connection = DatabaseConnection.getInstance();
@@ -80,6 +98,11 @@ public class DatabaseHandler {
         }
     }
 
+    /**
+     * Searches database for given username and returns the password if the field is found
+     * @param username username of account
+     * @return password as a string
+     */
     public static String getPasswordForUsername(String username) {
         try {
             Connection connection = DatabaseConnection.getInstance();
@@ -104,12 +127,21 @@ public class DatabaseHandler {
         return null;
     }
 
+    /**
+     * Creates pop-up in JavaFX to notify user of an error or other information
+     * @param message message to display
+     * @param alertType what type of alert is being used
+     */
     private static void showAlert(String message, Alert.AlertType alertType) {
         Alert alert = new Alert(alertType);
         alert.setContentText(message);
         alert.showAndWait();
     }
 
+    /**
+     * Closes a connection with the database
+     * @param connection variable of the connection
+     */
     public static void close(Connection connection) {
         try {
             connection.close();
