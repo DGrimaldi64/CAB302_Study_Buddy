@@ -1,9 +1,15 @@
 package com.example.demo;
 
+import com.example.cab302_study_buddy.StudyBuddyApplication;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
+
+import java.io.IOException;
 
 public class TaskController {
     @FXML
@@ -16,6 +22,8 @@ public class TaskController {
     private Button updateButton;
     @FXML
     private Button removeButton;
+    @FXML
+    private Label timerDisplay;
 
     private ObservableList<String> tasks;
     private TextInputDialog editTaskDialog;
@@ -27,8 +35,17 @@ public class TaskController {
         // Deselect any selected task when the text field or "Add" button is clicked
         addTaskTextField.setOnMouseClicked(event -> taskListView.getSelectionModel().clearSelection());
         addButton.setOnMouseClicked(event -> taskListView.getSelectionModel().clearSelection());
+
     }
 
+    @FXML
+    protected void onBackClick() throws IOException {
+        // change scene to Home
+        Stage stage = (Stage)timerDisplay.getScene().getWindow();
+        FXMLLoader fxmlLoader = new FXMLLoader(StudyBuddyApplication.class.getResource("home-view.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(),1280, 720);
+        stage.setScene(scene);
+    }
     @FXML
     private void addTask() {
         String task = addTaskTextField.getText().trim();

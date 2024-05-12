@@ -62,6 +62,10 @@ public class HomeController {
 
     @FXML
     protected void onSettingsClick() throws IOException {
-        // change scene to Settings
+        // change scene to Tasks
+        Stage stage = (Stage)welcomeText.getScene().getWindow();
+        FXMLLoader fxmlLoader = new FXMLLoader(StudyBuddyApplication.class.getResource("settings-view.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(),1280, 720);
+        stage.setScene(scene);
     }
 }
