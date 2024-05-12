@@ -1,6 +1,8 @@
 package com.example.cab302_study_buddy;
 
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
 
 import java.sql.*;
@@ -20,7 +22,7 @@ public class DatabaseHandler {
     /**
      * Creates table with preset fields defined in the function itself
      */
-    public void createTable() {
+    public static void createTable() {
         try {
             Connection connection = DatabaseConnection.getInstance();
             Statement createTable = connection.createStatement();
@@ -31,9 +33,14 @@ public class DatabaseHandler {
                             "password TEXT NOT NULL, " +
                             "identifier TEXT)"
             );
-            // Need to close connection each time after opening
+            createTable.execute(
+                    "CREATE TABLE IF NOT EXISTS tasks (" +
+                            "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                            "task TEXT NOT NULL, " +
+                            "user_id INTEGER NOT NULL, " +
+                            "FOREIGN KEY(user_id) REFERENCES users(id))"
+            );
             close(connection);
-
         } catch (SQLException e) {
             showAlert("Error creating table: " + e.getMessage(), Alert.AlertType.ERROR);
         }
@@ -63,7 +70,7 @@ public class DatabaseHandler {
                 return false;
             }
         } catch (SQLException e) {
-           showAlert("Error checking whether username exists: " + e.getMessage() , Alert.AlertType.ERROR);
+            showAlert("Error checking whether username exists: " + e.getMessage() , Alert.AlertType.ERROR);
         }
 
         return false;
@@ -89,11 +96,11 @@ public class DatabaseHandler {
 
             }
             else {
-               showAlert("Username already exist: ", Alert.AlertType.ERROR);
+                showAlert("Username already exist: ", Alert.AlertType.ERROR);
             }
 
         } catch (SQLException e) {
-           showAlert("Error inserting username: " + e.getMessage(), Alert.AlertType.ERROR);
+            showAlert("Error inserting username: " + e.getMessage(), Alert.AlertType.ERROR);
         }
     }
 
@@ -124,6 +131,66 @@ public class DatabaseHandler {
         }
 
         return null;
+    }
+
+    public static void insertTask(String task, int userId) {
+        try {
+            Connection connection = DatabaseConnection.getInstance();
+            PreparedStatement stmt = connection.prepareStatement("INSERT INTO tasks (task, user_id) VALUES (?, ?)");
+            stmt.setString(1, task);
+            stmt.setInt(2, userId);
+            stmt.execute();
+            close(connection);
+        } catch (SQLException e) {
+            showAlert("Error inserting task: " + e.getMessage(), Alert.AlertType.ERROR);
+        }
+    }
+
+    public static ObservableList<String> getTasksForUser(int userId) {
+        ObservableList<String> tasks = FXCollections.observableArrayList();
+        try {
+            Connection connection = DatabaseConnection.getInstance();
+            PreparedStatement getAll = connection.prepareStatement("SELECT task FROM tasks WHERE user_id = ?");
+            getAll.setInt(1, userId);
+            ResultSet results = getAll.executeQuery();
+
+            while (results.next()) {
+                tasks.add(results.getString("task"));
+            }
+
+            close(connection);
+        } catch (SQLException e) {
+            showAlert("Error retrieving tasks: " + e.getMessage(), Alert.AlertType.ERROR);
+        }
+
+        return tasks;
+    }
+
+    public static void updateTask(String updatedTask, int userId, int taskId) {
+        try {
+            Connection connection = DatabaseConnection.getInstance();
+            PreparedStatement stmt = connection.prepareStatement("UPDATE tasks SET task = ? WHERE user_id = ? AND id = ?");
+            stmt.setString(1, updatedTask);
+            stmt.setInt(2, userId);
+            stmt.setInt(3, taskId);
+            stmt.executeUpdate();
+            close(connection);
+        } catch (SQLException e) {
+            showAlert("Error updating task: " + e.getMessage(), Alert.AlertType.ERROR);
+        }
+    }
+
+    public static void deleteTask(String task, int userId) {
+        try {
+            Connection connection = DatabaseConnection.getInstance();
+            PreparedStatement stmt = connection.prepareStatement("DELETE FROM tasks WHERE task = ? AND user_id = ?");
+            stmt.setString(1, task);
+            stmt.setInt(2, userId);
+            stmt.executeUpdate();
+            close(connection);
+        } catch (SQLException e) {
+            showAlert("Error deleting task: " + e.getMessage(), Alert.AlertType.ERROR);
+        }
     }
 
     /**

@@ -17,11 +17,14 @@ public class TaskController {
     @FXML
     private Button removeButton;
 
-    private ObservableList<String> tasks;
+    private ObservableList<String> tasks = FXCollections.observableArrayList();
     private TextInputDialog editTaskDialog;
+    private int currentUserId;
 
-    public void initialize() {
-        tasks = FXCollections.observableArrayList();
+    public void initialize(int userId) {
+        this.currentUserId = userId;
+        DatabaseHandler.createTable(); // Create the tables if they don't exist
+        tasks = DatabaseHandler.getTasksForUser(currentUserId); // Retrieve tasks for the current user
         taskListView.setItems(tasks);
 
         // Deselect any selected task when the text field or "Add" button is clicked
@@ -33,7 +36,8 @@ public class TaskController {
     private void addTask() {
         String task = addTaskTextField.getText().trim();
         if (!task.isEmpty()) {
-            tasks.add((tasks.size() + 1) + ". " + task);
+            DatabaseHandler.insertTask(task, currentUserId); // Insert the new task for the current user
+            tasks.add(task); // No need to add task numbers here
             addTaskTextField.clear();
             taskListView.getSelectionModel().clearSelection();
         }
@@ -44,14 +48,14 @@ public class TaskController {
         int selectedIndex = taskListView.getSelectionModel().getSelectedIndex();
         if (selectedIndex >= 0) {
             String selectedTask = tasks.get(selectedIndex);
-            String taskText = selectedTask.substring(selectedTask.indexOf(".") + 2);
-            editTaskDialog = new TextInputDialog(taskText);
+            editTaskDialog = new TextInputDialog(selectedTask);
             editTaskDialog.setTitle("Edit Task");
             editTaskDialog.setHeaderText(null);
             editTaskDialog.setContentText("Edit the selected task:");
             editTaskDialog.showAndWait().ifPresent(updatedTask -> {
                 if (!updatedTask.isEmpty()) {
-                    tasks.set(selectedIndex, (selectedIndex + 1) + ". " + updatedTask);
+                    tasks.set(selectedIndex, updatedTask);
+                    DatabaseHandler.updateTask(updatedTask, currentUserId, selectedIndex + 1); // Update the task in the database
                     taskListView.getSelectionModel().clearSelection();
                 }
             });
@@ -64,20 +68,12 @@ public class TaskController {
     private void removeTask() {
         int selectedIndex = taskListView.getSelectionModel().getSelectedIndex();
         if (selectedIndex >= 0) {
+            String taskToRemove = tasks.get(selectedIndex);
+            DatabaseHandler.deleteTask(taskToRemove, currentUserId); // Delete the task from the database
             tasks.remove(selectedIndex);
-            updateTaskNumbers();
         } else {
             showAlert("No task selected", "Please select a task to remove.");
         }
-    }
-
-    private void updateTaskNumbers() {
-        ObservableList<String> updatedTasks = FXCollections.observableArrayList();
-        for (int i = 0; i < tasks.size(); i++) {
-            updatedTasks.add((i + 1) + ". " + tasks.get(i).substring(tasks.get(i).indexOf(".") + 2));
-        }
-        tasks.clear();
-        tasks.addAll(updatedTasks);
     }
 
     private void showAlert(String title, String message) {
@@ -87,4 +83,4 @@ public class TaskController {
         alert.setContentText(message);
         alert.showAndWait();
     }
-}     
+}
