@@ -86,8 +86,7 @@ public class DatabaseHandler {
                 stmt.setString(3, identifier);
                 stmt.execute();
 
-                // Need to close connection each time after opening
-                close(connection);
+
             }
             else {
                showAlert("Username already exist: ", Alert.AlertType.ERROR);

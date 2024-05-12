@@ -8,13 +8,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a666fe26-b739-47f3-a006-51fbdbd9cd9f" name="Changes" comment="Added dependency again, believe it is now working properly">
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_05_05_2024_6_29_PM__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_05_05_2024_6_29_PM__Changes_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_1_05_2024_10_30_am__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_1_05_2024_10_30_am__Changes_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_rebase__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_rebase__Changes_.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cab302_study_buddy/CalendarController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cab302_study_buddy/CalendarController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cab302_study_buddy/DatabaseConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cab302_study_buddy/DatabaseConnection.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cab302_study_buddy/Launcher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cab302_study_buddy/Launcher.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cab302_study_buddy/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cab302_study_buddy/LoginController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cab302_study_buddy/SignupController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cab302_study_buddy/SignupController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cab302_study_buddy/UserLogin.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cab302_study_buddy/UserLogin.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cab302_study_buddy/DatabaseHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cab302_study_buddy/DatabaseHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/users.db" beforeDir="false" afterPath="$PROJECT_DIR$/users.db" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -70,7 +69,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "Akhilesh",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/Dominic Grimaldi/IdeaProjects/CAB302_Study_Buddy/src/main/resources/com/example/cab302_study_buddy",
     "list.type.of.created.stylesheet": "CSS",
