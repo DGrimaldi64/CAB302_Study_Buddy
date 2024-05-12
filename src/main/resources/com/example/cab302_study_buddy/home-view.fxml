@@ -5,20 +5,70 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.HBox?>
 
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
 <VBox alignment="CENTER" spacing="15.0" fillWidth="false"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="com.example.cab302_study_buddy.HomeController">
     <Label text="Welcome To Study-Buddy" fx:id="welcomeText"/>
     <HBox spacing="15.0" alignment="CENTER">
-        <Button fx:id="tasksBtn" text="Tasks" onAction="#onTasksClick"/>
-        <Button fx:id="calendarBtn" text="Calendar" onAction="#onCalendarClick"/>
-        <Button fx:id="TimerBtn" text="Timer" onAction="#onTimerClick"/>
-        <Button fx:id="rewardsBtn" text="Rewards" onAction="#onRewardsClick"/>
+        <Button fx:id="tasksBtn" text="Tasks" onAction="#onTasksClick">
+            <graphic>
+                <ImageView fitWidth="32" fitHeight="32">
+                    <Image url="@images/planning.png"/>
+                </ImageView>
+            </graphic>
+        </Button>
+        <Button fx:id="calendarBtn" text="Calendar" onAction="#onCalendarClick">
+            <graphic>
+                <ImageView fitWidth="32" fitHeight="32">
+                    <Image url="@images/calendar.png"/>
+                </ImageView>
+            </graphic>
+        </Button>
+        <Button fx:id="TimerBtn" text="Timer" onAction="#onTimerClick">
+            <graphic>
+                <ImageView fitWidth="32" fitHeight="32">
+                    <Image url="@images/pocket-watch.png"/>
+                </ImageView>
+            </graphic>
+        </Button>
+        <Button fx:id="rewardsBtn" text="Rewards" onAction="#onRewardsClick">
+            <graphic>
+                <ImageView fitWidth="32" fitHeight="32">
+                    <Image url="@images/trophy.png"/>
+                </ImageView>
+            </graphic>
+        </Button>
     </HBox>
     <HBox spacing="15.0" alignment="CENTER">
-        <Button fx:id="studyHelperBtn" text="Study Helper" onAction="#onStudyHelperClick"/>
-        <Button fx:id="analyticsBtn" text="Analytics" onAction="#onAnalyticsClick"/>
-        <Button fx:id="accessibilityBtn" text="Accessibility" onAction="#onAccessibilityClick"/>
-        <Button fx:id="settingsBtn" text="Settings" onAction="#onSettingsClick"/>
+        <Button fx:id="studyHelperBtn" text="Study Helper" onAction="#onStudyHelperClick">
+            <graphic>
+                <ImageView fitWidth="32" fitHeight="32">
+                    <Image url="@images/book.png"/>
+                </ImageView>
+            </graphic>
+        </Button>
+        <Button fx:id="analyticsBtn" text="Analytics" onAction="#onAnalyticsClick">
+            <graphic>
+                <ImageView fitWidth="32" fitHeight="32">
+                    <Image url="@images/analytics.png"/>
+                </ImageView>
+            </graphic>
+        </Button>
+        <Button fx:id="accessibilityBtn" text="Accessibility" onAction="#onAccessibilityClick">
+            <graphic>
+                <ImageView fitWidth="32" fitHeight="32">
+                    <Image url="@images/wheelchair.png"/>
+                </ImageView>
+            </graphic>
+        </Button>
+        <Button fx:id="settingsBtn" text="Settings" onAction="#onSettingsClick">
+            <graphic>
+                <ImageView fitWidth="32" fitHeight="32">
+                    <Image url="@images/settings.png"/>
+                </ImageView>
+            </graphic>
+        </Button>
     </HBox>
 </VBox>
