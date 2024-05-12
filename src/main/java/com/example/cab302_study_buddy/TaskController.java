@@ -3,7 +3,12 @@ package com.example.cab302_study_buddy;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
+
+import java.io.IOException;
 
 import static com.example.cab302_study_buddy.LoginController.current_user;
 
@@ -18,6 +23,8 @@ public class TaskController {
     private Button updateButton;
     @FXML
     private Button removeButton;
+    @FXML
+    private Label timerDisplay;
 
     private ObservableList<String> tasks = FXCollections.observableArrayList();
     private TextInputDialog editTaskDialog;
@@ -41,6 +48,7 @@ public class TaskController {
             System.out.println(current_user.getId());
             DatabaseHandler.insertTask(task, current_user.getId()); // Insert the new task for the current user
             tasks.add(task); // No need to add task numbers here
+            taskListView.getItems().add(task); // Add the new task to the taskListView
             addTaskTextField.clear();
             taskListView.getSelectionModel().clearSelection();
         }
@@ -70,13 +78,23 @@ public class TaskController {
     @FXML
     private void removeTask() {
         int selectedIndex = taskListView.getSelectionModel().getSelectedIndex();
-        if (selectedIndex >= 0) {
-            String taskToRemove = tasks.get(selectedIndex);
-            DatabaseHandler.deleteTask(taskToRemove, currentUserId); // Delete the task from the database
+        if (selectedIndex >= 0 && selectedIndex < tasks.size()) {
+            String selectedTask = tasks.get(selectedIndex);
             tasks.remove(selectedIndex);
+            DatabaseHandler.deleteTask(selectedTask, currentUserId);
+            taskListView.getSelectionModel().clearSelection();
         } else {
             showAlert("No task selected", "Please select a task to remove.");
         }
+    }
+
+    @FXML
+    protected void onBackClick() throws IOException {
+        // change scene to Home
+        Stage stage = (Stage)timerDisplay.getScene().getWindow();
+        FXMLLoader fxmlLoader = new FXMLLoader(StudyBuddyApplication.class.getResource("home-view.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(),1280, 720);
+        stage.setScene(scene);
     }
 
     private void showAlert(String title, String message) {

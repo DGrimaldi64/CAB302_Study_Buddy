@@ -9,10 +9,11 @@
   <component name="ChangeListManager">
     <list default="true" id="a666fe26-b739-47f3-a006-51fbdbd9cd9f" name="Changes" comment="Added dependency again, believe it is now working properly">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cab302_study_buddy/DatabaseHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cab302_study_buddy/DatabaseHandler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cab302_study_buddy/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cab302_study_buddy/LoginController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/events.txt" beforeDir="false" afterPath="$PROJECT_DIR$/events.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cab302_study_buddy/CalendarController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cab302_study_buddy/CalendarController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cab302_study_buddy/TaskController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cab302_study_buddy/TaskController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/DatabaseHandlerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/DatabaseHandlerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/cab302_study_buddy/calendar-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/cab302_study_buddy/calendar-view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/cab302_study_buddy/task-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/cab302_study_buddy/task-view.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/users.db" beforeDir="false" afterPath="$PROJECT_DIR$/users.db" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -39,13 +40,6 @@
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
-  </component>
-  <component name="MavenImportPreferences">
-    <option name="generalSettings">
-      <MavenGeneralSettings>
-        <option name="mavenHomeTypeForPersistence" value="WRAPPER" />
-      </MavenGeneralSettings>
-    </option>
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 2
