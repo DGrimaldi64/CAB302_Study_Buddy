@@ -20,6 +20,9 @@ import java.time.temporal.ChronoUnit;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+/**
+ * Defines the JavaFX code to display the calendar page, including calling Database methods
+ */
 public class CalendarController implements Initializable {
     private LocalDate currentDate;
     private EventManager eventManager = new EventManager("events.txt");

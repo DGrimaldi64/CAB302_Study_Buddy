@@ -16,6 +16,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
+
+/**
+ * Defines the JavaFX code to display the login page, including calling Database methods
+ */
 public class LoginController {
     @FXML
     private TextField usernameField;

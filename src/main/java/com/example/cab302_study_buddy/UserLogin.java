@@ -1,6 +1,9 @@
 package com.example.cab302_study_buddy;
 
 
+/**
+ * Class to represent a User in the database
+ */
 public class UserLogin {
 
     private int id;
