@@ -18,7 +18,7 @@
         <VBox spacing="10" style="-fx-border-color: #DBDBDB; -fx-border-width: 0 0 1 0; -fx-padding: 20;">
             <Label text="Account" style="-fx-font-size: 18px;"/>
             <Button text="Edit Profile" style="-fx-background-color: transparent; -fx-text-fill: #0095F6; -fx-font-size: 14px;"/>
-            <Button text="Change Password" style="-fx-background-color: transparent; -fx-text-fill: #0095F6; -fx-font-size: 14px;"/>
+            <Button text="Change Password" style="-fx-background-color: transparent; -fx-text-fill: #0095F6; -fx-font-size: 14px;" onAction="#handleChangePassword"/>
             <Button text="Switch to Professional Account" style="-fx-background-color: transparent; -fx-text-fill: #0095F6; -fx-font-size: 14px;"/>
         </VBox>
 
