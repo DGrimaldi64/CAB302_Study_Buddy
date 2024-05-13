@@ -174,7 +174,7 @@ public class DatabaseHandler {
             PreparedStatement getAll = connection
                     .prepareStatement("SELECT id, task FROM tasks WHERE user_id = ? ORDER BY id");
             getAll.setInt(1, userId);
-            System.out.println("Thai ja bhai");
+
 
             ResultSet results = getAll.executeQuery();
 

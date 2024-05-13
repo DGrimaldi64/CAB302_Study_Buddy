@@ -47,7 +47,7 @@ public class TaskController {
         if (!task.isEmpty()) {
             System.out.println(current_user.getId());
             DatabaseHandler.insertTask(task, current_user.getId()); // Insert the new task for the current user
-            tasks.add(task); // No need to add task numbers here
+            tasks.add(task);
             taskListView.getItems().add(task); // Add the new task to the taskListView
             addTaskTextField.clear();
             taskListView.getSelectionModel().clearSelection();
