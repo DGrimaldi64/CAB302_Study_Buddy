@@ -6,24 +6,27 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class EventManager {
-    private Map<LocalDate, String> events;
-    private String eventsFile;
+    private final Map<LocalDate, String> events;
+    private final String eventsFile;
 
     public EventManager(String eventsFile) {
         this.eventsFile = eventsFile;
         events = new HashMap<>();
-        loadEvents();
+        loadEvents(); // Load events from the file when this file is initialized
     }
+
 
     public void addEvent(LocalDate date, String eventDescription) {
         events.put(date, eventDescription);
         saveEvents();
+        refreshUpcomingEvents();
     }
 
     public void editEvent(LocalDate date, String newEventDescription) {
         if (events.containsKey(date)) {
             events.put(date, newEventDescription);
             saveEvents();
+            refreshUpcomingEvents();
         }
     }
 
@@ -33,6 +36,12 @@ public class EventManager {
 
     public boolean hasEvent(LocalDate date) {
         return events.containsKey(date);
+    }
+
+    public void deleteEvent(LocalDate date) {
+        events.remove(date);
+        saveEvents(); // Save changes to the events file
+        refreshUpcomingEvents();
     }
 
     private void loadEvents() {
@@ -62,5 +71,11 @@ public class EventManager {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void refreshUpcomingEvents() {
+        // Can implement the logic to refresh the upcoming events here
+        // Let's just print a message
+        System.out.println("Refreshing upcoming events...");
     }
 }
