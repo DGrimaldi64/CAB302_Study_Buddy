@@ -30,8 +30,8 @@ public class TaskController {
     private TextInputDialog editTaskDialog;
     private int currentUserId;
 
-    public void initialize(int userId) {
-        this.currentUserId = userId;
+    public void initialize() {
+        this.currentUserId = current_user.getId();
         DatabaseHandler.createTable(); // Create the tables if they don't exist
         tasks = DatabaseHandler.getTasksForUser(currentUserId); // Retrieve tasks for the current user
         taskListView.setItems(tasks);
@@ -66,7 +66,8 @@ public class TaskController {
             editTaskDialog.showAndWait().ifPresent(updatedTask -> {
                 if (!updatedTask.isEmpty()) {
                     tasks.set(selectedIndex, updatedTask);
-                    DatabaseHandler.updateTask(updatedTask, currentUserId, selectedIndex + 1); // Update the task in the database
+                    DatabaseHandler.updateTask(updatedTask, currentUserId, selectedIndex + 1); // Update the task in the
+                    // database
                     taskListView.getSelectionModel().clearSelection();
                 }
             });
@@ -91,9 +92,9 @@ public class TaskController {
     @FXML
     protected void onBackClick() throws IOException {
         // change scene to Home
-        Stage stage = (Stage)timerDisplay.getScene().getWindow();
+        Stage stage = (Stage) timerDisplay.getScene().getWindow();
         FXMLLoader fxmlLoader = new FXMLLoader(StudyBuddyApplication.class.getResource("home-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(),1280, 720);
+        Scene scene = new Scene(fxmlLoader.load(), 1280, 720);
         stage.setScene(scene);
     }
 
