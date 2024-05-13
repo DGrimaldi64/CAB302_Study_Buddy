@@ -19,7 +19,6 @@
             <Label text="Account" style="-fx-font-size: 18px;"/>
             <Button text="Edit Profile" style="-fx-background-color: transparent; -fx-text-fill: #0095F6; -fx-font-size: 14px;" onAction="#handleEditProfile"/>
             <Button text="Change Password" style="-fx-background-color: transparent; -fx-text-fill: #0095F6; -fx-font-size: 14px;" onAction="#handleChangePassword"/>
-            <Button text="Switch to Professional Account" style="-fx-background-color: transparent; -fx-text-fill: #0095F6; -fx-font-size: 14px;"/>
         </VBox>
 
         <!-- Preferences Section -->

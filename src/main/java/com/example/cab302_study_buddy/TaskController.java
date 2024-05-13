@@ -10,6 +10,8 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+import static com.example.cab302_study_buddy.LoginController.current_user;
+
 public class TaskController {
     @FXML
     private ListView<String> taskListView;
@@ -23,32 +25,30 @@ public class TaskController {
     private Button removeButton;
     @FXML
     private Label timerDisplay;
-    private ObservableList<String> tasks;
+
+    private ObservableList<String> tasks = FXCollections.observableArrayList();
     private TextInputDialog editTaskDialog;
+    private int currentUserId;
 
     public void initialize() {
-        tasks = FXCollections.observableArrayList();
+        this.currentUserId = current_user.getId();
+        DatabaseHandler.createTable(); // Create the tables if they don't exist
+        tasks = DatabaseHandler.getTasksForUser(currentUserId); // Retrieve tasks for the current user
         taskListView.setItems(tasks);
 
         // Deselect any selected task when the text field or "Add" button is clicked
         addTaskTextField.setOnMouseClicked(event -> taskListView.getSelectionModel().clearSelection());
         addButton.setOnMouseClicked(event -> taskListView.getSelectionModel().clearSelection());
-
     }
 
-    @FXML
-    protected void onBackClick() throws IOException {
-        // change scene to Home
-        Stage stage = (Stage)timerDisplay.getScene().getWindow();
-        FXMLLoader fxmlLoader = new FXMLLoader(StudyBuddyApplication.class.getResource("home-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(),1280, 720);
-        stage.setScene(scene);
-    }
     @FXML
     private void addTask() {
         String task = addTaskTextField.getText().trim();
         if (!task.isEmpty()) {
-            tasks.add((tasks.size() + 1) + ". " + task);
+            System.out.println(current_user.getId());
+            DatabaseHandler.insertTask(task, current_user.getId()); // Insert the new task for the current user
+            tasks.add(task);
+            taskListView.getItems().add(task); // Add the new task to the taskListView
             addTaskTextField.clear();
             taskListView.getSelectionModel().clearSelection();
         }
@@ -59,14 +59,15 @@ public class TaskController {
         int selectedIndex = taskListView.getSelectionModel().getSelectedIndex();
         if (selectedIndex >= 0) {
             String selectedTask = tasks.get(selectedIndex);
-            String taskText = selectedTask.substring(selectedTask.indexOf(".") + 2);
-            editTaskDialog = new TextInputDialog(taskText);
+            editTaskDialog = new TextInputDialog(selectedTask);
             editTaskDialog.setTitle("Edit Task");
             editTaskDialog.setHeaderText(null);
             editTaskDialog.setContentText("Edit the selected task:");
             editTaskDialog.showAndWait().ifPresent(updatedTask -> {
                 if (!updatedTask.isEmpty()) {
-                    tasks.set(selectedIndex, (selectedIndex + 1) + ". " + updatedTask);
+                    tasks.set(selectedIndex, updatedTask);
+                    DatabaseHandler.updateTask(updatedTask, currentUserId, selectedIndex + 1); // Update the task in the
+                    // database
                     taskListView.getSelectionModel().clearSelection();
                 }
             });
@@ -78,22 +79,23 @@ public class TaskController {
     @FXML
     private void removeTask() {
         int selectedIndex = taskListView.getSelectionModel().getSelectedIndex();
-        if (selectedIndex >= 0) {
+        if (selectedIndex >= 0 && selectedIndex < tasks.size()) {
+            String selectedTask = tasks.get(selectedIndex);
             tasks.remove(selectedIndex);
-            updateTaskNumbers();
+            DatabaseHandler.deleteTask(selectedTask, currentUserId);
+            taskListView.getSelectionModel().clearSelection();
         } else {
             showAlert("No task selected", "Please select a task to remove.");
         }
     }
-    @FXML
 
-    private void updateTaskNumbers() {
-        ObservableList<String> updatedTasks = FXCollections.observableArrayList();
-        for (int i = 0; i < tasks.size(); i++) {
-            updatedTasks.add((i + 1) + ". " + tasks.get(i).substring(tasks.get(i).indexOf(".") + 2));
-        }
-        tasks.clear();
-        tasks.addAll(updatedTasks);
+    @FXML
+    protected void onBackClick() throws IOException {
+        // change scene to Home
+        Stage stage = (Stage) timerDisplay.getScene().getWindow();
+        FXMLLoader fxmlLoader = new FXMLLoader(StudyBuddyApplication.class.getResource("home-view.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 1280, 720);
+        stage.setScene(scene);
     }
 
     private void showAlert(String title, String message) {
@@ -103,4 +105,4 @@ public class TaskController {
         alert.setContentText(message);
         alert.showAndWait();
     }
-}     
+}

@@ -36,6 +36,7 @@ public class Settings {
     // Add event handling methods here
     // For example:
 
+
     @FXML
     private void handleLogout(ActionEvent event) throws IOException {
         // Load the login scene
