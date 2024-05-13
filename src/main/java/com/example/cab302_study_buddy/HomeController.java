@@ -112,10 +112,18 @@ public class HomeController {
     @FXML
     protected void onAccessibilityClick() throws IOException {
         // change scene to Accessibility
+//        Stage stage = (Stage)welcomeText.getScene().getWindow();
+//        FXMLLoader fxmlLoader = new FXMLLoader(StudyBuddyApplication.class.getResource("accessibility-view.fxml"));
+//        Scene scene = new Scene(fxmlLoader.load(),1280, 720);
+//        stage.setScene(scene);
     }
 
     @FXML
     protected void onSettingsClick() throws IOException {
         // change scene to Settings
+//        Stage stage = (Stage)welcomeText.getScene().getWindow();
+//        FXMLLoader fxmlLoader = new FXMLLoader(StudyBuddyApplication.class.getResource("settings-view.fxml"));
+//        Scene scene = new Scene(fxmlLoader.load(),1280, 720);
+//        stage.setScene(scene);
     }
 }
