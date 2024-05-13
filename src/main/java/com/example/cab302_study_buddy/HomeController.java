@@ -66,7 +66,7 @@ public class HomeController {
         // change scene to Tasks
         Stage stage = (Stage)welcomeText.getScene().getWindow();
         FXMLLoader fxmlLoader = new FXMLLoader(StudyBuddyApplication.class.getResource("task-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(),1280, 720);
+        Scene scene = new Scene(fxmlLoader.load(),640, 480);
         stage.setScene(scene);
     }
 
@@ -75,7 +75,7 @@ public class HomeController {
         // change scene to Calendar
         Stage stage = (Stage)welcomeText.getScene().getWindow();
         FXMLLoader fxmlLoader = new FXMLLoader(StudyBuddyApplication.class.getResource("calendar-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(),1280, 720);
+        Scene scene = new Scene(fxmlLoader.load(),640, 480);
         stage.setScene(scene);
     }
 
@@ -105,7 +105,7 @@ public class HomeController {
         // change scene to Analytics
         Stage stage = (Stage)welcomeText.getScene().getWindow();
         FXMLLoader fxmlLoader = new FXMLLoader(StudyBuddyApplication.class.getResource("analytics-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(),1280, 720);
+        Scene scene = new Scene(fxmlLoader.load(),640, 480);
         stage.setScene(scene);
     }
 
@@ -114,16 +114,16 @@ public class HomeController {
         // change scene to Accessibility
 //        Stage stage = (Stage)welcomeText.getScene().getWindow();
 //        FXMLLoader fxmlLoader = new FXMLLoader(StudyBuddyApplication.class.getResource("accessibility-view.fxml"));
-//        Scene scene = new Scene(fxmlLoader.load(),1280, 720);
+//        Scene scene = new Scene(fxmlLoader.load(),640, 480);
 //        stage.setScene(scene);
     }
 
     @FXML
     protected void onSettingsClick() throws IOException {
         // change scene to Settings
-//        Stage stage = (Stage)welcomeText.getScene().getWindow();
-//        FXMLLoader fxmlLoader = new FXMLLoader(StudyBuddyApplication.class.getResource("settings-view.fxml"));
-//        Scene scene = new Scene(fxmlLoader.load(),1280, 720);
-//        stage.setScene(scene);
+        Stage stage = (Stage)welcomeText.getScene().getWindow();
+        FXMLLoader fxmlLoader = new FXMLLoader(StudyBuddyApplication.class.getResource("settings-view.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(),640, 480);
+        stage.setScene(scene);
     }
 }

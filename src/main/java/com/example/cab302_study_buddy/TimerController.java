@@ -100,7 +100,7 @@ public class TimerController {
         // change scene to Home
         Stage stage = (Stage)timerDisplay.getScene().getWindow();
         FXMLLoader fxmlLoader = new FXMLLoader(StudyBuddyApplication.class.getResource("home-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(),1280, 720);
+        Scene scene = new Scene(fxmlLoader.load(),640, 480);
         stage.setScene(scene);
         stage.setAlwaysOnTop(false);
     }

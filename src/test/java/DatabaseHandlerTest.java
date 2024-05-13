@@ -22,8 +22,8 @@ class DatabaseHandlerTest {
 
     @Test
     void testgetPasswordForUsernameTrue() {
-        String actual = DatabaseHandler.getPasswordForUsername("Luka");
-        String expected = "1234";
+        String actual = DatabaseHandler.getPasswordForUsername("test");
+        String expected = "test";
         System.out.println(actual);
         assertEquals(expected, actual);
     }
@@ -33,5 +33,20 @@ class DatabaseHandlerTest {
         String actual = DatabaseHandler.getPasswordForUsername("noexist");
         assertNull(actual);
     }
+
+    @Test
+    void testgetIdForUsernameTrue() {
+        int actual = DatabaseHandler.getIdForUsername("test");
+        int expected = 1;
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void testgetIdForUsernameFalse() {
+        int actual = DatabaseHandler.getIdForUsername("test1");
+        int expected = 100;
+        assertNotEquals(expected, actual);
+    }
+
 }
 
