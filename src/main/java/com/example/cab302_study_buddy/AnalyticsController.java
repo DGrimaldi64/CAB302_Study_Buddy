@@ -32,7 +32,7 @@ public class AnalyticsController {
     private TextField creditsCompleted;
 
     @FXML
-    private TextField creditsUntilDeadline;
+    private TextField creditsRemaining;
 
     @FXML
     private TextField currentGPA;

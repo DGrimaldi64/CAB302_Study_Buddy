@@ -13,15 +13,15 @@
         <Button text="←" onAction="#onBackClick"/>
     </HBox>
     <HBox spacing="15.0" alignment="CENTER">
-        <HBox spacing="5.0" alignment="CENTER">
-            <VBox spacing="5.0" alignment="CENTER">
+        <HBox spacing="5.0">
+            <VBox spacing="5.0" alignment="TOP_CENTER">
                 <Label text="Task Estimation Overshoot:"/>
                 <Label text="Average Hours Studied When Studying:"/>
                 <Label text="Average Hours Studied Daily:"/>
                 <Label text="Average Hours Studied Weekly:"/>
                 <Label text="Average Days Of Study A Week:"/>
             </VBox>
-            <VBox spacing="5.0" alignment="CENTER">
+            <VBox spacing="5.0" alignment="TOP_CENTER">
                 <Label fx:id="taskEstOvershoot" text="Hours"/>
                 <Label fx:id="aveHoursStudyDay" text="Hours"/>
                 <Label fx:id="aveHoursDaily" text="Hours"/>
@@ -29,17 +29,18 @@
                 <Label fx:id="aveDaysWeekly" text="Days"/>
             </VBox>
         </HBox>
-        <HBox spacing="5.0" alignment="CENTER">
+        <HBox spacing="5.0">
             <VBox spacing="15">
                 <Label text="GPA Target:"/>
-                <Label text="Units Until Deadline:"/>
+                <Label text="Credits Completed:"/>
+                <Label text="Credits Remaining:"/>
                 <Label text="Current GPA:"/>
                 <Label text="Required GPA Per Unit:"/>
             </VBox>
             <VBox spacing="5.0" alignment="CENTER">
                 <TextField fx:id="GPATarget"/>
-                <
-                <TextField fx:id="creditsUntilDeadline"/>
+                <TextField fx:id="creditsCompleted"/>
+                <TextField fx:id="creditsRemaining"/>
                 <TextField fx:id="currentGPA"/>
                 <Button text="Calculate" onMouseClicked="#onCalculateGPAClick"/>
                 <Label fx:id="requiredGPAPerUnit"/>
