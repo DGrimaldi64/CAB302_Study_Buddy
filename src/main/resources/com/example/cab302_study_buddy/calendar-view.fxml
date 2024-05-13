@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.ColumnConstraints?>
@@ -39,5 +40,7 @@
             <Font size="16.0" />
         </font>
     </Label>
+    <Label fx:id="timerDisplay" />
     <VBox fx:id="upcomingEventsBox" prefHeight="200.0" prefWidth="100.0" GridPane.columnSpan="7" GridPane.rowIndex="8" />
+    <Button text="Back" onAction="#onBackClick" GridPane.columnIndex="0" GridPane.rowIndex="0" />
 </GridPane>

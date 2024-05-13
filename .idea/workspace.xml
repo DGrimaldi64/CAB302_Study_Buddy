@@ -7,7 +7,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="a666fe26-b739-47f3-a006-51fbdbd9cd9f" name="Changes" comment="Added 2 more tests to the test suite" />
+    <list default="true" id="a666fe26-b739-47f3-a006-51fbdbd9cd9f" name="Changes" comment="Added dependency again, believe it is now working properly">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cab302_study_buddy/HomeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cab302_study_buddy/HomeController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cab302_study_buddy/StudyBuddyApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cab302_study_buddy/StudyBuddyApplication.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -25,20 +29,13 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="Luka" />
+        <entry key="$PROJECT_DIR$" value="Akhilesh" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
-  </component>
-  <component name="MavenImportPreferences">
-    <option name="generalSettings">
-      <MavenGeneralSettings>
-        <option name="mavenHomeTypeForPersistence" value="WRAPPER" />
-      </MavenGeneralSettings>
-    </option>
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 2
@@ -59,7 +56,6 @@
     &quot;Application.StudyBuddyApplication.executor&quot;: &quot;Run&quot;,
     &quot;Downloaded.Files.Path.Enabled&quot;: &quot;false&quot;,
     &quot;JUnit.DatabaseHandlerTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.DatabaseHandlerTest.testgetIdForUsernameFalse.executor&quot;: &quot;Run&quot;,
     &quot;Maven.User_Authentication [clean].executor&quot;: &quot;Run&quot;,
     &quot;Maven.User_Authentication [org.openjfx:javafx-maven-plugin:0.0.8:run].executor&quot;: &quot;Run&quot;,
     &quot;Maven.User_Authentication [package].executor&quot;: &quot;Run&quot;,
@@ -97,7 +93,7 @@
       <recent name="com.example.authentication" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.DatabaseHandlerTest">
+  <component name="RunManager">
     <configuration name="DatabaseHandlerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="User_Authentication" />
       <option name="PACKAGE_NAME" value="" />
@@ -107,20 +103,8 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="DatabaseHandlerTest.testgetIdForUsernameFalse" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="User_Authentication" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="DatabaseHandlerTest" />
-      <option name="METHOD_NAME" value="testgetIdForUsernameFalse" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.DatabaseHandlerTest" />
-        <item itemvalue="JUnit.DatabaseHandlerTest.testgetIdForUsernameFalse" />
         <item itemvalue="JUnit.DatabaseHandlerTest" />
       </list>
     </recent_temporary>
@@ -128,8 +112,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="jdk-17.0.10-corretto-17.0.10-4caba194b151-5cd809f4" />
-        <option value="jdk-21.0.2-corretto-21.0.2-4caba194b151-51586f01" />
+        <option value="jdk-17.0.10-corretto-17.0.10-3183f394aec4-96c0d24d" />
+        <option value="jdk-21.0.2-corretto-21.0.2-f644763e9732-d6553c93" />
       </set>
     </attachedChunks>
   </component>
@@ -170,15 +154,7 @@
       <option name="project" value="LOCAL" />
       <updated>1715431528432</updated>
     </task>
-    <task id="LOCAL-00004" summary="Added 2 more tests to the test suite">
-      <option name="closed" value="true" />
-      <created>1715575217483</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1715575217483</updated>
-    </task>
-    <option name="localTasksCounter" value="5" />
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -202,7 +178,6 @@
     <MESSAGE value="Update Maven Surefire plugin to use JUnit 5" />
     <MESSAGE value="Changed Target and Source to be 17 instead of 21" />
     <MESSAGE value="Added dependency again, believe it is now working properly" />
-    <MESSAGE value="Added 2 more tests to the test suite" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added 2 more tests to the test suite" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added dependency again, believe it is now working properly" />
   </component>
 </project>
