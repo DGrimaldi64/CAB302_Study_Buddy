@@ -12,6 +12,10 @@ import java.io.IOException;
 
 import static com.example.cab302_study_buddy.LoginController.current_user;
 
+
+/**
+ * File to control fxml as well as interacting with database to  add, remove, update tasks table
+ */
 public class TaskController {
     @FXML
     private ListView<String> taskListView;

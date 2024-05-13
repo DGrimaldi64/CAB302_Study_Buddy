@@ -134,6 +134,20 @@ public class DatabaseHandler {
         return null;
     }
 
+
+
+
+
+
+
+
+
+
+    /**
+     *
+     * @param username
+     * @return
+     */
     public static int getIdForUsername(String username) {
         try {
             Connection connection = DatabaseConnection.getInstance();
