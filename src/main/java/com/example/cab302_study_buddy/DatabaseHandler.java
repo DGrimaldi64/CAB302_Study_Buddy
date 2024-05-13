@@ -160,11 +160,11 @@ public class DatabaseHandler {
             stmt.setString(1, task);
             stmt.setInt(2, userId);
             stmt.execute();
-
         } catch (SQLException e) {
             showAlert("Error inserting task: " + e.getMessage(), Alert.AlertType.ERROR);
         }
     }
+
 
     public static ObservableList<String> getTasksForUser(int userId) {
         ObservableList<String> tasks = FXCollections.observableArrayList();

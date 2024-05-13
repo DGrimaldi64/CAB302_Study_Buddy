@@ -31,14 +31,16 @@ public class TaskController {
     private int currentUserId;
 
     public void initialize() {
-        this.currentUserId = current_user.getId();
-        DatabaseHandler.createTable(); // Create the tables if they don't exist
-        tasks = DatabaseHandler.getTasksForUser(currentUserId); // Retrieve tasks for the current user
-        taskListView.setItems(tasks);
+        if (tasks.isEmpty()) {
+            this.currentUserId = current_user.getId();
+            DatabaseHandler.createTable(); // Create the tables if they don't exist
+            tasks = DatabaseHandler.getTasksForUser(currentUserId); // Retrieve tasks for the current user
+            taskListView.setItems(tasks);
 
-        // Deselect any selected task when the text field or "Add" button is clicked
-        addTaskTextField.setOnMouseClicked(event -> taskListView.getSelectionModel().clearSelection());
-        addButton.setOnMouseClicked(event -> taskListView.getSelectionModel().clearSelection());
+            // Deselect any selected task when the text field or "Add" button is clicked
+            addTaskTextField.setOnMouseClicked(event -> taskListView.getSelectionModel().clearSelection());
+            addButton.setOnMouseClicked(event -> taskListView.getSelectionModel().clearSelection());
+        }
     }
 
     @FXML
@@ -47,12 +49,12 @@ public class TaskController {
         if (!task.isEmpty()) {
             System.out.println(current_user.getId());
             DatabaseHandler.insertTask(task, current_user.getId()); // Insert the new task for the current user
-            tasks.add(task);
-            taskListView.getItems().add(task); // Add the new task to the taskListView
+            tasks.add(task); // Add the new task to the tasks list
             addTaskTextField.clear();
             taskListView.getSelectionModel().clearSelection();
         }
     }
+
 
     @FXML
     private void showEditTaskDialog() {
