@@ -2,15 +2,19 @@ package com.example.cab302_study_buddy;
 
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
+import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -37,6 +41,17 @@ public class CalendarController implements Initializable {
     private VBox upcomingEventsBox;
     @FXML
     private Label[] dayLabels = new Label[42];
+    @FXML
+    private Label timerDisplay;
+
+    @FXML
+    protected void onBackClick() throws IOException {
+        // change scene to Home
+        Stage stage = (Stage)timerDisplay.getScene().getWindow();
+        FXMLLoader fxmlLoader = new FXMLLoader(StudyBuddyApplication.class.getResource("home-view.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(),1280, 720);
+        stage.setScene(scene);
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
