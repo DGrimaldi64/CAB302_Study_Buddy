@@ -4,6 +4,8 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Alert;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.*;
 
 /**
@@ -233,6 +235,65 @@ public class DatabaseHandler {
             showAlert("Error deleting task: " + e.getMessage(), Alert.AlertType.ERROR);
         }
     }
+
+    public static boolean updatePassword(String username, String currentPassword, String newPassword) {
+        try {
+            Connection connection = DatabaseConnection.getInstance();
+
+            // Check if the connection is null
+            if (connection == null) {
+                System.out.println("Database connection is null");
+                return false;
+            }
+
+            // Verify current password
+            String storedPassword = getPasswordForUsername(username);
+            if (storedPassword == null || !storedPassword.equals(hashPassword(currentPassword))) {
+                // Current password doesn't match, return false
+                System.out.println("Current password does not match");
+                return false;
+            }
+
+            // Update password
+            PreparedStatement updatePassword = connection.prepareStatement("UPDATE users SET password = ? WHERE username = ?");
+            String hashedNewPassword = hashPassword(newPassword);
+            updatePassword.setString(1, hashedNewPassword);
+            updatePassword.setString(2, username);
+
+            int rowsAffected = updatePassword.executeUpdate();
+
+            // Log the number of rows affected
+            System.out.println(rowsAffected + " row(s) updated");
+
+            close(connection);
+
+            return rowsAffected > 0;
+        } catch (SQLException e) {
+            showAlert("Error updating password: " + e.getMessage(), Alert.AlertType.ERROR);
+            return false;
+        }
+    }
+
+
+
+    private static String hashPassword(String password) {
+        try {
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            byte[] hash = digest.digest(password.getBytes());
+            StringBuilder hexString = new StringBuilder();
+            for (byte b : hash) {
+                String hex = Integer.toHexString(0xff & b);
+                if (hex.length() == 1) hexString.append('0');
+                hexString.append(hex);
+            }
+            return hexString.toString();
+        } catch (NoSuchAlgorithmException e) {
+            showAlert("Error hashing password: " + e.getMessage(), Alert.AlertType.ERROR);
+            e.printStackTrace();
+            return null;
+        }
+    }
+
 
     /**
      * Creates pop-up in JavaFX to notify user of an error or other information
