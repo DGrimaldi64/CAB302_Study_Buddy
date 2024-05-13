@@ -11,6 +11,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
+import java.io.Console;
 import java.io.IOException;
 import java.util.Objects;
 import java.util.Timer;
@@ -101,6 +102,7 @@ public class TimerController {
         FXMLLoader fxmlLoader = new FXMLLoader(StudyBuddyApplication.class.getResource("home-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(),1280, 720);
         stage.setScene(scene);
+        stage.setAlwaysOnTop(false);
     }
 
     @FXML
@@ -379,4 +381,34 @@ public class TimerController {
 
         secondsInput.setText(FormatTime((int)secondSlider.getValue()));
     }
+
+    private boolean minimized = false;
+
+    @FXML
+    private Scene scene;
+
+    @FXML
+    private Stage stage;
+
+//    @FXML
+//    protected void onMiniTimerClick() throws IOException {
+//
+//        if (minimized) {
+//            scene.getWindow().setWidth(1280);
+//            scene.getWindow().setHeight(720);
+//            stage.setAlwaysOnTop(false);
+//            stage.setScene(scene);
+//            System.out.println("Min = false");
+//        }
+//
+//        else {
+//            scene.getWindow().setWidth(320);
+//            scene.getWindow().setHeight(320);
+//            stage.setAlwaysOnTop(true);
+//            stage.setScene(scene);
+//            System.out.println("Min = true");
+//        }
+//
+//        minimized = !minimized;
+//    }
 }

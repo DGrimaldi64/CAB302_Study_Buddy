@@ -39,4 +39,5 @@
         </VBox>
     </HBox>
     <Button fx:id="enterBtn" text="Enter" onAction="#onEnterClick" visible="false"/>
+<!--    <Button text="*" onAction="#onMiniTimerClick"/>-->
 </VBox>

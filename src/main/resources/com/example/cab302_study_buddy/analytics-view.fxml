@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox alignment="CENTER" spacing="15.0"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.example.cab302_study_buddy.AnalyticsController">
+    <HBox spacing="15.0">
+        <Button text="←" onAction="#onBackClick"/>
+    </HBox>
+    <HBox spacing="15.0" alignment="CENTER">
+        <HBox spacing="5.0" alignment="CENTER">
+            <VBox spacing="5.0" alignment="CENTER">
+                <Label text="Task Estimation Overshoot:"/>
+                <Label text="Average Hours Studied When Studying:"/>
+                <Label text="Average Hours Studied Daily:"/>
+                <Label text="Average Hours Studied Weekly:"/>
+                <Label text="Average Days Of Study A Week:"/>
+            </VBox>
+            <VBox spacing="5.0" alignment="CENTER">
+                <Label fx:id="taskEstOvershoot" text="Hours"/>
+                <Label fx:id="aveHoursStudyDay" text="Hours"/>
+                <Label fx:id="aveHoursDaily" text="Hours"/>
+                <Label fx:id="aveHoursWeekly" text="Hours"/>
+                <Label fx:id="aveDaysWeekly" text="Days"/>
+            </VBox>
+        </HBox>
+        <HBox spacing="5.0" alignment="CENTER">
+            <VBox spacing="15">
+                <Label text="GPA Target:"/>
+                <Label text="Units Until Deadline:"/>
+                <Label text="Current GPA:"/>
+                <Label text="Required GPA Per Unit:"/>
+            </VBox>
+            <VBox spacing="5.0" alignment="CENTER">
+                <TextField fx:id="GPATarget"/>
+                <
+                <TextField fx:id="creditsUntilDeadline"/>
+                <TextField fx:id="currentGPA"/>
+                <Button text="Calculate" onMouseClicked="#onCalculateGPAClick"/>
+                <Label fx:id="requiredGPAPerUnit"/>
+            </VBox>
+        </HBox>
+    </HBox>
+    <!--Heatmap-->
+</VBox>
