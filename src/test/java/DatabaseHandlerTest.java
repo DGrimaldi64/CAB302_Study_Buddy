@@ -33,5 +33,20 @@ class DatabaseHandlerTest {
         String actual = DatabaseHandler.getPasswordForUsername("noexist");
         assertNull(actual);
     }
+
+    @Test
+    void testgetIdForUsernameTrue() {
+        int actual = DatabaseHandler.getIdForUsername("test");
+        int expected = 1;
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    void testgetIdForUsernameFalse() {
+        int actual = DatabaseHandler.getIdForUsername("test1");
+        int expected = 100;
+        assertNotEquals(expected, actual);
+    }
+
 }
 
