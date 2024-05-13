@@ -45,7 +45,7 @@ class DatabaseHandlerTest {
     void testgetIdForUsernameFalse() {
         int actual = DatabaseHandler.getIdForUsername("test1");
         int expected = 100;
-        assertEquals(expected, actual);
+        assertNotEquals(expected, actual);
     }
 
 }
