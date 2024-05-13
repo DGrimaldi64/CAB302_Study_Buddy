@@ -31,6 +31,8 @@ public class Settings {
     @FXML
     private Button notificationsButton;
 
+    @FXML
+    private Button getEditProfileButton;
     // Add event handling methods here
     // For example:
 
@@ -92,4 +94,19 @@ public class Settings {
         // Show the change password window
         changePasswordStage.showAndWait();
     }
+
+    @FXML
+    private void handleEditProfile(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("edit-profile-view.fxml"));
+        Parent editProfileParent = loader.load();
+        Scene editProfileScene = new Scene(editProfileParent);
+
+        Stage stage = new Stage();
+        stage.setTitle("Edit Profile");
+        stage.setScene(editProfileScene);
+
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.showAndWait();
+    }
 }
+
