@@ -48,11 +48,11 @@ public class CalendarController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         currentDate = LocalDate.now();
 
+        addBackButton();
         initializeMonthComboBox();
         initializeYearComboBox();
         populateCalendar();
         refreshUpcomingEvents();
-        addBackButton();
     }
 
     private void initializeMonthComboBox() {
@@ -142,7 +142,7 @@ public class CalendarController implements Initializable {
     }
 
     private void addBackButton() {
-        Button backButton = new Button("Back");
+        Button backButton = new Button("←");
         backButton.setOnAction(event -> {
             try {
                 handleBackButtonClick(event);
@@ -158,7 +158,7 @@ public class CalendarController implements Initializable {
         Node source = (Node) event.getSource();
         Stage stage = (Stage) source.getScene().getWindow();
         FXMLLoader fxmlLoader = new FXMLLoader(StudyBuddyApplication.class.getResource("home-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 1280, 720);
+        Scene scene = new Scene(fxmlLoader.load(), 640, 480);
         stage.setScene(scene);
     }
 
