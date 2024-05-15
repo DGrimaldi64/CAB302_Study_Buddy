@@ -208,20 +208,31 @@ public class DatabaseHandler {
         return tasks;
     }
 
-    public static void updateTask(String updatedTask, int userId, int taskId) {
+    public static void updateTask(String updatedTask, int userId, String currentTask) {
         try {
             Connection connection = DatabaseConnection.getInstance();
-            PreparedStatement stmt = connection
-                    .prepareStatement("UPDATE tasks SET task = ? WHERE user_id = ? AND id = ?");
-            stmt.setString(1, updatedTask);
-            stmt.setInt(2, userId);
-            stmt.setInt(3, taskId);
-            stmt.executeUpdate();
+            PreparedStatement getTaskId = connection.prepareStatement("SELECT id FROM tasks WHERE task = ? AND user_id = ?");
+            getTaskId.setString(1, currentTask);
+            getTaskId.setInt(2, userId);
+            ResultSet rs = getTaskId.executeQuery();
+
+            if (rs.next()) {
+                int taskId = rs.getInt("id");
+                PreparedStatement stmt = connection.prepareStatement("UPDATE tasks SET task = ? WHERE id = ? AND user_id = ?");
+                stmt.setString(1, updatedTask);
+                stmt.setInt(2, taskId);
+                stmt.setInt(3, userId);
+                stmt.executeUpdate();
+            } else {
+                System.out.println("Task not found for user " + userId + " and task '" + currentTask + "'");
+            }
+
             close(connection);
         } catch (SQLException e) {
             showAlert("Error updating task: " + e.getMessage(), Alert.AlertType.ERROR);
         }
     }
+
 
     public static void deleteTask(String task, int userId) {
         try {

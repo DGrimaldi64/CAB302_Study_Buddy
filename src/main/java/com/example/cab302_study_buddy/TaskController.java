@@ -27,8 +27,6 @@ public class TaskController {
     private Button updateButton;
     @FXML
     private Button removeButton;
-    @FXML
-    private Label timerDisplay;
 
     private ObservableList<String> tasks = FXCollections.observableArrayList();
     private TextInputDialog editTaskDialog;
@@ -52,7 +50,6 @@ public class TaskController {
             System.out.println(current_user.getId());
             DatabaseHandler.insertTask(task, current_user.getId()); // Insert the new task for the current user
             tasks.add(task);
-            taskListView.getItems().add(task); // Add the new task to the taskListView
             addTaskTextField.clear();
             taskListView.getSelectionModel().clearSelection();
         }
@@ -63,6 +60,7 @@ public class TaskController {
         int selectedIndex = taskListView.getSelectionModel().getSelectedIndex();
         if (selectedIndex >= 0) {
             String selectedTask = tasks.get(selectedIndex);
+            String currentTask = selectedTask; // Store the current task text
             editTaskDialog = new TextInputDialog(selectedTask);
             editTaskDialog.setTitle("Edit Task");
             editTaskDialog.setHeaderText(null);
@@ -70,8 +68,7 @@ public class TaskController {
             editTaskDialog.showAndWait().ifPresent(updatedTask -> {
                 if (!updatedTask.isEmpty()) {
                     tasks.set(selectedIndex, updatedTask);
-                    DatabaseHandler.updateTask(updatedTask, currentUserId, selectedIndex + 1); // Update the task in the
-                    // database
+                    DatabaseHandler.updateTask(updatedTask, currentUserId, currentTask); // Pass the current task text
                     taskListView.getSelectionModel().clearSelection();
                 }
             });
@@ -96,7 +93,7 @@ public class TaskController {
     @FXML
     protected void onBackClick() throws IOException {
         // change scene to Home
-        Stage stage = (Stage) timerDisplay.getScene().getWindow();
+        Stage stage = (Stage) taskListView.getScene().getWindow();
         FXMLLoader fxmlLoader = new FXMLLoader(StudyBuddyApplication.class.getResource("home-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(),640, 480);
         stage.setScene(scene);

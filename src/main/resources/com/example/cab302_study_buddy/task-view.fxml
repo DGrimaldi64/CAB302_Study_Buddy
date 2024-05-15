@@ -23,7 +23,6 @@
             </children>
         </HBox>
         <ListView fx:id="taskListView" VBox.vgrow="ALWAYS" />
-        <Label fx:id="timerDisplay" /> <!-- Add the Label element here with the appropriate ID -->
         <HBox spacing="10.0">
             <children>
                 <Button fx:id="updateButton" mnemonicParsing="false" onAction="#showEditTaskDialog" text="Update Task" />
