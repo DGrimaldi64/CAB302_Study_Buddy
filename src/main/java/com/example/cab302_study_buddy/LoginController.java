@@ -8,8 +8,12 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -80,5 +84,18 @@ public class LoginController {
         Stage window = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
         window.setScene(signupScene);
         window.show();
+    }
+
+    @FXML
+    private void handleEnterKeyPressed(KeyEvent event) throws IOException {
+        if (event.getCode() == KeyCode.ENTER) {
+            if (event.getSource() == usernameField) {
+                passwordField.requestFocus();
+            }
+
+            else if (event.getSource() == passwordField) {
+                handleLogin();
+            }
+        }
     }
 }
