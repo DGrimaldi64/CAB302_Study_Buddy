@@ -47,5 +47,5 @@
             </VBox>
         </HBox>
     </HBox>
-    <!--Heatmap-->
+    <GridPane xmlns:fx="http://javafx.com/fxml" prefWidth="600" prefHeight="400" hgap="1" vgap="1"/>
 </VBox>
