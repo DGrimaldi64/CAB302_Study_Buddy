@@ -224,6 +224,7 @@ public class DatabaseHandler {
         }
     }
 
+
     public static void deleteTask(String task, int userId) {
         try {
             Connection connection = DatabaseConnection.getInstance();

@@ -1,22 +1,21 @@
 package com.example.cab302_study_buddy;
 
-
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextInputDialog;
+import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
-import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.Month;
 import java.time.format.DateTimeFormatter;
@@ -24,9 +23,6 @@ import java.time.temporal.ChronoUnit;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-/**
- * Defines the JavaFX code to display the calendar page, including calling Database methods
- */
 public class CalendarController implements Initializable {
     private LocalDate currentDate;
     private EventManager eventManager = new EventManager("events.txt");
@@ -34,37 +30,32 @@ public class CalendarController implements Initializable {
     @FXML
     private ComboBox<String> monthComboBox;
     @FXML
+    private ComboBox<Integer> yearComboBox;
+    @FXML
     private Label monthYearLabel;
     @FXML
     private GridPane gridPane;
     @FXML
     private VBox upcomingEventsBox;
     @FXML
-    private Label[] dayLabels = new Label[42];
+    private HBox backButtonContainer;
     @FXML
     private Label timerDisplay;
 
-    @FXML
-    protected void onBackClick() throws IOException {
-        // change scene to Home
-        Stage stage = (Stage)timerDisplay.getScene().getWindow();
-        FXMLLoader fxmlLoader = new FXMLLoader(StudyBuddyApplication.class.getResource("home-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(),1280, 720);
-        stage.setScene(scene);
-    }
+    private Label[] dayLabels = new Label[42];
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         currentDate = LocalDate.now();
 
+        addBackButton();
         initializeMonthComboBox();
+        initializeYearComboBox();
         populateCalendar();
         refreshUpcomingEvents();
     }
 
     private void initializeMonthComboBox() {
-        // Month selection ComboBox
-        ComboBox<String> monthComboBox = new ComboBox<>();
         monthComboBox.getItems().addAll(
                 "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"
         );
@@ -74,27 +65,29 @@ public class CalendarController implements Initializable {
             currentDate = currentDate.withMonth(Month.valueOf(selectedMonth.toUpperCase()).getValue());
             refreshCalendar();
             refreshUpcomingEvents();
-            monthComboBox.setValue(selectedMonth); // Set the value of the choice box
+            updateMonthYearLabel();
         });
+    }
 
-        // Year selection ComboBox
-        ComboBox<Integer> yearComboBox = new ComboBox<>();
-        int currentYear = currentDate.getYear();
+
+    private void initializeYearComboBox() {
         yearComboBox.getItems().addAll(
-                currentYear - 1, currentYear, currentYear + 1
+                2022, 2023, 2024, 2025 // Modify with your desired range
         );
-        yearComboBox.setValue(currentYear);
+        yearComboBox.setValue(currentDate.getYear());
         yearComboBox.setOnAction(e -> {
             int selectedYear = yearComboBox.getValue();
             currentDate = currentDate.withYear(selectedYear);
             refreshCalendar();
             refreshUpcomingEvents();
-            yearComboBox.setValue(selectedYear); // Set the value of the choice box
+            updateMonthYearLabel();
         });
+    }
 
-        // Add the ComboBoxes to the gridPane
-        gridPane.add(monthComboBox, 0, 0);
-        gridPane.add(yearComboBox, 1, 0);
+    private void updateMonthYearLabel() {
+        String selectedMonth = monthComboBox.getValue();
+        int selectedYear = yearComboBox.getValue();
+        monthYearLabel.setText(selectedMonth + " " + selectedYear);
     }
 
     private void populateCalendar() {
@@ -103,7 +96,6 @@ public class CalendarController implements Initializable {
         String monthYearText = currentDate.format(DateTimeFormatter.ofPattern("MMMM yyyy"));
         monthYearLabel.setText(monthYearText);
 
-        // Add labels for days of the week
         String[] daysOfWeek = {"Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"};
         for (int i = 0; i < 7; i++) {
             Label dayOfWeekLabel = new Label(daysOfWeek[i]);
@@ -125,11 +117,18 @@ public class CalendarController implements Initializable {
                 if ((row == startRow && col < startCol) || dayOfMonth > daysInMonth) {
                     gridPane.add(new Label(), col, row);
                 } else {
-                    Label dayLabel = new Label(String.valueOf(dayOfMonth));
-                    dayLabel.setMinWidth(40);
-                    dayLabel.setOnMouseClicked(e -> handleDateClick(dayLabel));
                     LocalDate date = LocalDate.of(currentDate.getYear(), currentDate.getMonth(), dayOfMonth);
+                    String event = eventManager.getEvent(date);
+
+                    Label dayLabel = new Label(String.valueOf(dayOfMonth));
+                    dayLabel.setMinSize(40, 40);
+                    dayLabel.setAlignment(Pos.CENTER);
+                    if (event != null && !event.isEmpty()) {
+                        dayLabel.setStyle("-fx-background-color: rgba(135, 206, 250, 0.5); -fx-background-radius: 20; -fx-border-radius: 20; -fx-padding: 5px;");
+                    }
+                    dayLabel.setOnMouseClicked(e -> handleDateClick(date)); // Modified to pass date directly
                     dayLabel.setUserData(date);
+
                     gridPane.add(dayLabel, col, row);
                     dayLabels[(row - 3) * 7 + col] = dayLabel;
                     dayOfMonth++;
@@ -137,57 +136,46 @@ public class CalendarController implements Initializable {
             }
         }
     }
+
     private void refreshCalendar() {
         populateCalendar();
     }
 
-    private void handleDateClick(Label dayLabel) {
-        LocalDate date = (LocalDate) dayLabel.getUserData();
-
-        TextInputDialog dialog = new TextInputDialog();
-        dialog.setTitle("Add/Edit Event");
-        dialog.setHeaderText("Add/Edit event for " + date.toString());
-        dialog.setContentText("Enter event description:");
-
-        Optional<String> result = dialog.showAndWait();
-        result.ifPresent(eventDescription -> {
-            if (eventManager.hasEvent(date)) {
-                TextInputDialog editDialog = new TextInputDialog(eventManager.getEvent(date));
-                editDialog.setTitle("Edit Event");
-                editDialog.setHeaderText("Edit event for " + date.toString());
-                editDialog.setContentText("Enter new event description:");
-
-                Optional<String> editResult = editDialog.showAndWait();
-                editResult.ifPresent(newEventDescription -> {
-                    eventManager.editEvent(date, newEventDescription);
-                    refreshUpcomingEvents();
-                });
-            } else {
-                eventManager.addEvent(date, eventDescription);
-                refreshUpcomingEvents();
+    private void addBackButton() {
+        Button backButton = new Button("←");
+        backButton.setOnAction(event -> {
+            try {
+                handleBackButtonClick(event);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
             }
         });
+        backButtonContainer.getChildren().add(backButton);
     }
+
+    @FXML
+    private void handleBackButtonClick(ActionEvent event) throws IOException {
+        Node source = (Node) event.getSource();
+        Stage stage = (Stage) source.getScene().getWindow();
+        FXMLLoader fxmlLoader = new FXMLLoader(StudyBuddyApplication.class.getResource("home-view.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 640, 480);
+        stage.setScene(scene);
+    }
+
+
 
     private void refreshUpcomingEvents() {
         upcomingEventsBox.getChildren().clear();
 
-        int daysInMonth = currentDate.lengthOfMonth();
+        // Display upcoming events for the current month
         LocalDate firstDayOfMonth = currentDate.withDayOfMonth(1);
-        LocalDate lastDayOfMonth = currentDate.withDayOfMonth(daysInMonth);
-        refreshUpcomingEventsInRange(firstDayOfMonth, lastDayOfMonth);
-    }
-
-
-    private void refreshUpcomingEventsInRange(LocalDate startDate, LocalDate endDate) {
-        long days = ChronoUnit.DAYS.between(startDate, endDate.plusDays(1));
-
+        LocalDate lastDayOfMonth = currentDate.withDayOfMonth(currentDate.lengthOfMonth());
+        long days = ChronoUnit.DAYS.between(firstDayOfMonth, lastDayOfMonth.plusDays(1));
         for (int i = 0; i < days; i++) {
-            LocalDate date = startDate.plusDays(i);
+            LocalDate date = firstDayOfMonth.plusDays(i);
             String event = eventManager.getEvent(date);
             if (event != null && !event.isEmpty()) {
                 Label eventLabel = new Label(date.toString() + ": " + event);
-                System.out.println("Upcoming Event: " + eventLabel.getText()); // Print the upcoming event
                 upcomingEventsBox.getChildren().add(eventLabel);
             }
         }
@@ -195,6 +183,58 @@ public class CalendarController implements Initializable {
         if (upcomingEventsBox.getChildren().isEmpty()) {
             Label noEventsLabel = new Label("No upcoming events.");
             upcomingEventsBox.getChildren().add(noEventsLabel);
+        }
+    }
+
+    private void handleDateClick(LocalDate date) {
+        // Check if an event exists for the clicked date
+        String event = eventManager.getEvent(date);
+        if (event != null && !event.isEmpty()) {
+            // An event exists for this date, ask for confirmation before deleting it
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Confirmation Dialog");
+            alert.setHeaderText("Delete Event Confirmation");
+            alert.setContentText("An event exists for this date. Are you sure you want to delete it?");
+
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.isPresent() && result.get() == ButtonType.OK) {
+                // User confirmed deletion, delete the event
+                eventManager.deleteEvent(date);
+                refreshUpcomingEvents(); // Update upcoming events box
+                refreshCalendar(); // Update calendar
+            }
+        }
+
+        else {
+            // No event exists for this date, proceed to add event
+            // Create a new window (Stage) for adding event
+            Stage addEventStage = new Stage();
+            addEventStage.setTitle("Add Event");
+
+            // Create components for the add event window
+            Label dateLabel = new Label("Date: " + date);
+            TextField eventTextField = new TextField();
+            Button addButton = new Button("Add");
+            addButton.setOnAction(e -> {
+                String eventDescription = eventTextField.getText();
+                eventManager.addEvent(date, eventDescription);
+                refreshUpcomingEvents(); // Update upcoming events box
+                refreshCalendar();
+                addEventStage.close(); // Close the window after adding the event
+            });
+
+            // Create layout for the add event window
+            VBox addEventLayout = new VBox(10);
+            addEventLayout.getChildren().addAll(dateLabel, eventTextField, addButton);
+            addEventLayout.setAlignment(Pos.CENTER);
+            addEventLayout.setPadding(new Insets(20));
+
+            // Create the scene and set it to the stage
+            Scene addEventScene = new Scene(addEventLayout, 300, 200);
+            addEventStage.setScene(addEventScene);
+
+            // Show the add event window
+            addEventStage.show();
         }
     }
 }
