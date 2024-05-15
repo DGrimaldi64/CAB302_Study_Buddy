@@ -79,20 +79,14 @@ public class Settings {
 
     @FXML
     private void handleChangePassword(ActionEvent event) throws IOException {
-        // Load the change password scene
         FXMLLoader loader = new FXMLLoader(getClass().getResource("change-password.fxml"));
         Parent changePasswordParent = loader.load();
         Scene changePasswordScene = new Scene(changePasswordParent);
 
-        // Create a new stage for the change password window
         Stage changePasswordStage = new Stage();
         changePasswordStage.setTitle("Change Password");
         changePasswordStage.setScene(changePasswordScene);
-
-        // Set modality so that it blocks interaction with the main window
         changePasswordStage.initModality(Modality.APPLICATION_MODAL);
-
-        // Show the change password window
         changePasswordStage.showAndWait();
     }
 

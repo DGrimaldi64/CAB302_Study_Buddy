@@ -116,32 +116,23 @@ public class DatabaseHandler {
     public static String getPasswordForUsername(String username) {
         try {
             Connection connection = DatabaseConnection.getInstance();
-            PreparedStatement getPassword = connection
-                    .prepareStatement("SELECT password FROM users WHERE username = ?");
+            PreparedStatement getPassword = connection.prepareStatement("SELECT password FROM users WHERE username = ?");
 
             getPassword.setString(1, username);
             ResultSet rs = getPassword.executeQuery();
 
-            if (rs.isBeforeFirst()) {
-                return rs.getString("password");
+            if (rs.next()) {
+                String password = rs.getString("password");
+                System.out.println("Retrieved password from database: " + password);
+                return password;
             }
 
         } catch (SQLException e) {
-
             showAlert("Error fetching password: " + e.getMessage(), Alert.AlertType.ERROR);
         }
 
         return null;
     }
-
-
-
-
-
-
-
-
-
 
     /**
      *
@@ -250,29 +241,26 @@ public class DatabaseHandler {
         try {
             Connection connection = DatabaseConnection.getInstance();
 
-            // Check if the connection is null
             if (connection == null) {
                 System.out.println("Database connection is null");
                 return false;
             }
 
-            // Verify current password
             String storedPassword = getPasswordForUsername(username);
+            System.out.println("Stored password: " + storedPassword);
+            System.out.println("Provided current password (hashed): " + hashPassword(currentPassword));
+
             if (storedPassword == null || !storedPassword.equals(hashPassword(currentPassword))) {
-                // Current password doesn't match, return false
-                System.out.println("Current password does not match");
+                System.out.println("Password verification failed");
                 return false;
             }
 
-            // Update password
             PreparedStatement updatePassword = connection.prepareStatement("UPDATE users SET password = ? WHERE username = ?");
             String hashedNewPassword = hashPassword(newPassword);
             updatePassword.setString(1, hashedNewPassword);
             updatePassword.setString(2, username);
 
             int rowsAffected = updatePassword.executeUpdate();
-
-            // Log the number of rows affected
             System.out.println(rowsAffected + " row(s) updated");
 
             close(connection);
@@ -284,8 +272,6 @@ public class DatabaseHandler {
         }
     }
 
-
-
     private static String hashPassword(String password) {
         try {
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
@@ -296,7 +282,9 @@ public class DatabaseHandler {
                 if (hex.length() == 1) hexString.append('0');
                 hexString.append(hex);
             }
-            return hexString.toString();
+            String hashedPassword = hexString.toString();
+            System.out.println("Hashed password: " + hashedPassword);
+            return hashedPassword;
         } catch (NoSuchAlgorithmException e) {
             showAlert("Error hashing password: " + e.getMessage(), Alert.AlertType.ERROR);
             e.printStackTrace();

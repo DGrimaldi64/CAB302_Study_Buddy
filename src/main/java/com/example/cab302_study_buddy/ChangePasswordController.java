@@ -23,21 +23,33 @@ public class ChangePasswordController {
         String newPassword = newPasswordField.getText();
         String confirmPassword = confirmPasswordField.getText();
 
-        // Implement logic to change the password
-        // Verify current password, validate new password, and update password in the database
+        if (newPassword.equals(confirmPassword)) {
+            String username = "currentLoggedInUsername"; // Retrieve the current logged-in username from your session/context
+            System.out.println("Attempting to change password for user: " + username);
+            boolean success = DatabaseHandler.updatePassword(username, currentPassword, newPassword);
 
-        // For demonstration, show a confirmation dialog
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            if (success) {
+                showAlert("Password changed successfully!", Alert.AlertType.CONFIRMATION);
+                clearFields();
+            } else {
+                showAlert("Error changing password. Please check your current password and try again.", Alert.AlertType.ERROR);
+            }
+        } else {
+            showAlert("New passwords do not match. Please try again.", Alert.AlertType.WARNING);
+        }
+    }
+
+    private void clearFields() {
+        currentPasswordField.clear();
+        newPasswordField.clear();
+        confirmPasswordField.clear();
+    }
+
+    private void showAlert(String message, Alert.AlertType alertType) {
+        Alert alert = new Alert(alertType);
         alert.setTitle("Password Change");
         alert.setHeaderText(null);
-        alert.setContentText("Password changed successfully!");
-        alert.showAndWait().ifPresent(response -> {
-            if (response == ButtonType.OK) {
-                // Optionally, you can reset the password fields after successful password change
-                currentPasswordField.clear();
-                newPasswordField.clear();
-                confirmPasswordField.clear();
-            }
-        });
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 }
