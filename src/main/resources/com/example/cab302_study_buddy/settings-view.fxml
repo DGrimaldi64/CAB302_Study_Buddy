@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.VBox?>
+
+<?import javafx.scene.layout.HBox?>
+<ScrollPane xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.cab302_study_buddy.Settings"
+            style="-fx-background-color: #FAFAFA;"
+            fitToWidth="true" fitToHeight="true">
+
+    <VBox spacing="20" alignment="CENTER" style="-fx-padding: 20;">
+
+        <!-- Back Button-->
+        <HBox spacing="15.0">
+            <Button text="←" onAction="#onBackClick"/>
+        </HBox>
+
+        <!-- Setting Title -->
+        <Label text="Settings" style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
+
+        <!-- Account Section -->
+        <VBox spacing="10" style="-fx-border-color: #DBDBDB; -fx-border-width: 0 0 1 0; -fx-padding: 20;">
+            <Label text="Account" style="-fx-font-size: 18px;"/>
+            <Button text="Edit Profile" style="-fx-background-color: transparent; -fx-text-fill: #0095F6; -fx-font-size: 14px;" onAction="#handleEditProfile"/>
+            <Button text="Change Password" style="-fx-background-color: transparent; -fx-text-fill: #0095F6; -fx-font-size: 14px;" onAction="#handleChangePassword"/>
+        </VBox>
+
+        <!-- Preferences Section -->
+        <VBox spacing="10" style="-fx-border-color: #DBDBDB; -fx-border-width: 0 0 1 0; -fx-padding: 20;">
+            <Label text="Preferences" style="-fx-font-size: 18px;"/>
+            <Button text="Dark Mode" style="-fx-background-color: transparent; -fx-text-fill: #0095F6; -fx-font-size: 14px;"/>
+            <Button text="Increase/Decrease UI Scale" style="-fx-background-color: transparent; -fx-text-fill: #0095F6; -fx-font-size: 14px;"/>
+            <Button text="Color-blind Settings" style="-fx-background-color: transparent; -fx-text-fill: #0095F6; -fx-font-size: 14px;"/>
+            <Button text="Disable/Enable Notifications" style="-fx-background-color: transparent; -fx-text-fill: #0095F6; -fx-font-size: 14px;"/>
+        </VBox>
+
+        <!-- Notifications Section -->
+        <VBox spacing="10" style="-fx-border-color: #DBDBDB; -fx-border-width: 0 0 1 0; -fx-padding: 20;">
+            <Label text="Notifications" style="-fx-font-size: 18px;"/>
+            <Button text="Push Notifications" style="-fx-background-color: transparent; -fx-text-fill: #0095F6; -fx-font-size: 14px;"/>
+            <Button text="Email and SMS" style="-fx-background-color: transparent; -fx-text-fill: #0095F6; -fx-font-size: 14px;"/>
+            <Button text="Activity Status" style="-fx-background-color: transparent; -fx-text-fill: #0095F6; -fx-font-size: 14px;"/>
+        </VBox>
+
+        <!-- Support Section -->
+        <VBox spacing="10" style="-fx-border-color: #DBDBDB; -fx-border-width: 0 0 1 0; -fx-padding: 20;">
+            <Label text="Support" style="-fx-font-size: 18px;"/>
+            <Button text="Report a Problem" style="-fx-background-color: transparent; -fx-text-fill: #0095F6; -fx-font-size: 14px;"/>
+            <Button text="Help Center" style="-fx-background-color: transparent; -fx-text-fill: #0095F6; -fx-font-size: 14px;"/>
+        </VBox>
+
+        <!-- Log Out Button -->
+        <Button fx:id="logoutButton" text="Log Out" style="-fx-background-color: transparent; -fx-text-fill: #FF0000; -fx-font-size: 16px;" onAction="#handleLogout"/>
+
+    </VBox>
+</ScrollPane>
