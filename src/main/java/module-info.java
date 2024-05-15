@@ -1,5 +1,5 @@
 
-module com.example.login {
+module com.example.cab302_study_buddy {
     requires javafx.controls;
     requires javafx.fxml;
     requires java.sql;
