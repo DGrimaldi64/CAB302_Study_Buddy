@@ -8,6 +8,11 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+
+import java.net.URL;
+import java.util.Optional;
 
 import java.io.IOException;
 
@@ -52,29 +57,71 @@ public class Settings {
         stage.show();
     }
 
+
+    @FXML
+    private void initialize() {
+        deleteAccountButton.setOnAction(event -> handleDeleteAccount());
+    }
     @FXML
     private void handleDeleteAccount() {
-        // Handle delete account logic here
+        // Show a confirmation dialog
+        Alert confirmationDialog = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmationDialog.setTitle("Delete Account");
+        confirmationDialog.setHeaderText("Are you sure you want to delete your account?");
+        confirmationDialog.setContentText("This action cannot be undone.");
+
+        Optional<ButtonType> result = confirmationDialog.showAndWait();
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            // Delete the user account
+            int currentUserId = LoginController.current_user.getId();
+            DatabaseHandler.deleteUser(currentUserId);
+
+            // Perform any additional cleanup or navigation after deleting the account
+            // For example, you can navigate back to the login screen
+            navigateToLoginScreen();
+        }
     }
+
+    private void navigateToLoginScreen() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("login-view.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) logoutButton.getScene().getWindow();
+            stage.setScene(new Scene(root));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    public static boolean isDarkMode = false;
 
     @FXML
     private void handleDarkMode() {
-        // Handle dark mode toggle logic here
-    }
+        isDarkMode = !isDarkMode;
 
-    @FXML
-    private void handleUIScale() {
-        // Handle UI scale adjustment logic here
-    }
+        // Load the current scene
+        Stage stage = (Stage) darkModeButton.getScene().getWindow();
+        Scene scene = stage.getScene();
 
-    @FXML
-    private void handleColorBlindSettings() {
-        // Handle color-blind settings logic here
-    }
+        // Clear the existing stylesheets
+        scene.getStylesheets().clear();
 
-    @FXML
-    private void handleNotifications() {
-        // Handle notifications toggle logic here
+        // Load the default stylesheet
+        String stylesPath = "styles.css";
+        URL stylesUrl = StudyBuddyApplication.class.getResource(stylesPath);
+        if (stylesUrl != null) {
+            scene.getStylesheets().add(stylesUrl.toExternalForm());
+        }
+
+        // Conditionally load the dark mode stylesheet
+        if (isDarkMode) {
+            String darkmodePath = "darkmode.css";
+            URL darkmodeUrl = StudyBuddyApplication.class.getResource(darkmodePath);
+            if (darkmodeUrl != null) {
+                scene.getStylesheets().add(darkmodeUrl.toExternalForm());
+            }
+        }
     }
 
     @FXML
@@ -100,9 +147,17 @@ public class Settings {
         stage.setTitle("Edit Profile");
         stage.setScene(editProfileScene);
 
+        // Get the current user's id
+        int userId = LoginController.current_user.getId();
+
+        // Get the controller instance and call initializeWithUserId
+        EditProfileController controller = loader.getController();
+        controller.initializeWithUserId(userId);
+
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.showAndWait();
     }
+
 
     @FXML
     protected void onBackClick() throws IOException {

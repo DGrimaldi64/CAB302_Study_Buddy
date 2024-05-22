@@ -2,8 +2,8 @@ package com.example.cab302_study_buddy;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.PasswordField;
+import javafx.stage.Stage;
 
 public class ChangePasswordController {
 
@@ -14,42 +14,47 @@ public class ChangePasswordController {
     private PasswordField newPasswordField;
 
     @FXML
-    private PasswordField confirmPasswordField;
+    private PasswordField confirmNewPasswordField;
 
-    // Method to handle changing the password
     @FXML
     private void handleChangePassword() {
         String currentPassword = currentPasswordField.getText();
         String newPassword = newPasswordField.getText();
-        String confirmPassword = confirmPasswordField.getText();
+        String confirmNewPassword = confirmNewPasswordField.getText();
 
-        if (newPassword.equals(confirmPassword)) {
-            String username = "currentLoggedInUsername"; // Retrieve the current logged-in username from your session/context
-            System.out.println("Attempting to change password for user: " + username);
-            boolean success = DatabaseHandler.updatePassword(username, currentPassword, newPassword);
-
-            if (success) {
-                showAlert("Password changed successfully!", Alert.AlertType.CONFIRMATION);
-                clearFields();
-            } else {
-                showAlert("Error changing password. Please check your current password and try again.", Alert.AlertType.ERROR);
-            }
-        } else {
-            showAlert("New passwords do not match. Please try again.", Alert.AlertType.WARNING);
+        // Perform necessary validations
+        if (newPassword.isEmpty() || confirmNewPassword.isEmpty()) {
+            showAlert("Please enter the new password and confirm it.", Alert.AlertType.ERROR);
+            return;
         }
-    }
 
-    private void clearFields() {
-        currentPasswordField.clear();
-        newPasswordField.clear();
-        confirmPasswordField.clear();
+        if (!newPassword.equals(confirmNewPassword)) {
+            showAlert("New password and confirmation do not match.", Alert.AlertType.ERROR);
+            return;
+        }
+
+        // Get the current user's username
+        String username = LoginController.current_user.getUsername();
+
+        // Update the password in the database
+        boolean isPasswordUpdated = DatabaseHandler.updatePassword(username, currentPassword, newPassword);
+
+        if (isPasswordUpdated) {
+            showAlert("Password changed successfully!", Alert.AlertType.INFORMATION);
+            closeChangePasswordWindow();
+        } else {
+            showAlert("Failed to change password. Please check the current password.", Alert.AlertType.ERROR);
+        }
     }
 
     private void showAlert(String message, Alert.AlertType alertType) {
         Alert alert = new Alert(alertType);
-        alert.setTitle("Password Change");
-        alert.setHeaderText(null);
         alert.setContentText(message);
         alert.showAndWait();
+    }
+
+    private void closeChangePasswordWindow() {
+        Stage stage = (Stage) currentPasswordField.getScene().getWindow();
+        stage.close();
     }
 }

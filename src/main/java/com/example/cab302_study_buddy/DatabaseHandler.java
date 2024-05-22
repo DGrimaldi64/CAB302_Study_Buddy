@@ -238,62 +238,118 @@ public class DatabaseHandler {
         }
     }
 
+
+    public static void deleteUser(int userId) {
+        try {
+            Connection connection = DatabaseConnection.getInstance();
+
+            // First, delete all tasks associated with the user
+            PreparedStatement deleteUserTasks = connection.prepareStatement("DELETE FROM tasks WHERE user_id = ?");
+            deleteUserTasks.setInt(1, userId);
+            deleteUserTasks.executeUpdate();
+
+            // Then, delete the user from the users table
+            PreparedStatement deleteUser = connection.prepareStatement("DELETE FROM users WHERE id = ?");
+            deleteUser.setInt(1, userId);
+            deleteUser.executeUpdate();
+
+            close(connection);
+        } catch (SQLException e) {
+            showAlert("Error deleting user: " + e.getMessage(), Alert.AlertType.ERROR);
+        }
+    }
+
+    public static void updateUserProfile(int userId, String newUsername, String newPhone, String newEmail) {
+        try {
+            Connection connection = DatabaseConnection.getInstance();
+            PreparedStatement stmt = connection.prepareStatement("UPDATE users SET username = ?, identifier = ? WHERE id = ?");
+            stmt.setString(1, newUsername);
+            stmt.setString(2, newPhone == null ? (newEmail == null ? "" : newEmail) : (newPhone.isEmpty() ? newEmail : newPhone));
+            stmt.setInt(3, userId);
+            stmt.executeUpdate();
+            close(connection);
+        } catch (SQLException e) {
+            showAlert("Error updating user profile: " + e.getMessage(), Alert.AlertType.ERROR);
+        }
+    }
+
+    public static String getUsernameForId(int userId) {
+        try {
+            Connection connection = DatabaseConnection.getInstance();
+            PreparedStatement stmt = connection.prepareStatement("SELECT username FROM users WHERE id = ?");
+            stmt.setInt(1, userId);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return rs.getString("username");
+            }
+            close(connection);
+        } catch (SQLException e) {
+            showAlert("Error retrieving username: " + e.getMessage(), Alert.AlertType.ERROR);
+        }
+        return null;
+    }
+
+    public static String getPhoneForId(int userId) {
+        try {
+            Connection connection = DatabaseConnection.getInstance();
+            PreparedStatement stmt = connection.prepareStatement("SELECT identifier FROM users WHERE id = ?");
+            stmt.setInt(1, userId);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                String identifier = rs.getString("identifier");
+                if (identifier != null && SignupController.VALID_PHONE_NUMBER_REGEX.matcher(identifier).matches()) {
+                    return identifier;
+                }
+            }
+            close(connection);
+        } catch (SQLException e) {
+            showAlert("Error retrieving phone number: " + e.getMessage(), Alert.AlertType.ERROR);
+        }
+        return null;
+    }
+
+    public static String getEmailForId(int userId) {
+        try {
+            Connection connection = DatabaseConnection.getInstance();
+            PreparedStatement stmt = connection.prepareStatement("SELECT identifier FROM users WHERE id = ?");
+            stmt.setInt(1, userId);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                String identifier = rs.getString("identifier");
+                if (identifier != null && SignupController.VALID_EMAIL_ADDRESS_REGEX.matcher(identifier).matches()) {
+                    return identifier;
+                }
+            }
+            close(connection);
+        } catch (SQLException e) {
+            showAlert("Error retrieving email: " + e.getMessage(), Alert.AlertType.ERROR);
+        }
+        return null;
+    }
+
     public static boolean updatePassword(String username, String currentPassword, String newPassword) {
         try {
             Connection connection = DatabaseConnection.getInstance();
 
-            if (connection == null) {
-                System.out.println("Database connection is null");
-                return false;
-            }
-
+            // First, check if the current password matches the stored password
             String storedPassword = getPasswordForUsername(username);
-            System.out.println("Stored password: " + storedPassword);
-            System.out.println("Provided current password (hashed): " + hashPassword(currentPassword));
-
-            if (storedPassword == null || !storedPassword.equals(hashPassword(currentPassword))) {
-                System.out.println("Password verification failed");
-                return false;
+            if (!storedPassword.equals(currentPassword)) {
+                return false; // Current password is incorrect
             }
 
-            PreparedStatement updatePassword = connection.prepareStatement("UPDATE users SET password = ? WHERE username = ?");
-            String hashedNewPassword = hashPassword(newPassword);
-            updatePassword.setString(1, hashedNewPassword);
-            updatePassword.setString(2, username);
-
-            int rowsAffected = updatePassword.executeUpdate();
-            System.out.println(rowsAffected + " row(s) updated");
+            // Update the password in the database
+            PreparedStatement stmt = connection.prepareStatement("UPDATE users SET password = ? WHERE username = ?");
+            stmt.setString(1, newPassword);
+            stmt.setString(2, username);
+            stmt.executeUpdate();
 
             close(connection);
-
-            return rowsAffected > 0;
+            return true; // Password updated successfully
         } catch (SQLException e) {
             showAlert("Error updating password: " + e.getMessage(), Alert.AlertType.ERROR);
             return false;
         }
     }
-
-    private static String hashPassword(String password) {
-        try {
-            MessageDigest digest = MessageDigest.getInstance("SHA-256");
-            byte[] hash = digest.digest(password.getBytes());
-            StringBuilder hexString = new StringBuilder();
-            for (byte b : hash) {
-                String hex = Integer.toHexString(0xff & b);
-                if (hex.length() == 1) hexString.append('0');
-                hexString.append(hex);
-            }
-            String hashedPassword = hexString.toString();
-            System.out.println("Hashed password: " + hashedPassword);
-            return hashedPassword;
-        } catch (NoSuchAlgorithmException e) {
-            showAlert("Error hashing password: " + e.getMessage(), Alert.AlertType.ERROR);
-            e.printStackTrace();
-            return null;
-        }
-    }
-
-
     /**
      * Creates pop-up in JavaFX to notify user of an error or other information
      *
@@ -318,4 +374,5 @@ public class DatabaseHandler {
             System.err.println(ex);
         }
     }
+
 }
