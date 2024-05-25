@@ -112,10 +112,10 @@ public class HomeController {
     @FXML
     protected void onAccessibilityClick() throws IOException {
         // change scene to Accessibility
-//        Stage stage = (Stage)welcomeText.getScene().getWindow();
-//        FXMLLoader fxmlLoader = new FXMLLoader(StudyBuddyApplication.class.getResource("accessibility-view.fxml"));
-//        Scene scene = new Scene(fxmlLoader.load(),640, 480);
-//        stage.setScene(scene);
+        Stage stage = (Stage)welcomeText.getScene().getWindow();
+        FXMLLoader fxmlLoader = new FXMLLoader(StudyBuddyApplication.class.getResource("accessibility-view.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(),640, 480);
+        stage.setScene(scene);
     }
 
     @FXML

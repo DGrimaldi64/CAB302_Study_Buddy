@@ -17,7 +17,6 @@ public class DatabaseConnection {
         String url = "jdbc:sqlite:users.db";
         try {
             instance = DriverManager.getConnection(url);
-            System.out.println("Connection to SQLite has been established.");
         } catch (SQLException sqlEx) {
             System.err.println(sqlEx);
         }
@@ -28,7 +27,6 @@ public class DatabaseConnection {
      * @return returns a variable of type "Connection"
      */
     public static Connection getInstance() {
-        System.out.println(instance);
         try {
             if (instance ==null || instance.isClosed()) {
                 new DatabaseConnection();

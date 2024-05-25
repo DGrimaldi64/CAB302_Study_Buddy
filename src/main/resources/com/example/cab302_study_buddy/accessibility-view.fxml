@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox spacing="20.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.cab302_study_buddy.AccessibilityController">
+    <children>
+        <HBox spacing="15.0">
+            <Button text="←" onAction="#onBackClick"/>
+        </HBox>
+        <Label text="Accessibility">
+            <font>
+                <Font size="24.0" />
+            </font>
+        </Label>
+        <VBox alignment="CENTER_LEFT" spacing="10.0">
+            <children>
+                <Label text="Text Option" />
+                <Button mnemonicParsing="false" onAction="#setLargeText" text="Large">
+                    <font>
+                        <Font size="18.0" />
+                    </font>
+                </Button>
+                <Button mnemonicParsing="false" onAction="#setMediumText" text="Medium">
+                    <font>
+                        <Font size="14.0" />
+                    </font>
+                </Button>
+                <Button mnemonicParsing="false" onAction="#setSmallText" text="Small">
+                    <font>
+                        <Font size="10.0" />
+                    </font>
+                </Button>
+            </children>
+        </VBox>
+        <HBox alignment="CENTER_LEFT" spacing="20.0">
+            <children>
+                <Label text="Display Visibility" />
+                <VBox spacing="10.0">
+                    <children>
+                        <Button mnemonicParsing="false" onAction="#setNormal" text="Normal" />
+                        <Button mnemonicParsing="false" onAction="#setProtanopia" text="Protanopia" />
+                        <Button mnemonicParsing="false" onAction="#setDeuteranopia" text="Deuteranopia" />
+                        <Button mnemonicParsing="false" onAction="#setTritanopia" text="Tritanopia" />
+                    </children>
+                </VBox>
+            </children>
+        </HBox>
+        <Button mnemonicParsing="false" text="Home">
+            <HBox.margin>
+                <Insets left="10.0" />
+            </HBox.margin>
+        </Button>
+    </children>
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+    </padding>
+</VBox>
