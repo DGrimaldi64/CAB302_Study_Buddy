@@ -7,9 +7,7 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
 
-<VBox alignment="CENTER" spacing="50.0" fillWidth="false"
-      xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.example.cab302_study_buddy.HomeController">
+<VBox alignment="CENTER" spacing="50.0" fillWidth="false"  xmlns:fx="http://javafx.com/fxml"  fx:controller="com.example.cab302_study_buddy.HomeController" stylesheets="@styles.css">
     <Label fx:id="welcomeText" text="Welcome To Study-Buddy" style="-fx-font-size: 48px;"/>
     <HBox spacing="50.0" alignment="CENTER">
         <VBox alignment="CENTER">

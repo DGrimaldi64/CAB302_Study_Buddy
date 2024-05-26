@@ -1,27 +1,142 @@
-/* General styles */
+/* General Styles */
 .root {
-    -fx-font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    -fx-base: #f5f5f5;
-    -fx-background: #ffffff;
+    -fx-font-family: 'Arial';
+    -fx-font-size: 14px;
+    -fx-background-color: #f0f0f0;
 }
 
-/* Button styles */
+/* Button Styles */
 .button {
-    -fx-background-color: #0077b6;
-    -fx-text-fill: #ffffff;
+    -fx-background-color: #0078d7;
+    -fx-text-fill: white;
     -fx-font-weight: bold;
-    -fx-padding: 10px 20px;
-    -fx-cursor: hand;
+    -fx-padding: 10 20;
 }
 
 .button:hover {
-    -fx-background-color: #005b8f;
+    -fx-background-color: #005a9e;
 }
 
-/* Label styles */
+.button:focused {
+    -fx-background-color: #004578;
+    -fx-border-color: #004578;
+    -fx-border-width: 1;
+}
+
+/* Label Styles */
 .label {
+    -fx-text-fill: #333;
     -fx-font-size: 14px;
-    -fx-text-fill: #333333;
 }
 
-/* TextField and Pas
+.label-heading {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333;
+}
+
+.label-subheading {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #555;
+}
+
+/* TextField Styles */
+.text-field {
+    -fx-background-color: white;
+    -fx-border-color: #ccc;
+    -fx-border-width: 1;
+    -fx-padding: 5;
+}
+
+.text-field:focused {
+    -fx-border-color: #0078d7;
+    -fx-border-width: 1;
+}
+
+/* PasswordField Styles */
+.password-field {
+    -fx-background-color: white;
+    -fx-border-color: #ccc;
+    -fx-border-width: 1;
+    -fx-padding: 5;
+}
+
+.password-field:focused {
+    -fx-border-color: #0078d7;
+    -fx-border-width: 1;
+}
+
+/* VBox and HBox Styles */
+.vbox, .hbox {
+    -fx-spacing: 10px;
+}
+
+/* ListView Styles */
+.list-view {
+    -fx-background-color: white;
+    -fx-border-color: #ccc;
+    -fx-border-width: 1;
+}
+
+.list-view .list-cell {
+    -fx-padding: 10px;
+}
+
+/* ComboBox Styles */
+.combo-box {
+    -fx-background-color: white;
+    -fx-border-color: #ccc;
+    -fx-border-width: 1;
+    -fx-padding: 5;
+}
+
+.combo-box:focused {
+    -fx-border-color: #0078d7;
+    -fx-border-width: 1;
+}
+
+/* ScrollPane Styles */
+.scroll-pane {
+    -fx-background-color: #fafafa;
+}
+
+/* Custom Component Styles */
+#timerDisplay {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333;
+}
+
+#timerControls .button {
+    -fx-background-color: #0078d7;
+    -fx-text-fill: white;
+}
+
+#setTime .text-field {
+    -fx-pref-width: 50px;
+    -fx-alignment: center;
+}
+
+#enterBtn {
+    -fx-background-color: #28a745;
+    -fx-text-fill: white;
+}
+
+#enterBtn:hover {
+    -fx-background-color: #218838;
+}
+
+#enterBtn:focused {
+    -fx-background-color: #1e7e34;
+}
+
+/* Hyperlink Styles */
+.hyperlink {
+    -fx-text-fill: #0078d7;
+    -fx-font-size: 14px;
+}
+
+.hyperlink:hover {
+    -fx-text-fill: #005a9e;
+}

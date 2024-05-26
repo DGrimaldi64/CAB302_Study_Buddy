@@ -27,14 +27,6 @@ public class Settings {
     @FXML
     private Button darkModeButton;
 
-    @FXML
-    private Button uiScaleButton;
-
-    @FXML
-    private Button colorBlindButton;
-
-    @FXML
-    private Button notificationsButton;
 
     @FXML
     private Button getEditProfileButton;
