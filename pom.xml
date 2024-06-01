@@ -13,8 +13,7 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <junit.version>5.10.0</junit.version>
-    <maven.compiler.source>21</maven.compiler.source>
-    <maven.compiler.target>21</maven.compiler.target>
+
   </properties>
 
 
@@ -59,7 +58,7 @@
         <configuration>
           <source>17</source>
           <target>17</target>
-
+          <release>17</release>
         </configuration>
       </plugin>
       <plugin>
