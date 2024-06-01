@@ -8,11 +8,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a666fe26-b739-47f3-a006-51fbdbd9cd9f" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/test/java/SignupControllerTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/TimerControllerTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/DatabaseHandlerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/DatabaseHandlerTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,7 +28,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="main" />
+        <entry key="$PROJECT_DIR$" value="Luka" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -61,6 +58,7 @@
     "JUnit.DatabaseHandlerTest.testgetIdForUsernameFalse.executor": "Debug",
     "JUnit.SignupControllerTest.executor": "Run",
     "Maven.User_Authentication [clean].executor": "Run",
+    "Maven.User_Authentication [compile].executor": "Run",
     "Maven.User_Authentication [org.openjfx:javafx-maven-plugin:0.0.8:run].executor": "Run",
     "Maven.User_Authentication [package].executor": "Run",
     "Maven.User_Authentication [test].executor": "Run",
@@ -70,7 +68,7 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "Luka",
+    "git-widget-placeholder": "main",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "C:/Users/Dominic Grimaldi/IdeaProjects/CAB302_Study_Buddy/src/main/resources/com/example/cab302_study_buddy",
     "list.type.of.created.stylesheet": "CSS",
