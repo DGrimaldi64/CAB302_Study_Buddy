@@ -17,6 +17,9 @@ import java.util.Objects;
 import java.util.Timer;
 import java.util.TimerTask;
 
+/**
+ * Contains all logic required for the timer page functionality
+ */
 public class TimerController {
 
     // global variables

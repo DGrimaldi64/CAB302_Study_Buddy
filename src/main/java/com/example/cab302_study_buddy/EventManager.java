@@ -5,6 +5,9 @@ import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * Handles logic for events used on the calendar page
+ */
 public class EventManager {
     private final Map<LocalDate, String> events;
     private final String eventsFile;

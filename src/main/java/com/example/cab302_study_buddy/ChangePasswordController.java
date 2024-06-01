@@ -5,6 +5,10 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.PasswordField;
 
+/**
+ * Class which handles logic for updating password of a given user
+ */
+
 public class ChangePasswordController {
 
     @FXML

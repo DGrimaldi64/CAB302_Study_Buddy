@@ -23,6 +23,10 @@ import java.time.temporal.ChronoUnit;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
+/**
+ * Handles layout and GUI for the Calendar page, use of the database is handled in @EventManager
+ */
+
 public class CalendarController implements Initializable {
     private LocalDate currentDate;
     private EventManager eventManager = new EventManager("events.txt");

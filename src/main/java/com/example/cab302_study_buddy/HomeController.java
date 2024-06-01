@@ -11,6 +11,9 @@ import javafx.scene.image.ImageView;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * Class which contains logic and layout for home page which is the page directly after signing in and where all other features are accessed from
+ */
 public class HomeController {
 
     @FXML

@@ -11,6 +11,10 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+/**
+ * Contains logic and layout necessary for the settings page
+ */
+
 public class Settings {
 
     @FXML

@@ -7,7 +7,9 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-
+/**
+ * This is the main file where the JavaFX stage is created and the program is run from
+ */
 public class StudyBuddyApplication extends Application {
 
     @Override
