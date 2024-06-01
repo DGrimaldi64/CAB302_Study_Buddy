@@ -54,8 +54,8 @@ public class AccessibilityController {
         Parent homeParent = FXMLLoader.load(getClass().getResource("home-view.fxml"));
         Scene homeScene = new Scene(homeParent);
         Stage window = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
+       // StudyBuddyApplication.applyStyles(homeScene); // Ensure styles are applied on scene change
         window.setScene(homeScene);
-        StudyBuddyApplication.applyStyles(homeScene); // Ensure styles are applied on scene change
         window.show();
     }
 

@@ -5,19 +5,19 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
 
-import java.io.IOException;
-
 public class Settings {
 
+    public static boolean isDarkMode;
     @FXML
     private Button logoutButton;
 
@@ -27,11 +27,43 @@ public class Settings {
     @FXML
     private Button darkModeButton;
 
-
     @FXML
     private Button getEditProfileButton;
-    // Add event handling methods here
-    // For example:
+
+
+    @FXML
+    private void initialize() {
+        deleteAccountButton.setOnAction(event -> handleDeleteAccount());
+        darkModeButton.setOnAction(event -> handleDarkMode());
+    }
+
+    @FXML
+    private void handleDarkMode() {
+        isDarkMode = !isDarkMode;
+
+        // Load the current scene
+        Stage stage = (Stage) darkModeButton.getScene().getWindow();
+        Scene scene = stage.getScene();
+
+        // Clear the existing stylesheets
+        scene.getStylesheets().clear();
+
+        // Load the default stylesheet
+        String stylesPath = "/default.css";
+        URL stylesUrl = getClass().getResource(stylesPath);
+        if (stylesUrl != null) {
+            scene.getStylesheets().add(stylesUrl.toExternalForm());
+        }
+
+        // Conditionally load the dark mode stylesheet
+        if (isDarkMode) {
+            String darkmodePath = "/dark-mode.css";
+            URL darkmodeUrl = getClass().getResource(darkmodePath);
+            if (darkmodeUrl != null) {
+                scene.getStylesheets().add(darkmodeUrl.toExternalForm());
+            }
+        }
+    }
 
 
     @FXML
@@ -49,11 +81,6 @@ public class Settings {
         stage.show();
     }
 
-
-    @FXML
-    private void initialize() {
-        deleteAccountButton.setOnAction(event -> handleDeleteAccount());
-    }
     @FXML
     private void handleDeleteAccount() {
         // Show a confirmation dialog
@@ -82,37 +109,6 @@ public class Settings {
             stage.setScene(new Scene(root));
         } catch (IOException e) {
             e.printStackTrace();
-        }
-    }
-
-
-    public static boolean isDarkMode = false;
-
-    @FXML
-    private void handleDarkMode() {
-        isDarkMode = !isDarkMode;
-
-        // Load the current scene
-        Stage stage = (Stage) darkModeButton.getScene().getWindow();
-        Scene scene = stage.getScene();
-
-        // Clear the existing stylesheets
-        scene.getStylesheets().clear();
-
-        // Load the default stylesheet
-        String stylesPath = "styles.css";
-        URL stylesUrl = StudyBuddyApplication.class.getResource(stylesPath);
-        if (stylesUrl != null) {
-            scene.getStylesheets().add(stylesUrl.toExternalForm());
-        }
-
-        // Conditionally load the dark mode stylesheet
-        if (isDarkMode) {
-            String darkmodePath = "darkmode.css";
-            URL darkmodeUrl = StudyBuddyApplication.class.getResource(darkmodePath);
-            if (darkmodeUrl != null) {
-                scene.getStylesheets().add(darkmodeUrl.toExternalForm());
-            }
         }
     }
 
@@ -150,7 +146,6 @@ public class Settings {
         stage.showAndWait();
     }
 
-
     @FXML
     protected void onBackClick() throws IOException {
         // change scene to Home
@@ -161,4 +156,3 @@ public class Settings {
         stage.setAlwaysOnTop(false);
     }
 }
-

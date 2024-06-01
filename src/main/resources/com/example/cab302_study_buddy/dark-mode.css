@@ -1,0 +1,108 @@
+/* General Styles */
+.root {
+    -fx-font-family: 'Segoe UI', Arial, sans-serif;
+    -fx-font-size: 14px;
+    -fx-background-color: #333333;
+    -fx-text-fill: #e0e0e0;
+}
+
+/* Button Styles */
+.button {
+    -fx-background-color: #4caf50;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-padding: 10 20;
+    -fx-background-radius: 5;
+}
+
+.button:hover {
+    -fx-background-color: #388e3c;
+}
+
+.button:focused {
+    -fx-background-color: #2e7d32;
+    -fx-border-color: #2e7d32;
+    -fx-border-width: 1;
+}
+
+/* Label Styles */
+.label {
+    -fx-text-fill: #e0e0e0;
+    -fx-font-size: 14px;
+}
+
+.label-heading {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #e0e0e0;
+}
+
+.label-subheading {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #cccccc;
+}
+
+/* TextField Styles */
+.text-field {
+    -fx-background-color: #444444;
+    -fx-border-color: #555555;
+    -fx-border-width: 1;
+    -fx-padding: 5;
+    -fx-text-fill: #e0e0e0;
+    -fx-background-radius: 5;
+}
+
+.text-field:focused {
+    -fx-border-color: #4caf50;
+    -fx-border-width: 2;
+}
+
+/* PasswordField Styles */
+.password-field {
+    -fx-background-color: #444444;
+    -fx-border-color: #555555;
+    -fx-border-width: 1;
+    -fx-padding: 5;
+    -fx-text-fill: #e0e0e0;
+    -fx-background-radius: 5;
+}
+
+.password-field:focused {
+    -fx-border-color: #4caf50;
+    -fx-border-width: 2;
+}
+
+/* VBox and HBox Styles */
+.vbox, .hbox {
+    -fx-spacing: 10px;
+}
+
+/* ListView Styles */
+.list-view {
+    -fx-background-color: #444444;
+    -fx-border-color: #555555;
+    -fx-border-width: 1;
+    -fx-text-fill: #e0e0e0;
+    -fx-background-radius: 5;
+}
+
+.list-view .list-cell {
+    -fx-padding: 10px;
+    -fx-text-fill: #e0e0e0;
+}
+
+/* ComboBox Styles */
+.combo-box {
+    -fx-background-color: #444444;
+    -fx-border-color: #555555;
+    -fx-border-width: 1;
+    -fx-padding: 5;
+    -fx-text-fill: #e0e0e0;
+    -fx-background-radius: 5;
+}
+
+.combo-box:focused {
+    -fx-border-color: #4caf50;
+    -fx-border-width: 2;
+}

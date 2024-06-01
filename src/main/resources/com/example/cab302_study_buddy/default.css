@@ -1,25 +1,26 @@
 /* General Styles */
 .root {
-    -fx-font-family: 'Arial';
+    -fx-font-family: 'Segoe UI', Arial, sans-serif;
     -fx-font-size: 14px;
-    -fx-background-color: #f0f0f0;
+    -fx-background-color: #f8f8f8;
 }
 
 /* Button Styles */
 .button {
-    -fx-background-color: #0078d7;
+    -fx-background-color: #4caf50;
     -fx-text-fill: white;
     -fx-font-weight: bold;
     -fx-padding: 10 20;
+    -fx-background-radius: 5;
 }
 
 .button:hover {
-    -fx-background-color: #005a9e;
+    -fx-background-color: #388e3c;
 }
 
 .button:focused {
-    -fx-background-color: #004578;
-    -fx-border-color: #004578;
+    -fx-background-color: #2e7d32;
+    -fx-border-color: #2e7d32;
     -fx-border-width: 1;
 }
 
@@ -47,11 +48,12 @@
     -fx-border-color: #ccc;
     -fx-border-width: 1;
     -fx-padding: 5;
+    -fx-background-radius: 5;
 }
 
 .text-field:focused {
-    -fx-border-color: #0078d7;
-    -fx-border-width: 1;
+    -fx-border-color: #4caf50;
+    -fx-border-width: 2;
 }
 
 /* PasswordField Styles */
@@ -60,11 +62,12 @@
     -fx-border-color: #ccc;
     -fx-border-width: 1;
     -fx-padding: 5;
+    -fx-background-radius: 5;
 }
 
 .password-field:focused {
-    -fx-border-color: #0078d7;
-    -fx-border-width: 1;
+    -fx-border-color: #4caf50;
+    -fx-border-width: 2;
 }
 
 /* VBox and HBox Styles */
@@ -77,6 +80,7 @@
     -fx-background-color: white;
     -fx-border-color: #ccc;
     -fx-border-width: 1;
+    -fx-background-radius: 5;
 }
 
 .list-view .list-cell {
@@ -89,11 +93,12 @@
     -fx-border-color: #ccc;
     -fx-border-width: 1;
     -fx-padding: 5;
+    -fx-background-radius: 5;
 }
 
 .combo-box:focused {
-    -fx-border-color: #0078d7;
-    -fx-border-width: 1;
+    -fx-border-color: #4caf50;
+    -fx-border-width: 2;
 }
 
 /* ScrollPane Styles */
@@ -109,7 +114,7 @@
 }
 
 #timerControls .button {
-    -fx-background-color: #0078d7;
+    -fx-background-color: #4caf50;
     -fx-text-fill: white;
 }
 
@@ -119,24 +124,32 @@
 }
 
 #enterBtn {
-    -fx-background-color: #28a745;
+    -fx-background-color: #2196f3;
     -fx-text-fill: white;
 }
 
 #enterBtn:hover {
-    -fx-background-color: #218838;
+    -fx-background-color: #1976d2;
 }
 
 #enterBtn:focused {
-    -fx-background-color: #1e7e34;
+    -fx-background-color: #1565c0;
 }
 
 /* Hyperlink Styles */
 .hyperlink {
-    -fx-text-fill: #0078d7;
+    -fx-text-fill: #2196f3;
     -fx-font-size: 14px;
 }
 
 .hyperlink:hover {
-    -fx-text-fill: #005a9e;
+    -fx-text-fill: #1976d2;
+}
+
+.hoverableImage {
+    -fx-cursor: hand;
+}
+
+.hoverableImage:hover {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 10, 0.5, 0.0, 0.0);
 }
