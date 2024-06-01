@@ -1,6 +1,15 @@
 import com.example.cab302_study_buddy.DatabaseHandler;
+import javafx.beans.InvalidationListener;
+import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
 import org.junit.jupiter.api.*;
 import java.sql.SQLException;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.ListIterator;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class DatabaseHandlerTest {
@@ -46,6 +55,17 @@ class DatabaseHandlerTest {
         int actual = DatabaseHandler.getIdForUsername("test1");
         int expected = 100;
         assertNotEquals(expected, actual);
+    }
+
+    @Test
+    void testgetTasksForUser() {
+        ObservableList<String> actual = DatabaseHandler.getTasksForUser(DatabaseHandler.getIdForUsername("test"));
+        ObservableList<String> expected = FXCollections.observableArrayList();
+        expected.add("Clean Kitchen");
+        expected.add("Start writing report");
+        expected.add("CAB310 investigative study");
+
+        assertIterableEquals(expected, actual);
     }
 
 }
