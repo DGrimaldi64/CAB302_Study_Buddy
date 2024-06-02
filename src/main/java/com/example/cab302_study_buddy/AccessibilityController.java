@@ -51,12 +51,11 @@ public class AccessibilityController {
 
     @FXML
     protected void onBackClick(ActionEvent event) throws IOException {
-        Parent homeParent = FXMLLoader.load(getClass().getResource("home-view.fxml"));
-        Scene homeScene = new Scene(homeParent);
-        Stage window = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
-       // StudyBuddyApplication.applyStyles(homeScene); // Ensure styles are applied on scene change
-        window.setScene(homeScene);
-        window.show();
+        // Change scene to Home
+        Stage stage = (Stage) ((javafx.scene.Node) event.getSource()).getScene().getWindow();
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("home-view.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 640, 480);
+        stage.setScene(scene);
     }
 
     private void applyTextSize(ActionEvent event, String styleClass) {
