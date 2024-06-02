@@ -12,7 +12,6 @@ import static com.example.cab302_study_buddy.TaskController.Task;
 import static com.example.cab302_study_buddy.LoginController.current_user;
 
 public class TimerService {
-
     private static TimerService instance;
     private Timer timer;
     private int convertedTime;

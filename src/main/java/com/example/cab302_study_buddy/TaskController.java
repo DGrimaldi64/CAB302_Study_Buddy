@@ -41,6 +41,9 @@ public class TaskController {
     private ObservableList<Task> tasks = FXCollections.observableArrayList();
     private int currentUserId;
 
+    /**
+     * This method is called when the FXML file is loaded
+     */
     public void initialize() {
         this.currentUserId = current_user.getId();
         DatabaseHandler.createTable(); // Create the tables if they don't exist
@@ -58,6 +61,9 @@ public class TaskController {
         addButton.setOnMouseClicked(event -> taskTableView.getSelectionModel().clearSelection());
     }
 
+    /**
+     * Method to add a new task
+     */
     @FXML
     private void addTask() {
         String taskName = addTaskTextField.getText().trim();
@@ -73,6 +79,9 @@ public class TaskController {
         }
     }
 
+    /**
+     * Method to show a dialog for editing a task
+     */
     @FXML
     private void showEditTaskDialog() {
         int selectedIndex = taskTableView.getSelectionModel().getSelectedIndex();
@@ -133,6 +142,9 @@ public class TaskController {
         }
     }
 
+    /**
+     * Method to remove a task
+     */
     @FXML
     private void removeTask() {
         int selectedIndex = taskTableView.getSelectionModel().getSelectedIndex();
@@ -146,6 +158,9 @@ public class TaskController {
         }
     }
 
+    /**
+     * Method to handle the back button click
+     */
     @FXML
     protected void onBackClick() throws IOException {
         // change scene to Home
@@ -155,6 +170,9 @@ public class TaskController {
         stage.setScene(scene);
     }
 
+    /**
+     * Method to show an alert dialog
+     */
     private void showAlert(String title, String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle(title);
@@ -163,6 +181,9 @@ public class TaskController {
         alert.showAndWait();
     }
 
+    /**
+     * Task class representing a task
+     */
     public static class Task {
         private final String taskName;
         private final String expectedTime;

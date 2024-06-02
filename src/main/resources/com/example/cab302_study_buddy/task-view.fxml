@@ -15,7 +15,7 @@
     </padding>
     <!-- HBox for the back button -->
     <HBox spacing="15.0">
-        <Button text="←" onAction="#onBackClick"/>
+        <Button text="←" onAction="#onBackClick" style="-fx-font-size: 14px;"/>
     </HBox>
     <!-- HBox for the task input fields and add button -->
     <HBox spacing="10.0">

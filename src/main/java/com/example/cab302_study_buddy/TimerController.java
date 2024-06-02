@@ -234,7 +234,7 @@ public class TimerController {
         });
         Button miniStopBtn = new Button("Stop");
         miniStopBtn.setOnAction(e -> {
-            timerService.stopTimer();
+            onStopClick();
             miniTimerWindowOpen = false;
             miniTimerStage.close();
         });
