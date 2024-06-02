@@ -12,6 +12,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Pattern;
@@ -45,7 +46,7 @@ public class SignupController {
     private Label messageLabel;
 
     @FXML
-    private void handleSignup() {
+    private void handleSignup() throws SQLException {
         String username = usernameField.getText();
         String phone = phoneField.getText();
         String email = emailField.getText();
@@ -56,7 +57,7 @@ public class SignupController {
             showMessage("Please fill in all required fields.", Color.RED);
         } else if (!password.equals(confirmPassword)) {
             showMessage("Passwords do not match.", Color.RED);
-        } else if (LoginController.users.containsKey(username)) {
+        } else if (DatabaseHandler.isUsernameExists(username)) {
             showMessage("Username already exists.", Color.RED);
         } else if (!isValidPhoneOrEmail(phone, email)) {
             showMessage("Invalid phone number or email address.", Color.RED);
@@ -66,6 +67,7 @@ public class SignupController {
             showMessage("Sign-up successful!", Color.GREEN);
         }
     }
+
 
     private boolean isValidPhoneOrEmail(String phone, String email) {
         return (phone.isEmpty() || VALID_PHONE_NUMBER_REGEX.matcher(phone).matches())
