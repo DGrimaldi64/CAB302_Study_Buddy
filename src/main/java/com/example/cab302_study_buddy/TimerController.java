@@ -1,27 +1,24 @@
 package com.example.cab302_study_buddy;
 
-import javafx.application.Platform;
+import javafx.collections.ObservableList;
+//import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.Slider;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
-import java.io.Console;
 import java.io.IOException;
 import java.util.Objects;
-import java.util.Timer;
-import java.util.TimerTask;
+
+import static com.example.cab302_study_buddy.TaskController.Task;
+import static com.example.cab302_study_buddy.LoginController.current_user;
 
 public class TimerController {
-
-    // global variables
-    private boolean stopCheck = false;
-    private boolean pauseCheck = false;
 
     @FXML
     private Label timerDisplay;
@@ -30,7 +27,7 @@ public class TimerController {
     private HBox timerControls;
 
     @FXML
-    private HBox setTime;
+    private VBox setTime;
 
     @FXML
     private Button setPauseBtn;
@@ -56,28 +53,92 @@ public class TimerController {
     @FXML
     private Slider secondSlider;
 
-    private void clearTimer() {
-        // set time to 00:00:00
+    @FXML
+    private ComboBox taskComboBox;
 
-        timerDisplay.setText("00:00:00");
+    private boolean miniTimerWindowOpen = false;
+    private Stage miniTimerStage;
+    private TimerService timerService;
 
-        hoursInput.setText("00");
-        minutesInput.setText("00");
-        secondsInput.setText("00");
+    @FXML
+    public void initialize() {
+        timerService = TimerService.getInstance();
+        timerDisplay.textProperty().bind(timerService.timerDisplayProperty());
 
-        hourSlider.setValue(0);
-        minuteSlider.setValue(0);
-        secondSlider.setValue(0);
+        // Check the timer state and set the button text accordingly
+        TimerService.TimerState currentState = timerService.getTimerState();
+        if (currentState == TimerService.TimerState.RUNNING) {
+            setPauseBtn.setText("Pause");
+        } else if (currentState == TimerService.TimerState.PAUSED) {
+            setPauseBtn.setText("Resume");
+        } else {
+            setPauseBtn.setText("Set");
+        }
+
+        // Populate tasks from the database into the ComboBox
+        populateTasksComboBox();
+    }
+
+    private void populateTasksComboBox() {
+        // Fetch tasks from the database
+        ObservableList<com.example.cab302_study_buddy.TaskController.Task> tasks = DatabaseHandler.getTasksForUser(current_user.getId());
+
+        // Clear existing items in the ComboBox
+        taskComboBox.getItems().clear();
+
+        // Add fetched tasks to the ComboBox
+        taskComboBox.getItems().addAll(tasks);
+
+        // Set a cell factory to display task names in the ComboBox
+        taskComboBox.setCellFactory(param -> new ListCell<com.example.cab302_study_buddy.TaskController.Task>() {
+            @Override
+            protected void updateItem(com.example.cab302_study_buddy.TaskController.Task task, boolean empty) {
+                super.updateItem(task, empty);
+                if (empty || task == null || task.getTaskName() == null) {
+                    setText(null);
+                } else {
+                    setText(task.getTaskName());
+                }
+            }
+        });
+
+        // Set a custom cell factory for rendering the selected item
+        taskComboBox.setButtonCell(new ListCell<com.example.cab302_study_buddy.TaskController.Task>() {
+            @Override
+            protected void updateItem(com.example.cab302_study_buddy.TaskController.Task task, boolean empty) {
+                super.updateItem(task, empty);
+                if (empty || task == null || task.getTaskName() == null) {
+                    setText(null);
+                } else {
+                    setText(task.getTaskName());
+                }
+            }
+        });
+    }
+
+    @FXML
+    protected void onTaskSelected() {
+        TaskController.Task selectedTask = (TaskController.Task) taskComboBox.getValue();
+        if (selectedTask != null) {
+            int remainingTime = (int) (Double.parseDouble(selectedTask.getExpectedTime()) - Double.parseDouble(selectedTask.getCurrentTimeWorked()));
+            if (remainingTime > 0) {
+                // Set the initial timer value based on remaining time
+                int hours = remainingTime / 3600;
+                int minutes = (remainingTime % 3600) / 60;
+                int seconds = remainingTime % 60;
+                hoursInput.setText(String.format("%02d", hours));
+                minutesInput.setText(String.format("%02d", minutes));
+                secondsInput.setText(String.format("%02d", seconds));
+            }
+        }
     }
 
     private String FormatTime(TextField time) {
         if (time.getLength() == 2) {
             return time.getText();
-        }
-        else if (time.getLength() == 1) {
+        } else if (time.getLength() == 1) {
             return "0" + time.getText();
-        }
-        else {
+        } else {
             return "00";
         }
     }
@@ -86,11 +147,9 @@ public class TimerController {
         String time = Integer.toString(timeInt);
         if (time.length() == 2) {
             return time;
-        }
-        else if (time.length() == 1) {
+        } else if (time.length() == 1) {
             return "0" + time;
-        }
-        else {
+        } else {
             return "00";
         }
     }
@@ -98,7 +157,7 @@ public class TimerController {
     @FXML
     protected void onBackClick() throws IOException {
         // change scene to Home
-        Stage stage = (Stage)timerDisplay.getScene().getWindow();
+        Stage stage = (Stage) timerDisplay.getScene().getWindow();
         FXMLLoader fxmlLoader = new FXMLLoader(StudyBuddyApplication.class.getResource("home-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(),640, 480);
         stage.setScene(scene);
@@ -106,93 +165,28 @@ public class TimerController {
     }
 
     @FXML
-    protected void onEnterClick() throws IOException {
-        // start the timer
+    protected void onEnterClick() {
+        int hours = Integer.parseInt(FormatTime(hoursInput));
+        int minutes = Integer.parseInt(FormatTime(minutesInput));
+        int seconds = Integer.parseInt(FormatTime(secondsInput));
 
-        stopCheck = false;
+        Task selectedTask = (Task) taskComboBox.getValue();
+        timerService.startTimer(selectedTask, hours, minutes, seconds);
 
         timerControls.setVisible(true);
         setTime.setVisible(false);
         enterBtn.setVisible(false);
-
-
-        // make method for this
-        String hours = FormatTime(hoursInput);
-
-        String minutes = FormatTime(minutesInput);
-
-        String seconds = FormatTime(secondsInput);
-
-        timerDisplay.setText(hours + ":" + minutes + ":" + seconds);
-
-        int convertedSeconds = Integer.parseInt(seconds);
-        int convertedMinutes = Integer.parseInt(minutes);
-        int convertedHours = Integer.parseInt(hours);
-
-        Timer timer = new Timer();
-        timer.scheduleAtFixedRate(new TimerTask() {
-            int convertedTime = convertedHours * 3600 + convertedMinutes * 60 + convertedSeconds;
-
-            @Override
-            public void run() {
-                // run timer
-                Platform.runLater(() -> {
-                    // Decrement seconds
-
-                    if (stopCheck) {
-                        clearTimer();
-                        timer.cancel();
-                        timer.purge();
-                    }
-
-                    else if (!pauseCheck) {
-                        if (convertedTime > 0) {
-                            convertedTime--;
-                            String newSeconds = FormatTime(convertedTime % 60);
-                            String newMinutes = FormatTime((convertedTime % 3600 - Integer.parseInt(newSeconds)) / 60);
-                            String newHours = FormatTime((convertedTime - ((Integer.parseInt(newMinutes) * 60) - Integer.parseInt(newSeconds))) / 3600);
-                            String newTime = newHours + ":" + newMinutes + ":" + newSeconds;
-
-                            timerDisplay.setText(newTime);
-                        }
-
-                        else { // timer finished
-                            clearTimer();
-
-                            // alert user
-
-                            setPauseBtn.setText("Set");
-
-                            timer.cancel();
-                            timer.purge();
-                        }
-                    }
-                });
-            }
-        }, 0, 1000);
     }
 
     @FXML
-    protected void onSetPauseClick() throws IOException {
-        // set time on timer
-
+    protected void onSetPauseClick() {
         if (Objects.equals(setPauseBtn.getText(), "Resume")) {
-            // resume timer
-
-            pauseCheck = false;
-
+            timerService.resumeTimer();
             setPauseBtn.setText("Pause");
-        }
-
-        else if (Objects.equals(setPauseBtn.getText(), "Pause")) {
-            // pause timer
-
-            pauseCheck = true;
-
+        } else if (Objects.equals(setPauseBtn.getText(), "Pause")) {
+            timerService.pauseTimer();
             setPauseBtn.setText("Resume");
-        }
-
-        else { // == "Set"
+        } else { // == "Set"
             timerControls.setVisible(false);
             setTime.setVisible(true);
             enterBtn.setVisible(true);
@@ -201,20 +195,68 @@ public class TimerController {
     }
 
     @FXML
-    protected void onStopClick() throws IOException {
-        // stop timer
-        clearTimer();
-        stopCheck = true;
+    protected void onStopClick() {
+        timerService.stopTimer();
         setPauseBtn.setText("Set");
     }
 
     @FXML
-    protected void onHoursType() throws IOException {
-        // type in minutes
+    protected void onMiniTimerClick() {
+        if (miniTimerWindowOpen) {
+            return; // Mini timer window is already open
+        }
 
+        // Create a new stage for the mini timer
+        miniTimerStage = new Stage();
+        miniTimerStage.setTitle("Mini Timer");
+
+        VBox miniTimerRoot = new VBox();
+        miniTimerRoot.setAlignment(Pos.CENTER);
+        miniTimerRoot.setSpacing(15);
+        Label miniTimerDisplay = new Label();
+        miniTimerDisplay.textProperty().bind(timerService.timerDisplayProperty());
+        miniTimerDisplay.setStyle("-fx-font-size: 48px;");
+
+        HBox miniTimerControls = new HBox();
+        miniTimerControls.setAlignment(Pos.CENTER);
+        miniTimerControls.setSpacing(10);
+        Button miniPauseBtn = new Button("Pause");
+        miniPauseBtn.setOnAction(e -> {
+            if (miniPauseBtn.getText().equals("Pause")) {
+                timerService.pauseTimer();
+                miniPauseBtn.setText("Resume");
+                setPauseBtn.setText("Resume");
+            } else {
+                timerService.resumeTimer();
+                miniPauseBtn.setText("Pause");
+                setPauseBtn.setText("Pause");
+            }
+        });
+        Button miniStopBtn = new Button("Stop");
+        miniStopBtn.setOnAction(e -> {
+            timerService.stopTimer();
+            miniTimerWindowOpen = false;
+            miniTimerStage.close();
+        });
+        miniTimerControls.getChildren().addAll(miniPauseBtn, miniStopBtn);
+
+        miniTimerRoot.getChildren().addAll(miniTimerDisplay, miniTimerControls);
+
+        Scene miniTimerScene = new Scene(miniTimerRoot, 320, 200);
+        miniTimerStage.setScene(miniTimerScene);
+        miniTimerStage.initStyle(StageStyle.UTILITY);
+        miniTimerStage.setAlwaysOnTop(true);
+
+        miniTimerStage.setOnCloseRequest(event -> miniTimerWindowOpen = false);
+
+        miniTimerStage.show();
+        miniTimerWindowOpen = true;
+    }
+
+    @FXML
+    protected void onHoursType() throws IOException {
         try {
             String lastChar = hoursInput.getText().substring(hoursInput.getLength() - 1);
-
             double newChar = Integer.parseInt(lastChar);
             double prevLastChar = hourSlider.getValue() % 10;
             double newValue = (prevLastChar * 10) + newChar;
@@ -223,56 +265,44 @@ public class TimerController {
                 newValue = newChar;
             }
 
-            hourSlider.adjustValue((int)newValue);
-        }
-
-        catch (NumberFormatException e) {
-
+            hourSlider.adjustValue((int) newValue);
+        } catch (NumberFormatException e) {
             // This is thrown when the String contains characters other than digits
             System.out.println("Invalid String");
         }
 
-        hoursInput.setText(FormatTime((int)hourSlider.getValue()));
+        hoursInput.setText(FormatTime((int) hourSlider.getValue()));
         hoursInput.positionCaret(2);
     }
 
     @FXML
     protected void onHoursUpClick() throws IOException {
         // increment timer
-
         if (hourSlider.getValue() == 99) {
             hourSlider.setValue(0);
-        }
-
-        else {
+        } else {
             hourSlider.increment();
         }
 
-        hoursInput.setText(FormatTime((int)hourSlider.getValue()));
+        hoursInput.setText(FormatTime((int) hourSlider.getValue()));
     }
 
     @FXML
     protected void onHoursDownClick() throws IOException {
         // decrement timer
-
         if (hourSlider.getValue() == 0) {
             hourSlider.setValue(99);
-        }
-
-        else {
+        } else {
             hourSlider.decrement();
         }
 
-        hoursInput.setText(FormatTime((int)hourSlider.getValue()));
+        hoursInput.setText(FormatTime((int) hourSlider.getValue()));
     }
 
     @FXML
     protected void onMinutesType() throws IOException {
-        // type in minutes
-
         try {
             String lastChar = minutesInput.getText().substring(minutesInput.getLength() - 1);
-
             double newChar = Integer.parseInt(lastChar);
             double prevLastChar = minuteSlider.getValue() % 10;
             double newValue = (prevLastChar * 10) + newChar;
@@ -281,56 +311,44 @@ public class TimerController {
                 newValue = newChar;
             }
 
-            minuteSlider.adjustValue((int)newValue);
-        }
-
-        catch (NumberFormatException e) {
-
+            minuteSlider.adjustValue((int) newValue);
+        } catch (NumberFormatException e) {
             // This is thrown when the String contains characters other than digits
             System.out.println("Invalid String");
         }
 
-        minutesInput.setText(FormatTime((int)minuteSlider.getValue()));
+        minutesInput.setText(FormatTime((int) minuteSlider.getValue()));
         minutesInput.positionCaret(2);
     }
 
     @FXML
     protected void onMinutesUpClick() throws IOException {
         // increment timer
-
         if (minuteSlider.getValue() == 59) {
             minuteSlider.setValue(0);
-        }
-
-        else {
+        } else {
             minuteSlider.increment();
         }
 
-        minutesInput.setText(FormatTime((int)minuteSlider.getValue()));
+        minutesInput.setText(FormatTime((int) minuteSlider.getValue()));
     }
 
     @FXML
     protected void onMinutesDownClick() throws IOException {
         // decrement timer
-
         if (minuteSlider.getValue() == 0) {
             minuteSlider.setValue(59);
-        }
-
-        else {
+        } else {
             minuteSlider.decrement();
         }
 
-        minutesInput.setText(FormatTime((int)minuteSlider.getValue()));
+        minutesInput.setText(FormatTime((int) minuteSlider.getValue()));
     }
 
     @FXML
     protected void onSecondsType() throws IOException {
-        // type in minutes
-
         try {
             String lastChar = secondsInput.getText().substring(secondsInput.getLength() - 1);
-
             double newChar = Integer.parseInt(lastChar);
             double prevLastChar = secondSlider.getValue() % 10;
             double newValue = (prevLastChar * 10) + newChar;
@@ -339,76 +357,37 @@ public class TimerController {
                 newValue = newChar;
             }
 
-            secondSlider.adjustValue((int)newValue);
-        }
-
-        catch (NumberFormatException e) {
-
+            secondSlider.adjustValue((int) newValue);
+        } catch (NumberFormatException e) {
             // This is thrown when the String contains characters other than digits
             System.out.println("Invalid String");
         }
 
-        secondsInput.setText(FormatTime((int)secondSlider.getValue()));
+        secondsInput.setText(FormatTime((int) secondSlider.getValue()));
         secondsInput.positionCaret(2);
     }
 
     @FXML
     protected void onSecondsUpClick() throws IOException {
         // increment timer
-
         if (secondSlider.getValue() == 59) {
             secondSlider.setValue(0);
-        }
-
-        else {
+        } else {
             secondSlider.increment();
         }
 
-        secondsInput.setText(FormatTime((int)secondSlider.getValue()));
+        secondsInput.setText(FormatTime((int) secondSlider.getValue()));
     }
 
     @FXML
     protected void onSecondsDownClick() throws IOException {
         // decrement timer
-
         if (secondSlider.getValue() == 0) {
             secondSlider.setValue(59);
-        }
-
-        else {
+        } else {
             secondSlider.decrement();
         }
 
-        secondsInput.setText(FormatTime((int)secondSlider.getValue()));
+        secondsInput.setText(FormatTime((int) secondSlider.getValue()));
     }
-
-    private boolean minimized = false;
-
-    @FXML
-    private Scene scene;
-
-    @FXML
-    private Stage stage;
-
-//    @FXML
-//    protected void onMiniTimerClick() throws IOException {
-//
-//        if (minimized) {
-//            scene.getWindow().setWidth(1280);
-//            scene.getWindow().setHeight(720);
-//            stage.setAlwaysOnTop(false);
-//            stage.setScene(scene);
-//            System.out.println("Min = false");
-//        }
-//
-//        else {
-//            scene.getWindow().setWidth(320);
-//            scene.getWindow().setHeight(320);
-//            stage.setAlwaysOnTop(true);
-//            stage.setScene(scene);
-//            System.out.println("Min = true");
-//        }
-//
-//        minimized = !minimized;
-//    }
 }

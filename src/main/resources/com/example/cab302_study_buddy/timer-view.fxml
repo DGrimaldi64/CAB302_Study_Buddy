@@ -1,43 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox alignment="CENTER" spacing="15.0"
+<?import javafx.geometry.Insets?>
+<VBox spacing="15.0"
       xmlns:fx="http://javafx.com/fxml"
+      fx:id="root"
       fx:controller="com.example.cab302_study_buddy.TimerController">
-    <HBox spacing="15.0">
-        <Button text="←" onAction="#onBackClick"/>
+    <padding>
+        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+    </padding>
+    <HBox>
+        <Button text="←" onAction="#onBackClick" style="-fx-font-size: 14px;"/>
     </HBox>
-    <Label text="Timer"/>
-    <Label text="00:00:00" fx:id="timerDisplay"/>
+    <HBox>
+        <ComboBox fx:id="taskComboBox" promptText="Select a Task..." onAction="#onTaskSelected" VBox.vgrow="ALWAYS"/>
+    </HBox>
+    <HBox alignment="CENTER" VBox.vgrow="ALWAYS">
+        <Label fx:id="timerDisplay" style="-fx-font-size: 48px;"/>
+    </HBox>
     <HBox fx:id="timerControls" spacing="15.0" alignment="CENTER">
-        <Button fx:id="setPauseBtn" text="Set" onAction="#onSetPauseClick"/>
-        <Button text="Stop" onAction="#onStopClick"/>
+        <Button fx:id="setPauseBtn" text="Set" onAction="#onSetPauseClick" style="-fx-font-size: 14px;"/>
+        <Button text="Stop" onAction="#onStopClick" style="-fx-font-size: 14px;"/>
     </HBox>
-    <HBox fx:id="setTime" spacing="5.0" alignment="CENTER" visible="false">
-        <VBox spacing="5.0" alignment="CENTER">
-            <Button text="🞁" onAction="#onHoursUpClick"/>
-            <TextField fx:id="hoursInput" prefWidth="30" promptText="00" onKeyTyped="#onHoursType"/>
-            <Button text="🞃" onAction="#onHoursDownClick"/>
-            <Slider fx:id="hourSlider" blockIncrement="1" max="99" prefWidth="20" visible="false"/>
-        </VBox>
-        <VBox spacing="5.0" alignment="CENTER">
-            <Button text="🞁" onAction="#onMinutesUpClick"/>
-            <TextField fx:id="minutesInput" prefWidth="30" promptText="00" onKeyTyped="#onMinutesType"/>
-            <Button text="🞃" onAction="#onMinutesDownClick"/>
-            <Slider fx:id="minuteSlider" blockIncrement="1" max="59" prefWidth="20" visible="false"/>
-        </VBox>
-        <VBox spacing="5.0" alignment="CENTER">
-            <Button text="🞁" onAction="#onSecondsUpClick"/>
-            <TextField fx:id="secondsInput" prefWidth="30" promptText="00" onKeyTyped="#onSecondsType"/>
-            <Button text="🞃" onAction="#onSecondsDownClick"/>
-            <Slider fx:id="secondSlider" blockIncrement="1" max="59" prefWidth="20" visible="false"/>
-        </VBox>
+    <VBox fx:id="setTime" spacing="10.0" alignment="CENTER" visible="false">
+        <HBox spacing="10.0" alignment="CENTER">
+            <VBox spacing="5.0" alignment="CENTER">
+                <Button text="🞁" onAction="#onHoursUpClick" style="-fx-font-size: 14px;"/>
+                <TextField fx:id="hoursInput" prefWidth="30" promptText="00" onKeyTyped="#onHoursType" style="-fx-font-size: 14px;"/>
+                <Button text="🞃" onAction="#onHoursDownClick" style="-fx-font-size: 14px;"/>
+                <Slider fx:id="hourSlider" blockIncrement="1" max="99" prefWidth="20" visible="false"/>
+            </VBox>
+            <VBox spacing="5.0" alignment="CENTER">
+                <Button text="🞁" onAction="#onMinutesUpClick" style="-fx-font-size: 14px;"/>
+                <TextField fx:id="minutesInput" prefWidth="30" promptText="00" onKeyTyped="#onMinutesType" style="-fx-font-size: 14px;"/>
+                <Button text="🞃" onAction="#onMinutesDownClick" style="-fx-font-size: 14px;"/>
+                <Slider fx:id="minuteSlider" blockIncrement="1" max="59" prefWidth="20" visible="false"/>
+            </VBox>
+            <VBox spacing="5.0" alignment="CENTER">
+                <Button text="🞁" onAction="#onSecondsUpClick" style="-fx-font-size: 14px;"/>
+                <TextField fx:id="secondsInput" prefWidth="30" promptText="00" onKeyTyped="#onSecondsType" style="-fx-font-size: 14px;"/>
+                <Button text="🞃" onAction="#onSecondsDownClick" style="-fx-font-size: 14px;"/>
+                <Slider fx:id="secondSlider" blockIncrement="1" max="59" prefWidth="20" visible="false"/>
+            </VBox>
+        </HBox>
+        <Button fx:id="enterBtn" text="Enter" onAction="#onEnterClick" visible="false" style="-fx-font-size: 14px;"/>
+    </VBox>
+    <HBox alignment="CENTER">
+        <Button fx:id="miniTimerButton" text="Mini Display" onAction="#onMiniTimerClick" style="-fx-font-size: 14px;"/>
     </HBox>
-    <Button fx:id="enterBtn" text="Enter" onAction="#onEnterClick" visible="false"/>
-<!--    <Button text="*" onAction="#onMiniTimerClick"/>-->
 </VBox>

@@ -10,7 +10,6 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -37,10 +36,6 @@ public class CalendarController implements Initializable {
     private GridPane gridPane;
     @FXML
     private VBox upcomingEventsBox;
-    @FXML
-    private HBox backButtonContainer;
-    @FXML
-    private Label timerDisplay;
 
     private Label[] dayLabels = new Label[42];
 
@@ -48,7 +43,6 @@ public class CalendarController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         currentDate = LocalDate.now();
 
-        addBackButton();
         initializeMonthComboBox();
         initializeYearComboBox();
         populateCalendar();
@@ -141,18 +135,6 @@ public class CalendarController implements Initializable {
         populateCalendar();
     }
 
-    private void addBackButton() {
-        Button backButton = new Button("←");
-        backButton.setOnAction(event -> {
-            try {
-                handleBackButtonClick(event);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            }
-        });
-        backButtonContainer.getChildren().add(backButton);
-    }
-
     @FXML
     private void handleBackButtonClick(ActionEvent event) throws IOException {
         Node source = (Node) event.getSource();
@@ -236,5 +218,15 @@ public class CalendarController implements Initializable {
             // Show the add event window
             addEventStage.show();
         }
+    }
+
+    @FXML
+    protected void onBackClick() throws IOException {
+        // change scene to Home
+        Stage stage = (Stage) monthComboBox.getScene().getWindow();
+        FXMLLoader fxmlLoader = new FXMLLoader(StudyBuddyApplication.class.getResource("home-view.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(),640, 480);
+        stage.setScene(scene);
+        stage.setAlwaysOnTop(false);
     }
 }

@@ -8,14 +8,54 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="a666fe26-b739-47f3-a006-51fbdbd9cd9f" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/cab302_study_buddy/TestController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/com/example/cab302_study_buddy/test-view.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/example/cab302_study_buddy/TimerService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cab302_study_buddy/AnalyticsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cab302_study_buddy/AnalyticsController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cab302_study_buddy/CalendarController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cab302_study_buddy/CalendarController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cab302_study_buddy/DatabaseHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cab302_study_buddy/DatabaseHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cab302_study_buddy/HomeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cab302_study_buddy/HomeController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cab302_study_buddy/Launcher.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cab302_study_buddy/Launcher.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cab302_study_buddy/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cab302_study_buddy/LoginController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cab302_study_buddy/StudyBuddyApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cab302_study_buddy/StudyBuddyApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cab302_study_buddy/TaskController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cab302_study_buddy/TaskController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cab302_study_buddy/TimerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/cab302_study_buddy/TimerController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cab302_study_buddy/accessibility.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/images/accessibility.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cab302_study_buddy/analytics.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/images/analytics.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cab302_study_buddy/calendar.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/images/calendar.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cab302_study_buddy/settings.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/images/settings.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cab302_study_buddy/tasks.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/images/tasks.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/cab302_study_buddy/timer.png" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/images/timer.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/cab302_study_buddy/analytics-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/cab302_study_buddy/analytics-view.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/cab302_study_buddy/calendar-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/cab302_study_buddy/calendar-view.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/cab302_study_buddy/login-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/cab302_study_buddy/login-view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/cab302_study_buddy/change-password.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/cab302_study_buddy/change-password.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/cab302_study_buddy/edit-profile-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/cab302_study_buddy/edit-profile-view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/cab302_study_buddy/home-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/cab302_study_buddy/home-view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/cab302_study_buddy/images/analytics.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/cab302_study_buddy/images/book.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/cab302_study_buddy/images/calendar.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/cab302_study_buddy/images/planning.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/cab302_study_buddy/images/pocket-watch.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/cab302_study_buddy/images/settings.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/cab302_study_buddy/images/trophy.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/cab302_study_buddy/images/wheelchair.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/cab302_study_buddy/task-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/cab302_study_buddy/task-view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/com/example/cab302_study_buddy/timer-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/com/example/cab302_study_buddy/timer-view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/icon.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/images/analytics.gif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/images/book.gif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/images/calendar.gif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/images/planning.gif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/images/pocket-watch.gif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/images/settings.gif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/images/trophy.gif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/images/wheelchair.gif" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tasks.db" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/users.db" beforeDir="false" afterPath="$PROJECT_DIR$/users.db" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,22 +65,41 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="CSS File" />
-        <option value="Class" />
         <option value="FxmlFile" />
+        <option value="Class" />
+        <option value="CSS File" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="Akhilesh" />
+        <entry key="$PROJECT_DIR$" value="main" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;DGrimaldi64&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/DGrimaldi64/CAB302_Study_Buddy.git&quot;,
+    &quot;accountId&quot;: &quot;21b1c18d-de56-40b2-b3bb-008a691bd821&quot;
+  }
+}</component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="mavenHomeTypeForPersistence" value="WRAPPER" />
+      </MavenGeneralSettings>
+    </option>
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 2
@@ -56,9 +115,11 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "Application.HelloApplication.executor": "Run",
+    "Application.Launcher.executor": "Run",
     "Application.LoginPage.executor": "Run",
     "Application.Main.executor": "Run",
     "Application.StudyBuddyApplication.executor": "Run",
+    "Application.Unnamed.executor": "Run",
     "Downloaded.Files.Path.Enabled": "false",
     "JUnit.DatabaseHandlerTest.executor": "Run",
     "JUnit.DatabaseHandlerTest.testgetIdForUsernameFalse.executor": "Debug",
@@ -72,9 +133,10 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "main",
+    "deletionFromPopupRequiresConfirmation": "false",
+    "git-widget-placeholder": "Dominic",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/Dominic Grimaldi/IdeaProjects/CAB302_Study_Buddy/src/main/resources/com/example/cab302_study_buddy",
+    "last_opened_file_path": "C:/Users/Dominic Grimaldi/IdeaProjects/CAB302_Study_Buddy/users.db",
     "list.type.of.created.stylesheet": "CSS",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -84,7 +146,7 @@
     "project.structure.last.edited": "Libraries",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "preferences.fileTypes",
+    "settings.editor.selected.configurable": "reference.settings.project.maven.importing",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -93,6 +155,7 @@
       <recent name="C:\Users\Dominic Grimaldi\IdeaProjects\CAB302_Study_Buddy\src\main\resources\com\example\cab302_study_buddy" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\Dominic Grimaldi\IdeaProjects\CAB302_Study_Buddy\src\main\resources\images" />
       <recent name="C:\Users\Dominic Grimaldi\IdeaProjects\CAB302_Study_Buddy\src\main\resources\com\example\cab302_study_buddy" />
       <recent name="C:\Users\Dominic Grimaldi\IdeaProjects\CAB302_Study_Buddy\src\main\resources\com\example\authentication" />
     </key>
@@ -101,27 +164,19 @@
     </key>
   </component>
   <component name="RunManager">
-    <configuration name="DatabaseHandlerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="Launcher" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" value="com.example.cab302_study_buddy.Launcher" />
       <module name="User_Authentication" />
-      <option name="PACKAGE_NAME" value="" />
-      <option name="MAIN_CLASS_NAME" value="DatabaseHandlerTest" />
-      <option name="TEST_OBJECT" value="class" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <recent_temporary>
-      <list>
-        <item itemvalue="JUnit.DatabaseHandlerTest" />
-        <item itemvalue="JUnit.DatabaseHandlerTest" />
-      </list>
-    </recent_temporary>
   </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="jdk-17.0.10-corretto-17.0.10-3183f394aec4-96c0d24d" />
-        <option value="jdk-21.0.2-corretto-21.0.2-f644763e9732-d6553c93" />
+        <option value="bundled-jdk-9f38398b9061-39b83d9b5494-intellij.indexing.shared.core-IU-241.17011.79" />
+        <option value="bundled-js-predefined-1d06a55b98c1-0b3e54e931b4-JavaScript-IU-241.17011.79" />
       </set>
     </attachedChunks>
   </component>
@@ -137,6 +192,13 @@
       <workItem from="1714341877660" duration="27125000" />
       <workItem from="1714619190908" duration="264000" />
       <workItem from="1714619581086" duration="3945000" />
+      <workItem from="1716356871341" duration="5469000" />
+      <workItem from="1717195717556" duration="9386000" />
+      <workItem from="1717224097918" duration="545000" />
+      <workItem from="1717224807800" duration="1709000" />
+      <workItem from="1717226534779" duration="10129000" />
+      <workItem from="1717236752791" duration="11177000" />
+      <workItem from="1717248191208" duration="23402000" />
     </task>
     <task id="LOCAL-00001" summary="Update Maven Surefire plugin to use JUnit 5">
       <option name="closed" value="true" />
@@ -204,6 +266,10 @@
           <line>45</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
+        <breakpoint enabled="true" type="java-exception">
+          <properties class="java.lang.IllegalStateException" package="java.lang" />
+          <option name="timeStamp" value="2" />
+        </breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>

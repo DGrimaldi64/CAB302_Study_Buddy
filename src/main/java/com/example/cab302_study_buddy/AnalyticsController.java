@@ -3,27 +3,20 @@ package com.example.cab302_study_buddy;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import java.io.IOException;
 
-// For SQL and GridPane, not yet implemented
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import javafx.scene.control.Tooltip;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
-import java.net.URL;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.io.IOException;
+import java.sql.*;
+import java.time.Instant;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.time.temporal.WeekFields;
 import java.util.Locale;
-import java.util.ResourceBundle;
+
+import static com.example.cab302_study_buddy.LoginController.current_user;
 
 public class AnalyticsController {
 
@@ -31,16 +24,13 @@ public class AnalyticsController {
     private Label taskEstOvershoot;
 
     @FXML
-    private Label aveHoursStudyDay;
+    private Label avgHoursDaily;
 
     @FXML
-    private Label aveHoursDaily;
+    private Label avgHoursWeekly;
 
     @FXML
-    private Label aveHoursWeekly;
-
-    @FXML
-    private Label aveDaysWeekly;
+    private Label avgDaysWeekly;
 
     @FXML
     private TextField GPATarget;
@@ -57,78 +47,118 @@ public class AnalyticsController {
     @FXML
     private Label requiredGPAPerUnit;
 
-//    @FXML
-//    private GridPane gridPane;
-//
-//    private Connection connection;
+    private Connection connection;
+    private int currentUserId;
 
-//    @FXML
-//    public void initialize() {
-//        // How well you estimate time to complete tasks (over or underestimate)
-//        // How many hours you typically study (per day + per week)
-//        // Calendar heatmap of productivity, like GitHubs activity calendar
-//        try {
-//            // Connect to the database
-//            connection = DatabaseConnection.getInstance();
-//
-//            // Populate heatmap with data from the database
-//            populateHeatmap();
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
-//    }
-//
-//    private void populateHeatmap() throws SQLException {
-//        // Query to retrieve activity data
-//        String query = "SELECT week_number, day_of_week, activity_level FROM activity_data";
-//
-//        try (PreparedStatement statement = connection.prepareStatement(query);
-//             ResultSet resultSet = statement.executeQuery()) {
-//
-//            while (resultSet.next()) {
-//                int weekNumber = resultSet.getInt("week_number");
-//                int dayOfWeek = resultSet.getInt("day_of_week");
-//                int activityLevel = resultSet.getInt("activity_level");
-//
-//                // Create a StackPane representing each day
-//                StackPane cell = new StackPane();
-//                cell.setPrefSize(40, 40); // Adjust size as needed
-//
-//                // Set background color based on activity level
-//                cell.setStyle("-fx-background-color: " + getColorForActivityLevel(activityLevel) + ";");
-//
-//                // Add tooltip to show activity level
-//                Tooltip tooltip = new Tooltip("Activity Level: " + activityLevel);
-//                Tooltip.install(cell, tooltip);
-//
-//                // Add the cell to the grid pane
-//                gridPane.add(cell, dayOfWeek - 1, weekNumber - 1); // Adjust indices as per your database (week starts from 1)
-//            }
-//        }
-//    }
-//
-//    private String getColorForActivityLevel(int activityLevel) {
-//        // You can define your own color mapping based on activity level
-//        // For simplicity, let's use a gradient of blue
-//        double hue = Math.min(240, activityLevel * 30); // Maximum hue is 240 (blue)
-//        return String.format("hsl(%d, 100%%, 50%%)", (int)hue);
-//    }
+    @FXML
+    public void initialize() {
+        // Connect to the database
+        this.currentUserId = current_user.getId();
+        connection = DatabaseConnection.getInstance();
+
+        // Calculate and display statistics
+        calculateStatistics();
+    }
+
+    private void calculateStatistics() {
+        try {
+            // Task Estimation Overshoot
+            String query = "SELECT SUM(expected_completion_time - current_time_worked) AS total_overshoot, " +
+                    "SUM(expected_completion_time) AS total_expected " +
+                    "FROM tasks WHERE is_active IS FALSE AND user_id = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, currentUserId); // Set the user_id value
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                double totalOvershoot = resultSet.getDouble("total_overshoot");
+                double totalExpected = resultSet.getDouble("total_expected");
+                double percentageOvershoot = totalExpected > 0 ? (totalOvershoot / totalExpected) * 100 : 0;
+                taskEstOvershoot.setText(String.format("%.2f%%", percentageOvershoot));
+            }
+
+            // Average Hours Studied Daily
+            query = "SELECT date, SUM(hours_worked) AS total_time FROM record WHERE user_id = ? GROUP BY date";
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, currentUserId); // Set the user_id value
+            resultSet = preparedStatement.executeQuery();
+            int daysStudied = 0;
+            int totalMinutesStudied = 0;
+            while (resultSet.next()) {
+                daysStudied++;
+                totalMinutesStudied += resultSet.getInt("total_time") * 60; // converting hours to minutes
+            }
+            double averageHoursDaily = daysStudied > 0 ? (double) totalMinutesStudied / daysStudied / 60 : 0;
+            avgHoursDaily.setText(String.format("%.2f hours", averageHoursDaily));
+
+            // Average Hours Studied Weekly and Average Days of Study Per Week
+            query = "SELECT date, SUM(hours_worked) AS total_time FROM record WHERE user_id = ? GROUP BY date";
+            preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setInt(1, currentUserId); // Set the user_id value
+            resultSet = preparedStatement.executeQuery();
+            int[] weeklyMinutes = new int[52]; // 52 weeks in a year
+            int[] weeklyDays = new int[52];
+            while (resultSet.next()) {
+                long epochMillis = resultSet.getLong("date");
+                Instant instant = Instant.ofEpochMilli(epochMillis);
+                LocalDate date = instant.atZone(ZoneId.systemDefault()).toLocalDate();
+                int weekOfYear = date.get(WeekFields.of(Locale.getDefault()).weekOfWeekBasedYear());
+                weeklyMinutes[weekOfYear - 1] += resultSet.getInt("total_time") * 60; // converting hours to minutes
+                weeklyDays[weekOfYear - 1]++;
+            }
+            int weeksStudied = 0;
+            int totalMinutesWeekly = 0;
+            int totalDaysWeekly = 0;
+            for (int i = 0; i < 52; i++) {
+                if (weeklyMinutes[i] > 0) {
+                    weeksStudied++;
+                    totalMinutesWeekly += weeklyMinutes[i];
+                    totalDaysWeekly += weeklyDays[i];
+                }
+            }
+            double averageHoursWeekly = weeksStudied > 0 ? (double) totalMinutesWeekly / weeksStudied / 60 : 0;
+            double averageDaysWeekly = weeksStudied > 0 ? (double) totalDaysWeekly / weeksStudied : 0;
+            avgHoursWeekly.setText(String.format("%.2f hours", averageHoursWeekly));
+            avgDaysWeekly.setText(String.format("%.2f days", averageDaysWeekly));
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
 
     @FXML
     protected void onBackClick() throws IOException {
         // change scene to Home
         Stage stage = (Stage) taskEstOvershoot.getScene().getWindow();
         FXMLLoader fxmlLoader = new FXMLLoader(StudyBuddyApplication.class.getResource("home-view.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(),1280, 720);
+        Scene scene = new Scene(fxmlLoader.load(), 640, 480);
         stage.setScene(scene);
     }
 
     @FXML
     protected void onCalculateGPAClick() throws IOException {
         // calculate GPA required per unit
-        String result = GPATarget.getText();
+        try {
+            double TargetGPA = Double.parseDouble(GPATarget.getText());
+            double CreditsCompleted = Double.parseDouble(creditsCompleted.getText());
+            double CreditsRemaining = Double.parseDouble(creditsRemaining.getText());
+            double CurrentGPA = Double.parseDouble(currentGPA.getText());
+
+            double result = (TargetGPA * (CreditsCompleted + CreditsRemaining) - CreditsCompleted * CurrentGPA) / CreditsRemaining;
+
+            if (result <= 7 && result >= 1) {
+                requiredGPAPerUnit.setText(String.format("Required GPA Per Unit: %.2f", result));
+            }
+            else {
+                requiredGPAPerUnit.setText("Impossible to Reach Target");
+            }
+        } catch (NumberFormatException e) {
+            showAlert("Incorrectly Formatted Data: " + e.getMessage(), Alert.AlertType.ERROR);
+        }
     }
 
-    // Shows current GPA and has GPA calculator which separates your current units into assessment pieces with weighting
-    //     It will have the grade you show aim to beat for each assessment item
+    private void showAlert(String message, Alert.AlertType alertType) {
+        Alert alert = new Alert(alertType);
+        alert.setContentText(message);
+        alert.show();
+    }
 }
