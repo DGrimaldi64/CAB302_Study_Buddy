@@ -256,45 +256,155 @@ public class DatabaseHandler {
         }
     }
 
+    public static void deleteUser(int userId) {
+        try {
+            Connection connection = DatabaseConnection.getInstance();
+
+            // First, delete all tasks associated with the user
+            PreparedStatement deleteUserTasks = connection.prepareStatement("DELETE FROM tasks WHERE user_id = ?");
+            deleteUserTasks.setInt(1, userId);
+            deleteUserTasks.executeUpdate();
+
+            // Then, delete the user from the users table
+            PreparedStatement deleteUser = connection.prepareStatement("DELETE FROM users WHERE id = ?");
+            deleteUser.setInt(1, userId);
+            deleteUser.executeUpdate();
+
+            close(connection);
+        } catch (SQLException e) {
+            showAlert("Error deleting user: " + e.getMessage(), Alert.AlertType.ERROR);
+        }
+    }
+
+    public static String getUsernameForId(int userId) {
+        try {
+            Connection connection = DatabaseConnection.getInstance();
+            PreparedStatement stmt = connection.prepareStatement("SELECT username FROM users WHERE id = ?");
+            stmt.setInt(1, userId);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return rs.getString("username");
+            }
+            close(connection);
+        } catch (SQLException e) {
+            showAlert("Error retrieving username: " + e.getMessage(), Alert.AlertType.ERROR);
+        }
+        return null;
+    }
+
+    public static String getPhoneForId(int userId) {
+        try {
+            Connection connection = DatabaseConnection.getInstance();
+            PreparedStatement stmt = connection.prepareStatement("SELECT identifier FROM users WHERE id = ?");
+            stmt.setInt(1, userId);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                String identifier = rs.getString("identifier");
+                if (identifier != null && SignupController.VALID_PHONE_NUMBER_REGEX.matcher(identifier).matches()) {
+                    return identifier;
+                }
+            }
+            close(connection);
+        } catch (SQLException e) {
+            showAlert("Error retrieving phone number: " + e.getMessage(), Alert.AlertType.ERROR);
+        }
+        return null;
+    }
+
+    public static String getEmailForId(int userId) {
+        try {
+            Connection connection = DatabaseConnection.getInstance();
+            PreparedStatement stmt = connection.prepareStatement("SELECT identifier FROM users WHERE id = ?");
+            stmt.setInt(1, userId);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                String identifier = rs.getString("identifier");
+                if (identifier != null && SignupController.VALID_EMAIL_ADDRESS_REGEX.matcher(identifier).matches()) {
+                    return identifier;
+                }
+            }
+            close(connection);
+        } catch (SQLException e) {
+            showAlert("Error retrieving email: " + e.getMessage(), Alert.AlertType.ERROR);
+        }
+        return null;
+    }
+
+    public static void updateUserProfile(int userId, String newUsername, String newPhone, String newEmail) {
+        try {
+            Connection connection = DatabaseConnection.getInstance();
+            PreparedStatement stmt = connection.prepareStatement("UPDATE users SET username = ?, identifier = ? WHERE id = ?");
+            stmt.setString(1, newUsername);
+            stmt.setString(2, newPhone == null ? (newEmail == null ? "" : newEmail) : (newPhone.isEmpty() ? newEmail : newPhone));
+            stmt.setInt(3, userId);
+            stmt.executeUpdate();
+            close(connection);
+        } catch (SQLException e) {
+            showAlert("Error updating user profile: " + e.getMessage(), Alert.AlertType.ERROR);
+        }
+    }
+
+//    public static boolean updatePassword(String username, String currentPassword, String newPassword) {
+//        try {
+//            Connection connection = DatabaseConnection.getInstance();
+//
+//            // Check if the connection is null
+//            if (connection == null) {
+//                System.out.println("Database connection is null");
+//                return false;
+//            }
+//
+//            // Verify current password
+//            String storedPassword = getPasswordForUsername(username);
+//            if (storedPassword == null || !storedPassword.equals(hashPassword(currentPassword))) {
+//                // Current password doesn't match, return false
+//                System.out.println("Current password does not match");
+//                return false;
+//            }
+//
+//            // Update password
+//            PreparedStatement updatePassword = connection.prepareStatement("UPDATE users SET password = ? WHERE username = ?");
+//            String hashedNewPassword = hashPassword(newPassword);
+//            updatePassword.setString(1, hashedNewPassword);
+//            updatePassword.setString(2, username);
+//
+//            int rowsAffected = updatePassword.executeUpdate();
+//
+//            // Log the number of rows affected
+//            System.out.println(rowsAffected + " row(s) updated");
+//
+//            close(connection);
+//
+//            return rowsAffected > 0;
+//        } catch (SQLException e) {
+//            showAlert("Error updating password: " + e.getMessage(), Alert.AlertType.ERROR);
+//            return false;
+//        }
+//    }
+
     public static boolean updatePassword(String username, String currentPassword, String newPassword) {
         try {
             Connection connection = DatabaseConnection.getInstance();
 
-            // Check if the connection is null
-            if (connection == null) {
-                System.out.println("Database connection is null");
-                return false;
-            }
-
-            // Verify current password
+            // First, check if the current password matches the stored password
             String storedPassword = getPasswordForUsername(username);
-            if (storedPassword == null || !storedPassword.equals(hashPassword(currentPassword))) {
-                // Current password doesn't match, return false
-                System.out.println("Current password does not match");
-                return false;
+            if (!storedPassword.equals(currentPassword)) {
+                return false; // Current password is incorrect
             }
 
-            // Update password
-            PreparedStatement updatePassword = connection.prepareStatement("UPDATE users SET password = ? WHERE username = ?");
-            String hashedNewPassword = hashPassword(newPassword);
-            updatePassword.setString(1, hashedNewPassword);
-            updatePassword.setString(2, username);
-
-            int rowsAffected = updatePassword.executeUpdate();
-
-            // Log the number of rows affected
-            System.out.println(rowsAffected + " row(s) updated");
+            // Update the password in the database
+            PreparedStatement stmt = connection.prepareStatement("UPDATE users SET password = ? WHERE username = ?");
+            stmt.setString(1, newPassword);
+            stmt.setString(2, username);
+            stmt.executeUpdate();
 
             close(connection);
-
-            return rowsAffected > 0;
+            return true; // Password updated successfully
         } catch (SQLException e) {
             showAlert("Error updating password: " + e.getMessage(), Alert.AlertType.ERROR);
             return false;
         }
     }
-
-
 
     private static String hashPassword(String password) {
         try {

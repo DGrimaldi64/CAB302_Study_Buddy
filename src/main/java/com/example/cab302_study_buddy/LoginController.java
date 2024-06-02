@@ -8,11 +8,14 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
@@ -36,7 +39,18 @@ public class LoginController {
     @FXML
     private Label messageLabel;
 
+    @FXML
+    private ImageView profileImage;
+
     public static Map<String, String> users = new HashMap<>();
+
+    public void initialize() {
+        File tasksFile = new File("src/main/resources/images/profile.png");
+        Image tasksImage = new Image(tasksFile.toURI().toString());
+        profileImage.setImage(tasksImage);
+        profileImage.getStyleClass().add("border");
+    }
+
 
     @FXML
     private void handleLogin() throws IOException {

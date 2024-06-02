@@ -1,0 +1,155 @@
+/* General Styles */
+.root {
+    -fx-font-family: 'Segoe UI', Arial, sans-serif;
+    -fx-font-size: 14px;
+    -fx-background-color: #f8f8f8;
+}
+
+/* Button Styles */
+.button {
+    -fx-background-color: #4caf50;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-padding: 10 20;
+    -fx-background-radius: 5;
+}
+
+.button:hover {
+    -fx-background-color: #388e3c;
+}
+
+.button:focused {
+    -fx-background-color: #2e7d32;
+    -fx-border-color: #2e7d32;
+    -fx-border-width: 1;
+}
+
+/* Label Styles */
+.label {
+    -fx-text-fill: #333;
+    -fx-font-size: 14px;
+}
+
+.label-heading {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333;
+}
+
+.label-subheading {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #555;
+}
+
+/* TextField Styles */
+.text-field {
+    -fx-background-color: white;
+    -fx-border-color: #ccc;
+    -fx-border-width: 1;
+    -fx-padding: 5;
+    -fx-background-radius: 5;
+}
+
+.text-field:focused {
+    -fx-border-color: #4caf50;
+    -fx-border-width: 2;
+}
+
+/* PasswordField Styles */
+.password-field {
+    -fx-background-color: white;
+    -fx-border-color: #ccc;
+    -fx-border-width: 1;
+    -fx-padding: 5;
+    -fx-background-radius: 5;
+}
+
+.password-field:focused {
+    -fx-border-color: #4caf50;
+    -fx-border-width: 2;
+}
+
+/* VBox and HBox Styles */
+.vbox, .hbox {
+    -fx-spacing: 10px;
+}
+
+/* ListView Styles */
+.list-view {
+    -fx-background-color: white;
+    -fx-border-color: #ccc;
+    -fx-border-width: 1;
+    -fx-background-radius: 5;
+}
+
+.list-view .list-cell {
+    -fx-padding: 10px;
+}
+
+/* ComboBox Styles */
+.combo-box {
+    -fx-background-color: white;
+    -fx-border-color: #ccc;
+    -fx-border-width: 1;
+    -fx-padding: 5;
+    -fx-background-radius: 5;
+}
+
+.combo-box:focused {
+    -fx-border-color: #4caf50;
+    -fx-border-width: 2;
+}
+
+/* ScrollPane Styles */
+.scroll-pane {
+    -fx-background-color: #fafafa;
+}
+
+/* Custom Component Styles */
+#timerDisplay {
+    -fx-font-size: 24px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #333;
+}
+
+#timerControls .button {
+    -fx-background-color: #4caf50;
+    -fx-text-fill: white;
+}
+
+#setTime .text-field {
+    -fx-pref-width: 50px;
+    -fx-alignment: center;
+}
+
+#enterBtn {
+    -fx-background-color: #2196f3;
+    -fx-text-fill: white;
+}
+
+#enterBtn:hover {
+    -fx-background-color: #1976d2;
+}
+
+#enterBtn:focused {
+    -fx-background-color: #1565c0;
+}
+
+/* Hyperlink Styles */
+.hyperlink {
+    -fx-text-fill: #2196f3;
+    -fx-font-size: 14px;
+}
+
+.hyperlink:hover {
+    -fx-text-fill: #1976d2;
+}
+
+.hoverableImage {
+    -fx-cursor: hand;
+}
+
+.hoverableImage:hover {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 10, 0.5, 0.0, 0.0);
+}

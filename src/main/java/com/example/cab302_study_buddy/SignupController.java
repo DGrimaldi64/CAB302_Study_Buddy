@@ -12,6 +12,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Pattern;
@@ -21,8 +22,8 @@ import java.util.regex.Pattern;
  */
 public class SignupController {
 
-    private static final Pattern VALID_EMAIL_ADDRESS_REGEX = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
-    private static final Pattern VALID_PHONE_NUMBER_REGEX = Pattern.compile("^\\d{10}$");
+    public static final Pattern VALID_EMAIL_ADDRESS_REGEX = Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
+    public static final Pattern VALID_PHONE_NUMBER_REGEX = Pattern.compile("^\\d{10}$");
 
     private static Map<String, String> users = new HashMap<>();
 
@@ -45,7 +46,7 @@ public class SignupController {
     private Label messageLabel;
 
     @FXML
-    private void handleSignup() {
+    private void handleSignup() throws SQLException {
         String username = usernameField.getText();
         String phone = phoneField.getText();
         String email = emailField.getText();
@@ -56,7 +57,7 @@ public class SignupController {
             showMessage("Please fill in all required fields.", Color.RED);
         } else if (!password.equals(confirmPassword)) {
             showMessage("Passwords do not match.", Color.RED);
-        } else if (LoginController.users.containsKey(username)) {
+        } else if (DatabaseHandler.isUsernameExists(username)) {
             showMessage("Username already exists.", Color.RED);
         } else if (!isValidPhoneOrEmail(phone, email)) {
             showMessage("Invalid phone number or email address.", Color.RED);
@@ -66,6 +67,7 @@ public class SignupController {
             showMessage("Sign-up successful!", Color.GREEN);
         }
     }
+
 
     private boolean isValidPhoneOrEmail(String phone, String email) {
         return (phone.isEmpty() || VALID_PHONE_NUMBER_REGEX.matcher(phone).matches())
