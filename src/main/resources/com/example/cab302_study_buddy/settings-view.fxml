@@ -29,12 +29,6 @@
             <Button fx:id="deleteAccountButton" text="Delete Account" style="-fx-background-color: transparent; -fx-text-fill: #0095F6; -fx-font-size: 14px;" onAction="#handleDeleteAccount"/>
         </VBox>
 
-        <!-- Preferences Section -->
-        <VBox spacing="10" style="-fx-border-color: #DBDBDB; -fx-border-width: 0 0 1 0; -fx-padding: 20;">
-            <Label text="Preferences" style="-fx-font-size: 18px;"/>
-            <Button fx:id="darkModeButton" text="Dark Mode" style="-fx-background-color: transparent; -fx-text-fill: #0095F6; -fx-font-size: 14px;" onAction="#handleDarkMode"/>
-        </VBox>
-
         <!-- Log Out Button -->
         <Button fx:id="logoutButton" text="Log Out" style="-fx-background-color: transparent; -fx-text-fill: #FF0000; -fx-font-size: 16px;" onAction="#handleLogout"/>
     </VBox>

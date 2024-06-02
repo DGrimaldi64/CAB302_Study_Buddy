@@ -17,15 +17,11 @@ import java.util.Optional;
 
 public class Settings {
 
-    public static boolean isDarkMode;
     @FXML
     private Button logoutButton;
 
     @FXML
     private Button deleteAccountButton;
-
-    @FXML
-    private Button darkModeButton;
 
     @FXML
     private Button getEditProfileButton;
@@ -34,35 +30,6 @@ public class Settings {
     @FXML
     private void initialize() {
         deleteAccountButton.setOnAction(event -> handleDeleteAccount());
-        darkModeButton.setOnAction(event -> handleDarkMode());
-    }
-
-    @FXML
-    private void handleDarkMode() {
-        isDarkMode = !isDarkMode;
-
-        // Load the current scene
-        Stage stage = (Stage) darkModeButton.getScene().getWindow();
-        Scene scene = stage.getScene();
-
-        // Clear the existing stylesheets
-        scene.getStylesheets().clear();
-
-        // Load the default stylesheet
-        String stylesPath = "/default.css";
-        URL stylesUrl = getClass().getResource(stylesPath);
-        if (stylesUrl != null) {
-            scene.getStylesheets().add(stylesUrl.toExternalForm());
-        }
-
-        // Conditionally load the dark mode stylesheet
-        if (isDarkMode) {
-            String darkmodePath = "/dark-mode.css";
-            URL darkmodeUrl = getClass().getResource(darkmodePath);
-            if (darkmodeUrl != null) {
-                scene.getStylesheets().add(darkmodeUrl.toExternalForm());
-            }
-        }
     }
 
 

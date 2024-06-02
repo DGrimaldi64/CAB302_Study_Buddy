@@ -8,17 +8,12 @@ import javafx.stage.Stage;
 
 public class StudyBuddyApplication extends Application {
 
-    private static boolean isDarkMode = false;
     @Override
     public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(StudyBuddyApplication.class.getResource("login-view.fxml"));
         Scene scene = new Scene(root);
         scene.getStylesheets().add(StudyBuddyApplication.class.getResource("default.css").toExternalForm());
-
-        if (Settings.isDarkMode) {
-            scene.getStylesheets().add(StudyBuddyApplication.class.getResource("dark-mode.css").toExternalForm());
-        }
-
+        scene.getStylesheets().add(StudyBuddyApplication.class.getResource("accessibility.css").toExternalForm());
         primaryStage.setScene(scene);
         primaryStage.show();
     }
