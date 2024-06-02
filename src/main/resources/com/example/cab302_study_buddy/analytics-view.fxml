@@ -1,51 +1,59 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
 <VBox alignment="CENTER" spacing="15.0"
       xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.example.cab302_study_buddy.AnalyticsController">
+      fx:controller="com.example.cab302_study_buddy.AnalyticsController"
+      stylesheets="@default.css, @accessibility.css">
+    <padding>
+        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+    </padding>
     <HBox spacing="15.0">
-        <Button text="←" onAction="#onBackClick"/>
+        <Button text="←" onAction="#onBackClick" style="-fx-font-size: 14px;"/>
     </HBox>
-    <HBox spacing="15.0" alignment="CENTER">
-        <HBox spacing="5.0">
-            <VBox spacing="5.0" alignment="TOP_CENTER">
-                <Label text="Task Estimation Overshoot:"/>
-                <Label text="Average Hours Studied When Studying:"/>
-                <Label text="Average Hours Studied Daily:"/>
-                <Label text="Average Hours Studied Weekly:"/>
-                <Label text="Average Days Of Study A Week:"/>
-            </VBox>
-            <VBox spacing="5.0" alignment="TOP_CENTER">
-                <Label fx:id="taskEstOvershoot" text="Hours"/>
-                <Label fx:id="aveHoursStudyDay" text="Hours"/>
-                <Label fx:id="aveHoursDaily" text="Hours"/>
-                <Label fx:id="aveHoursWeekly" text="Hours"/>
-                <Label fx:id="aveDaysWeekly" text="Days"/>
-            </VBox>
-        </HBox>
-        <HBox spacing="5.0">
-            <VBox spacing="15">
-                <Label text="GPA Target:"/>
-                <Label text="Credits Completed:"/>
-                <Label text="Credits Remaining:"/>
-                <Label text="Current GPA:"/>
-                <Label text="Required GPA Per Unit:"/>
-            </VBox>
-            <VBox spacing="5.0" alignment="CENTER">
-                <TextField fx:id="GPATarget"/>
-                <TextField fx:id="creditsCompleted"/>
-                <TextField fx:id="creditsRemaining"/>
-                <TextField fx:id="currentGPA"/>
-                <Button text="Calculate" onMouseClicked="#onCalculateGPAClick"/>
-                <Label fx:id="requiredGPAPerUnit"/>
-            </VBox>
-        </HBox>
+    <HBox spacing="50.0" alignment="CENTER">
+        <GridPane hgap="10" vgap="10">
+            <columnConstraints>
+                <ColumnConstraints halignment="RIGHT"/>
+                <ColumnConstraints halignment="LEFT"/>
+            </columnConstraints>
+
+            <Label text="Task Estimation Overshoot:" GridPane.rowIndex="0" GridPane.columnIndex="0" style="-fx-font-size: 14px;"/>
+            <Label fx:id="taskEstOvershoot" text="\%" GridPane.rowIndex="0" GridPane.columnIndex="1" style="-fx-font-size: 14px;"/>
+
+            <Label text="Avg. Hours Studied Daily:" GridPane.rowIndex="1" GridPane.columnIndex="0" style="-fx-font-size: 14px;"/>
+            <Label fx:id="avgHoursDaily" text="Hours" GridPane.rowIndex="1" GridPane.columnIndex="1" style="-fx-font-size: 14px;"/>
+
+            <Label text="Avg. Hours Studied Weekly:" GridPane.rowIndex="2" GridPane.columnIndex="0" style="-fx-font-size: 14px;"/>
+            <Label fx:id="avgHoursWeekly" text="Hours" GridPane.rowIndex="2" GridPane.columnIndex="1" style="-fx-font-size: 14px;"/>
+
+            <Label text="Avg. Days Studied Weekly:" GridPane.rowIndex="3" GridPane.columnIndex="0" style="-fx-font-size: 14px;"/>
+            <Label fx:id="avgDaysWeekly" text="Days" GridPane.rowIndex="3" GridPane.columnIndex="1" style="-fx-font-size: 14px;"/>
+        </GridPane>
+        <GridPane hgap="10" vgap="10" alignment="CENTER_RIGHT">
+            <columnConstraints>
+                <ColumnConstraints halignment="RIGHT"/>
+                <ColumnConstraints halignment="LEFT"/>
+            </columnConstraints>
+
+            <Label text="GPA Target:" GridPane.rowIndex="0" GridPane.columnIndex="0" style="-fx-font-size: 14px;"/>
+            <TextField fx:id="GPATarget" GridPane.rowIndex="0" GridPane.columnIndex="1" style="-fx-font-size: 14px;"/>
+
+            <Label text="Credits Completed:" GridPane.rowIndex="1" GridPane.columnIndex="0" style="-fx-font-size: 14px;"/>
+            <TextField fx:id="creditsCompleted" GridPane.rowIndex="1" GridPane.columnIndex="1" style="-fx-font-size: 14px;"/>
+
+            <Label text="Credits Remaining:" GridPane.rowIndex="2" GridPane.columnIndex="0" style="-fx-font-size: 14px;"/>
+            <TextField fx:id="creditsRemaining" GridPane.rowIndex="2" GridPane.columnIndex="1" style="-fx-font-size: 14px;"/>
+
+            <Label text="Current GPA:" GridPane.rowIndex="3" GridPane.columnIndex="0" style="-fx-font-size: 14px;"/>
+            <TextField fx:id="currentGPA" GridPane.rowIndex="3" GridPane.columnIndex="1" style="-fx-font-size: 14px;"/>
+
+            <Button text="Calculate" onMouseClicked="#onCalculateGPAClick" GridPane.rowIndex="4" GridPane.columnIndex="1" style="-fx-font-size: 14px;"/>
+            <Label fx:id="requiredGPAPerUnit" text="Required GPA Per Unit:" GridPane.rowIndex="5" GridPane.columnIndex="1" style="-fx-font-size: 14px;"/>
+        </GridPane>
     </HBox>
-    <GridPane xmlns:fx="http://javafx.com/fxml" prefWidth="600" prefHeight="400" hgap="1" vgap="1"/>
+    <GridPane xmlns:fx="http://javafx.com/fxml" prefWidth="600" prefHeight="400" hgap="10" vgap="10"/>
 </VBox>

@@ -5,11 +5,15 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.Optional;
 
 /**
  * Contains logic and layout necessary for the settings page
@@ -17,6 +21,7 @@ import java.io.IOException;
 
 public class Settings {
 
+    public static boolean isDarkMode;
     @FXML
     private Button logoutButton;
 
@@ -27,18 +32,42 @@ public class Settings {
     private Button darkModeButton;
 
     @FXML
-    private Button uiScaleButton;
-
-    @FXML
-    private Button colorBlindButton;
-
-    @FXML
-    private Button notificationsButton;
-
-    @FXML
     private Button getEditProfileButton;
-    // Add event handling methods here
-    // For example:
+
+
+    @FXML
+    private void initialize() {
+        deleteAccountButton.setOnAction(event -> handleDeleteAccount());
+        darkModeButton.setOnAction(event -> handleDarkMode());
+    }
+
+    @FXML
+    private void handleDarkMode() {
+        isDarkMode = !isDarkMode;
+
+        // Load the current scene
+        Stage stage = (Stage) darkModeButton.getScene().getWindow();
+        Scene scene = stage.getScene();
+
+        // Clear the existing stylesheets
+        scene.getStylesheets().clear();
+
+        // Load the default stylesheet
+        String stylesPath = "/default.css";
+        URL stylesUrl = getClass().getResource(stylesPath);
+        if (stylesUrl != null) {
+            scene.getStylesheets().add(stylesUrl.toExternalForm());
+        }
+
+        // Conditionally load the dark mode stylesheet
+        if (isDarkMode) {
+            String darkmodePath = "/dark-mode.css";
+            URL darkmodeUrl = getClass().getResource(darkmodePath);
+            if (darkmodeUrl != null) {
+                scene.getStylesheets().add(darkmodeUrl.toExternalForm());
+            }
+        }
+    }
 
 
     @FXML
@@ -58,45 +87,45 @@ public class Settings {
 
     @FXML
     private void handleDeleteAccount() {
-        // Handle delete account logic here
+        // Show a confirmation dialog
+        Alert confirmationDialog = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmationDialog.setTitle("Delete Account");
+        confirmationDialog.setHeaderText("Are you sure you want to delete your account?");
+        confirmationDialog.setContentText("This action cannot be undone.");
+
+        Optional<ButtonType> result = confirmationDialog.showAndWait();
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+            // Delete the user account
+            int currentUserId = LoginController.current_user.getId();
+            DatabaseHandler.deleteUser(currentUserId);
+
+            // Perform any additional cleanup or navigation after deleting the account
+            // For example, you can navigate back to the login screen
+            navigateToLoginScreen();
+        }
     }
 
-    @FXML
-    private void handleDarkMode() {
-        // Handle dark mode toggle logic here
-    }
-
-    @FXML
-    private void handleUIScale() {
-        // Handle UI scale adjustment logic here
-    }
-
-    @FXML
-    private void handleColorBlindSettings() {
-        // Handle color-blind settings logic here
-    }
-
-    @FXML
-    private void handleNotifications() {
-        // Handle notifications toggle logic here
+    private void navigateToLoginScreen() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("login-view.fxml"));
+            Parent root = loader.load();
+            Stage stage = (Stage) logoutButton.getScene().getWindow();
+            stage.setScene(new Scene(root));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
     private void handleChangePassword(ActionEvent event) throws IOException {
-        // Load the change password scene
         FXMLLoader loader = new FXMLLoader(getClass().getResource("change-password.fxml"));
         Parent changePasswordParent = loader.load();
         Scene changePasswordScene = new Scene(changePasswordParent);
 
-        // Create a new stage for the change password window
         Stage changePasswordStage = new Stage();
         changePasswordStage.setTitle("Change Password");
         changePasswordStage.setScene(changePasswordScene);
-
-        // Set modality so that it blocks interaction with the main window
         changePasswordStage.initModality(Modality.APPLICATION_MODAL);
-
-        // Show the change password window
         changePasswordStage.showAndWait();
     }
 
@@ -109,6 +138,13 @@ public class Settings {
         Stage stage = new Stage();
         stage.setTitle("Edit Profile");
         stage.setScene(editProfileScene);
+
+        // Get the current user's id
+        int userId = LoginController.current_user.getId();
+
+        // Get the controller instance and call initializeWithUserId
+        EditProfileController controller = loader.getController();
+        controller.initializeWithUserId(userId);
 
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.showAndWait();
@@ -124,4 +160,3 @@ public class Settings {
         stage.setAlwaysOnTop(false);
     }
 }
-

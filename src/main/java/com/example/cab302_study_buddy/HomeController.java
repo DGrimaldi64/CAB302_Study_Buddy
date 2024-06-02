@@ -37,93 +37,102 @@ public class HomeController {
     @FXML
     private Label welcomeText;
 
+    /**
+     * Method to initialize the HomeController and load images into the ImageViews
+     */
     public void initialize() {
-        File tasksFile = new File("src/main/java/com/example/cab302_study_buddy/tasks.png");
+        File tasksFile = new File("src/main/resources/images/tasks.png");
         Image tasksImage = new Image(tasksFile.toURI().toString());
         tasksImageView.setImage(tasksImage);
         tasksImageView.getStyleClass().add("border");
 
-        File calendarFile = new File("src/main/java/com/example/cab302_study_buddy/calendar.png");
+        File calendarFile = new File("src/main/resources/images/calendar.png");
         Image calendarImage = new Image(calendarFile.toURI().toString());
         calendarImageView.setImage(calendarImage);
 
-        File timerFile = new File("src/main/java/com/example/cab302_study_buddy/timer.png");
+        File timerFile = new File("src/main/resources/images/timer.png");
         Image timerImage = new Image(timerFile.toURI().toString());
         timerImageView.setImage(timerImage);
 
-        File analyticsFile = new File("src/main/java/com/example/cab302_study_buddy/analytics.png");
+        File analyticsFile = new File("src/main/resources/images/analytics.png");
         Image analyticsImage = new Image(analyticsFile.toURI().toString());
         analyticsImageView.setImage(analyticsImage);
 
-        File accessibilityFile = new File("src/main/java/com/example/cab302_study_buddy/accessibility.png");
+        File accessibilityFile = new File("src/main/resources/images/accessibility.png");
         Image accessibilityImage = new Image(accessibilityFile.toURI().toString());
         accessibilityImageView.setImage(accessibilityImage);
 
-        File settingsFile = new File("src/main/java/com/example/cab302_study_buddy/settings.png");
+        File settingsFile = new File("src/main/resources/images/settings.png");
         Image settingsImage = new Image(settingsFile.toURI().toString());
         settingsImageView.setImage(settingsImage);
     }
 
+    /**
+     * Method to handle tasks button click event
+     */
     @FXML
     protected void onTasksClick() throws IOException {
-        // change scene to Tasks
+        // change scene to Tasks view
         Stage stage = (Stage)welcomeText.getScene().getWindow();
         FXMLLoader fxmlLoader = new FXMLLoader(StudyBuddyApplication.class.getResource("task-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(),640, 480);
         stage.setScene(scene);
     }
 
+    /**
+     * Method to handle calendar button click event
+     */
     @FXML
     protected void onCalendarClick() throws IOException {
-        // change scene to Calendar
+        // change scene to Calendar view
         Stage stage = (Stage)welcomeText.getScene().getWindow();
         FXMLLoader fxmlLoader = new FXMLLoader(StudyBuddyApplication.class.getResource("calendar-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(),640, 480);
         stage.setScene(scene);
     }
 
+    /**
+     * Method to handle timer button click event
+     */
     @FXML
     protected void onTimerClick() throws IOException {
-        // change scene to Timer
+        // change scene to Timer view
         Stage stage = (Stage)welcomeText.getScene().getWindow();
         FXMLLoader fxmlLoader = new FXMLLoader(StudyBuddyApplication.class.getResource("timer-view.fxml"));
-//        Scene scene = new Scene(fxmlLoader.load(),1280, 720);
         Scene scene = new Scene(fxmlLoader.load(),640, 480);
         stage.setScene(scene);
     }
 
-// ADD these later if we have time
-//    @FXML
-//    protected void onRewardsClick() throws IOException {
-//        // change scene to Rewards
-//    }
-//
-//    @FXML
-//    protected void onStudyHelperClick() throws IOException {
-//        // change scene to Study Helper
-//    }
-
+    /**
+     * Method to handle analytics button click event
+     */
     @FXML
     protected void onAnalyticsClick() throws IOException {
-        // change scene to Analytics
+        // change scene to Analytics view
         Stage stage = (Stage)welcomeText.getScene().getWindow();
         FXMLLoader fxmlLoader = new FXMLLoader(StudyBuddyApplication.class.getResource("analytics-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(),640, 480);
         stage.setScene(scene);
     }
 
+    /**
+     * Method to handle accessibility button click event
+     */
     @FXML
     protected void onAccessibilityClick() throws IOException {
-        // change scene to Accessibility
-//        Stage stage = (Stage)welcomeText.getScene().getWindow();
-//        FXMLLoader fxmlLoader = new FXMLLoader(StudyBuddyApplication.class.getResource("accessibility-view.fxml"));
-//        Scene scene = new Scene(fxmlLoader.load(),640, 480);
-//        stage.setScene(scene);
+        // change scene to Accessibility view
+        Stage stage = (Stage)welcomeText.getScene().getWindow();
+        FXMLLoader fxmlLoader = new FXMLLoader(StudyBuddyApplication.class.getResource("accessibility-view.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(),640, 480);
+        stage.setScene(scene);
     }
 
+    /**
+     * Method to handle settings button click event
+     */
     @FXML
     protected void onSettingsClick() throws IOException {
-        // change scene to Settings
+        // change scene to Settings view
         Stage stage = (Stage)welcomeText.getScene().getWindow();
         FXMLLoader fxmlLoader = new FXMLLoader(StudyBuddyApplication.class.getResource("settings-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(),640, 480);

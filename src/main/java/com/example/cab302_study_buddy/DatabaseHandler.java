@@ -7,6 +7,9 @@ import javafx.scene.control.Alert;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 
 /**
  * Includes all methods to use the database, including connection parameters
@@ -38,6 +41,16 @@ public class DatabaseHandler {
                             "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                             "task TEXT NOT NULL, " +
                             "user_id INTEGER NOT NULL, " +
+                            "expected_completion_time DOUBLE, " +  // in minutes
+                            "current_time_worked DOUBLE, " +       // in minutes
+                            "is_active BOOLEAN, " +
+                            "FOREIGN KEY(user_id) REFERENCES users(id))");
+            createTable.execute(
+                    "CREATE TABLE IF NOT EXISTS record (" +
+                            "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                            "date DATE NOT NULL, " +
+                            "user_id INTEGER NOT NULL, " +
+                            "hours_worked DOUBLE NOT NULL, " +
                             "FOREIGN KEY(user_id) REFERENCES users(id))");
             close(connection);
         } catch (SQLException e) {
@@ -135,14 +148,6 @@ public class DatabaseHandler {
     }
 
 
-
-
-
-
-
-
-
-
     /**
      *
      * @param username
@@ -167,12 +172,13 @@ public class DatabaseHandler {
         return 0;
     }
 
-    public static void insertTask(String task, int userId) {
+    public static void insertTask(String task, int userId, double duration) {
         try {
             Connection connection = DatabaseConnection.getInstance();
-            PreparedStatement stmt = connection.prepareStatement("INSERT INTO tasks (task, user_id) VALUES (?, ?)");
+            PreparedStatement stmt = connection.prepareStatement("INSERT INTO tasks (task, user_id, expected_completion_time) VALUES (?, ?, ?)");
             stmt.setString(1, task);
             stmt.setInt(2, userId);
+            stmt.setDouble(3, duration);
             stmt.execute();
 
         } catch (SQLException e) {
@@ -180,27 +186,27 @@ public class DatabaseHandler {
         }
     }
 
-    public static ObservableList<String> getTasksForUser(int userId) {
-        ObservableList<String> tasks = FXCollections.observableArrayList();
+    public static ObservableList<TaskController.Task> getTasksForUser(int userId) {
+        ObservableList<TaskController.Task> tasks = FXCollections.observableArrayList();
 
         try {
-
             Connection connection = DatabaseConnection.getInstance();
-
-            PreparedStatement getAll = connection
-                    .prepareStatement("SELECT id, task FROM tasks WHERE user_id = ? ORDER BY id");
+            PreparedStatement getAll = connection.prepareStatement("SELECT id, task, expected_completion_time, current_time_worked, is_active FROM tasks WHERE user_id = ? ORDER BY id");
             getAll.setInt(1, userId);
 
+            ResultSet resultSet = getAll.executeQuery();
 
-            ResultSet results = getAll.executeQuery();
+            while (resultSet.next()) {
+                String taskName = resultSet.getString("task");
+                String expectedCompletionTime = resultSet.getString("expected_completion_time");
+                String currentTimeWorked = resultSet.getString("current_time_worked");
+                boolean isActive = resultSet.getBoolean("is_active");
 
-            while (results.next()) {
-                tasks.add(results.getString("task"));
+                TaskController.Task task = new TaskController.Task(taskName, expectedCompletionTime, currentTimeWorked, isActive);
+                tasks.add(task);
             }
-
             close(connection);
         } catch (SQLException e) {
-            // e.printStackTrace();
             System.out.println(e);
             showAlert("Error retrieving tasks: " + e.getMessage(), Alert.AlertType.ERROR);
         }
@@ -208,7 +214,7 @@ public class DatabaseHandler {
         return tasks;
     }
 
-    public static void updateTask(String updatedTask, int userId, String currentTask) {
+    public static void updateTask(String updatedTask, int userId, String currentTask, double expectedCompletionTime, double currentTimeWorked, boolean active) {
         try {
             Connection connection = DatabaseConnection.getInstance();
             PreparedStatement getTaskId = connection.prepareStatement("SELECT id FROM tasks WHERE task = ? AND user_id = ?");
@@ -218,10 +224,13 @@ public class DatabaseHandler {
 
             if (rs.next()) {
                 int taskId = rs.getInt("id");
-                PreparedStatement stmt = connection.prepareStatement("UPDATE tasks SET task = ? WHERE id = ? AND user_id = ?");
+                PreparedStatement stmt = connection.prepareStatement("UPDATE tasks SET task = ?, expected_completion_time = ?, current_time_worked = ?, is_active = ? WHERE id = ? AND user_id = ?");
                 stmt.setString(1, updatedTask);
-                stmt.setInt(2, taskId);
-                stmt.setInt(3, userId);
+                stmt.setDouble(2, expectedCompletionTime);
+                stmt.setDouble(3, currentTimeWorked);
+                stmt.setBoolean(4, active);
+                stmt.setInt(5, taskId);
+                stmt.setInt(6, userId);
                 stmt.executeUpdate();
             } else {
                 System.out.println("Task not found for user " + userId + " and task '" + currentTask + "'");
@@ -247,45 +256,155 @@ public class DatabaseHandler {
         }
     }
 
+    public static void deleteUser(int userId) {
+        try {
+            Connection connection = DatabaseConnection.getInstance();
+
+            // First, delete all tasks associated with the user
+            PreparedStatement deleteUserTasks = connection.prepareStatement("DELETE FROM tasks WHERE user_id = ?");
+            deleteUserTasks.setInt(1, userId);
+            deleteUserTasks.executeUpdate();
+
+            // Then, delete the user from the users table
+            PreparedStatement deleteUser = connection.prepareStatement("DELETE FROM users WHERE id = ?");
+            deleteUser.setInt(1, userId);
+            deleteUser.executeUpdate();
+
+            close(connection);
+        } catch (SQLException e) {
+            showAlert("Error deleting user: " + e.getMessage(), Alert.AlertType.ERROR);
+        }
+    }
+
+    public static String getUsernameForId(int userId) {
+        try {
+            Connection connection = DatabaseConnection.getInstance();
+            PreparedStatement stmt = connection.prepareStatement("SELECT username FROM users WHERE id = ?");
+            stmt.setInt(1, userId);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return rs.getString("username");
+            }
+            close(connection);
+        } catch (SQLException e) {
+            showAlert("Error retrieving username: " + e.getMessage(), Alert.AlertType.ERROR);
+        }
+        return null;
+    }
+
+    public static String getPhoneForId(int userId) {
+        try {
+            Connection connection = DatabaseConnection.getInstance();
+            PreparedStatement stmt = connection.prepareStatement("SELECT identifier FROM users WHERE id = ?");
+            stmt.setInt(1, userId);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                String identifier = rs.getString("identifier");
+                if (identifier != null && SignupController.VALID_PHONE_NUMBER_REGEX.matcher(identifier).matches()) {
+                    return identifier;
+                }
+            }
+            close(connection);
+        } catch (SQLException e) {
+            showAlert("Error retrieving phone number: " + e.getMessage(), Alert.AlertType.ERROR);
+        }
+        return null;
+    }
+
+    public static String getEmailForId(int userId) {
+        try {
+            Connection connection = DatabaseConnection.getInstance();
+            PreparedStatement stmt = connection.prepareStatement("SELECT identifier FROM users WHERE id = ?");
+            stmt.setInt(1, userId);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                String identifier = rs.getString("identifier");
+                if (identifier != null && SignupController.VALID_EMAIL_ADDRESS_REGEX.matcher(identifier).matches()) {
+                    return identifier;
+                }
+            }
+            close(connection);
+        } catch (SQLException e) {
+            showAlert("Error retrieving email: " + e.getMessage(), Alert.AlertType.ERROR);
+        }
+        return null;
+    }
+
+    public static void updateUserProfile(int userId, String newUsername, String newPhone, String newEmail) {
+        try {
+            Connection connection = DatabaseConnection.getInstance();
+            PreparedStatement stmt = connection.prepareStatement("UPDATE users SET username = ?, identifier = ? WHERE id = ?");
+            stmt.setString(1, newUsername);
+            stmt.setString(2, newPhone == null ? (newEmail == null ? "" : newEmail) : (newPhone.isEmpty() ? newEmail : newPhone));
+            stmt.setInt(3, userId);
+            stmt.executeUpdate();
+            close(connection);
+        } catch (SQLException e) {
+            showAlert("Error updating user profile: " + e.getMessage(), Alert.AlertType.ERROR);
+        }
+    }
+
+//    public static boolean updatePassword(String username, String currentPassword, String newPassword) {
+//        try {
+//            Connection connection = DatabaseConnection.getInstance();
+//
+//            // Check if the connection is null
+//            if (connection == null) {
+//                System.out.println("Database connection is null");
+//                return false;
+//            }
+//
+//            // Verify current password
+//            String storedPassword = getPasswordForUsername(username);
+//            if (storedPassword == null || !storedPassword.equals(hashPassword(currentPassword))) {
+//                // Current password doesn't match, return false
+//                System.out.println("Current password does not match");
+//                return false;
+//            }
+//
+//            // Update password
+//            PreparedStatement updatePassword = connection.prepareStatement("UPDATE users SET password = ? WHERE username = ?");
+//            String hashedNewPassword = hashPassword(newPassword);
+//            updatePassword.setString(1, hashedNewPassword);
+//            updatePassword.setString(2, username);
+//
+//            int rowsAffected = updatePassword.executeUpdate();
+//
+//            // Log the number of rows affected
+//            System.out.println(rowsAffected + " row(s) updated");
+//
+//            close(connection);
+//
+//            return rowsAffected > 0;
+//        } catch (SQLException e) {
+//            showAlert("Error updating password: " + e.getMessage(), Alert.AlertType.ERROR);
+//            return false;
+//        }
+//    }
+
     public static boolean updatePassword(String username, String currentPassword, String newPassword) {
         try {
             Connection connection = DatabaseConnection.getInstance();
 
-            // Check if the connection is null
-            if (connection == null) {
-                System.out.println("Database connection is null");
-                return false;
-            }
-
-            // Verify current password
+            // First, check if the current password matches the stored password
             String storedPassword = getPasswordForUsername(username);
-            if (storedPassword == null || !storedPassword.equals(hashPassword(currentPassword))) {
-                // Current password doesn't match, return false
-                System.out.println("Current password does not match");
-                return false;
+            if (!storedPassword.equals(currentPassword)) {
+                return false; // Current password is incorrect
             }
 
-            // Update password
-            PreparedStatement updatePassword = connection.prepareStatement("UPDATE users SET password = ? WHERE username = ?");
-            String hashedNewPassword = hashPassword(newPassword);
-            updatePassword.setString(1, hashedNewPassword);
-            updatePassword.setString(2, username);
-
-            int rowsAffected = updatePassword.executeUpdate();
-
-            // Log the number of rows affected
-            System.out.println(rowsAffected + " row(s) updated");
+            // Update the password in the database
+            PreparedStatement stmt = connection.prepareStatement("UPDATE users SET password = ? WHERE username = ?");
+            stmt.setString(1, newPassword);
+            stmt.setString(2, username);
+            stmt.executeUpdate();
 
             close(connection);
-
-            return rowsAffected > 0;
+            return true; // Password updated successfully
         } catch (SQLException e) {
             showAlert("Error updating password: " + e.getMessage(), Alert.AlertType.ERROR);
             return false;
         }
     }
-
-
 
     private static String hashPassword(String password) {
         try {
@@ -312,7 +431,7 @@ public class DatabaseHandler {
      * @param message   message to display
      * @param alertType what type of alert is being used
      */
-    private static void showAlert(String message, Alert.AlertType alertType) {
+    static void showAlert(String message, Alert.AlertType alertType) {
         Alert alert = new Alert(alertType);
         alert.setContentText(message);
         alert.showAndWait();
@@ -328,6 +447,32 @@ public class DatabaseHandler {
             connection.close();
         } catch (SQLException ex) {
             System.err.println(ex);
+        }
+    }
+
+    public static void updateTimeWorked(String taskName, int userId, int elapsedSeconds) {
+        try {
+            Connection connection = DatabaseConnection.getInstance();
+            PreparedStatement getTaskId = connection.prepareStatement("SELECT id, current_time_worked FROM tasks WHERE task = ? AND user_id = ?");
+            getTaskId.setString(1, taskName);
+            getTaskId.setInt(2, userId);
+            ResultSet resultSet = getTaskId.executeQuery();
+
+            if (resultSet.next()) {
+                int taskId = resultSet.getInt("id");
+                double currentTimeWorked = resultSet.getDouble("current_time_worked") + (double) elapsedSeconds / 3600;
+                PreparedStatement stmt = connection.prepareStatement("UPDATE tasks SET current_time_worked = ? WHERE id = ? AND user_id = ?");
+                stmt.setDouble(1, currentTimeWorked);
+                stmt.setInt(2, taskId);
+                stmt.setInt(3, userId);
+                stmt.executeUpdate();
+            } else {
+                System.out.println("Task not found for user " + userId + " and task '" + taskName + "'");
+            }
+
+            close(connection);
+        } catch (SQLException e) {
+            showAlert("Error updating time worked: " + e.getMessage(), Alert.AlertType.ERROR);
         }
     }
 }
