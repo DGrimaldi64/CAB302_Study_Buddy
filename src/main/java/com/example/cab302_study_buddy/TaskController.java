@@ -18,7 +18,7 @@ import static com.example.cab302_study_buddy.LoginController.current_user;
 
 
 /**
- * File to control fxml as well as interacting with database to  add, remove, update tasks table
+ * File to control fxml as well as interacting with database to add, remove, update tasks table
  */
 public class TaskController {
     @FXML
@@ -45,17 +45,37 @@ public class TaskController {
      * This method is called when the FXML file is loaded
      */
     public void initialize() {
-
         this.currentUserId = current_user.getId();
         DatabaseHandler.createTable(); // Create the tables if they don't exist
         tasks = DatabaseHandler.getTasksForUser(currentUserId); // Retrieve tasks for the current user
         taskTableView.setItems(tasks);
 
+        // Clear any existing columns
+        taskTableView.getColumns().clear();
+
         // Initialize the columns
+        TableColumn<Task, String> taskNameColumn = new TableColumn<>("Task Name");
         taskNameColumn.setCellValueFactory(new PropertyValueFactory<>("taskName"));
+        taskNameColumn.setMinWidth(100); // minimum width
+        taskNameColumn.setPrefWidth(200); // preferred width
+
+        TableColumn<Task, String> expectedTimeColumn = new TableColumn<>("Expected Time");
         expectedTimeColumn.setCellValueFactory(new PropertyValueFactory<>("expectedTime"));
+        expectedTimeColumn.setMinWidth(100);
+        expectedTimeColumn.setPrefWidth(150);
+
+        TableColumn<Task, String> currentTimeWorkedColumn = new TableColumn<>("Current Time Worked");
         currentTimeWorkedColumn.setCellValueFactory(new PropertyValueFactory<>("currentTimeWorked"));
-        activeColumn.setCellValueFactory(new PropertyValueFactory<>("active")); // Link activeColumn to the 'active' property of Task
+        currentTimeWorkedColumn.setMinWidth(100);
+        currentTimeWorkedColumn.setPrefWidth(150);
+
+        TableColumn<Task, String> activeColumn = new TableColumn<>("Active");
+        activeColumn.setCellValueFactory(new PropertyValueFactory<>("active"));
+        activeColumn.setMinWidth(100);
+        activeColumn.setPrefWidth(100);
+
+        taskTableView.getColumns().addAll(taskNameColumn, expectedTimeColumn, currentTimeWorkedColumn, activeColumn);
+
 
         // Deselect any selected task when the text field or "Add" button is clicked
         addTaskTextField.setOnMouseClicked(event -> taskTableView.getSelectionModel().clearSelection());

@@ -50,6 +50,9 @@ public class AnalyticsController {
     private Connection connection;
     private int currentUserId;
 
+    /**
+     * Method called when the FXML file is loaded
+     */
     @FXML
     public void initialize() {
         // Connect to the database
@@ -60,6 +63,9 @@ public class AnalyticsController {
         calculateStatistics();
     }
 
+    /**
+     * Method to calculate and display various statistics
+     */
     private void calculateStatistics() {
         try {
             // Task Estimation Overshoot
@@ -125,6 +131,9 @@ public class AnalyticsController {
         }
     }
 
+    /**
+     * Method to handle the back button click event
+     */
     @FXML
     protected void onBackClick() throws IOException {
         // change scene to Home
@@ -134,6 +143,9 @@ public class AnalyticsController {
         stage.setScene(scene);
     }
 
+    /**
+     * Method to handle the calculate GPA button click event
+     */
     @FXML
     protected void onCalculateGPAClick() throws IOException {
         // calculate GPA required per unit
@@ -156,6 +168,9 @@ public class AnalyticsController {
         }
     }
 
+    /**
+     * Method to show an alert with a given message
+     */
     private void showAlert(String message, Alert.AlertType alertType) {
         Alert alert = new Alert(alertType);
         alert.setContentText(message);

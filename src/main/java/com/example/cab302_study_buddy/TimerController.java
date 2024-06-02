@@ -20,6 +20,7 @@ import static com.example.cab302_study_buddy.LoginController.current_user;
 
 public class TimerController {
 
+    // FXML fields representing the UI components
     @FXML
     private Label timerDisplay;
 
@@ -60,6 +61,9 @@ public class TimerController {
     private Stage miniTimerStage;
     private TimerService timerService;
 
+    /**
+     * Method called when the FXML file is loaded
+     */
     @FXML
     public void initialize() {
         timerService = TimerService.getInstance();
@@ -79,6 +83,9 @@ public class TimerController {
         populateTasksComboBox();
     }
 
+    /**
+     * Method to populate the ComboBox with tasks from the database
+     */
     private void populateTasksComboBox() {
         // Fetch tasks from the database
         ObservableList<com.example.cab302_study_buddy.TaskController.Task> tasks = DatabaseHandler.getTasksForUser(current_user.getId());
@@ -116,10 +123,14 @@ public class TimerController {
         });
     }
 
+    /**
+     * Method to handle task selection from the ComboBox
+     */
     @FXML
     protected void onTaskSelected() {
         TaskController.Task selectedTask = (TaskController.Task) taskComboBox.getValue();
         if (selectedTask != null) {
+            // Calculate the remaining time for the selected task
             int remainingTime = (int) (Double.parseDouble(selectedTask.getExpectedTime()) - Double.parseDouble(selectedTask.getCurrentTimeWorked()));
             if (remainingTime > 0) {
                 // Set the initial timer value based on remaining time
@@ -133,6 +144,9 @@ public class TimerController {
         }
     }
 
+    /**
+     * Helper method to format time as a two-digit string
+     */
     private String FormatTime(TextField time) {
         if (time.getLength() == 2) {
             return time.getText();
@@ -143,6 +157,9 @@ public class TimerController {
         }
     }
 
+    /**
+     * Overloaded helper method to format time as a two-digit string
+     */
     private String FormatTime(int timeInt) {
         String time = Integer.toString(timeInt);
         if (time.length() == 2) {
@@ -154,6 +171,9 @@ public class TimerController {
         }
     }
 
+    /**
+     * Method to handle the back button click
+     */
     @FXML
     protected void onBackClick() throws IOException {
         // change scene to Home
@@ -164,13 +184,20 @@ public class TimerController {
         stage.setAlwaysOnTop(false);
     }
 
+    /**
+     * Method to handle the enter button click
+     */
     @FXML
     protected void onEnterClick() {
+        // Get the input time values
         int hours = Integer.parseInt(FormatTime(hoursInput));
         int minutes = Integer.parseInt(FormatTime(minutesInput));
         int seconds = Integer.parseInt(FormatTime(secondsInput));
 
+        // Get the selected task
         Task selectedTask = (Task) taskComboBox.getValue();
+
+        // Start the timer with the selected task and input time values
         timerService.startTimer(selectedTask, hours, minutes, seconds);
 
         timerControls.setVisible(true);
@@ -178,6 +205,9 @@ public class TimerController {
         enterBtn.setVisible(false);
     }
 
+    /**
+     * Method to handle the set/pause button click
+     */
     @FXML
     protected void onSetPauseClick() {
         if (Objects.equals(setPauseBtn.getText(), "Resume")) {
@@ -194,12 +224,18 @@ public class TimerController {
         }
     }
 
+    /**
+     * Method to handle the stop button click
+     */
     @FXML
     protected void onStopClick() {
         timerService.stopTimer();
         setPauseBtn.setText("Set");
     }
 
+    /**
+     * Method to handle the mini timer button click
+     */
     @FXML
     protected void onMiniTimerClick() {
         if (miniTimerWindowOpen) {
@@ -210,6 +246,7 @@ public class TimerController {
         miniTimerStage = new Stage();
         miniTimerStage.setTitle("Mini Timer");
 
+        // Create the layout for the mini timer window
         VBox miniTimerRoot = new VBox();
         miniTimerRoot.setAlignment(Pos.CENTER);
         miniTimerRoot.setSpacing(15);
@@ -217,6 +254,7 @@ public class TimerController {
         miniTimerDisplay.textProperty().bind(timerService.timerDisplayProperty());
         miniTimerDisplay.setStyle("-fx-font-size: 48px;");
 
+        // Create the controls for the mini timer window
         HBox miniTimerControls = new HBox();
         miniTimerControls.setAlignment(Pos.CENTER);
         miniTimerControls.setSpacing(10);
@@ -242,6 +280,7 @@ public class TimerController {
 
         miniTimerRoot.getChildren().addAll(miniTimerDisplay, miniTimerControls);
 
+        // Create the scene for the mini timer window
         Scene miniTimerScene = new Scene(miniTimerRoot, 320, 200);
         miniTimerStage.setScene(miniTimerScene);
         miniTimerStage.initStyle(StageStyle.UTILITY);
@@ -253,6 +292,9 @@ public class TimerController {
         miniTimerWindowOpen = true;
     }
 
+    /**
+     * Method to handle typing in the hours input field
+     */
     @FXML
     protected void onHoursType() throws IOException {
         try {
@@ -275,9 +317,12 @@ public class TimerController {
         hoursInput.positionCaret(2);
     }
 
+    /**
+     * Method to handle clicking the hours up button
+     */
     @FXML
     protected void onHoursUpClick() throws IOException {
-        // increment timer
+        // Increment the hour slider value
         if (hourSlider.getValue() == 99) {
             hourSlider.setValue(0);
         } else {
@@ -287,9 +332,12 @@ public class TimerController {
         hoursInput.setText(FormatTime((int) hourSlider.getValue()));
     }
 
+    /**
+     * Method to handle clicking the hours down button
+     */
     @FXML
     protected void onHoursDownClick() throws IOException {
-        // decrement timer
+        // Decrement the hour slider value
         if (hourSlider.getValue() == 0) {
             hourSlider.setValue(99);
         } else {
@@ -299,6 +347,9 @@ public class TimerController {
         hoursInput.setText(FormatTime((int) hourSlider.getValue()));
     }
 
+    /**
+     * Method to handle typing in the minutes input field
+     */
     @FXML
     protected void onMinutesType() throws IOException {
         try {
@@ -321,9 +372,12 @@ public class TimerController {
         minutesInput.positionCaret(2);
     }
 
+    /**
+     * Method to handle clicking the minutes up button
+     */
     @FXML
     protected void onMinutesUpClick() throws IOException {
-        // increment timer
+        // Increment the minute slider value
         if (minuteSlider.getValue() == 59) {
             minuteSlider.setValue(0);
         } else {
@@ -333,9 +387,12 @@ public class TimerController {
         minutesInput.setText(FormatTime((int) minuteSlider.getValue()));
     }
 
+    /**
+     * Method to handle clicking the minutes down button
+     */
     @FXML
     protected void onMinutesDownClick() throws IOException {
-        // decrement timer
+        // Decrement the minute slider value
         if (minuteSlider.getValue() == 0) {
             minuteSlider.setValue(59);
         } else {
@@ -345,6 +402,9 @@ public class TimerController {
         minutesInput.setText(FormatTime((int) minuteSlider.getValue()));
     }
 
+    /**
+     * Method to handle typing in the seconds input field
+     */
     @FXML
     protected void onSecondsType() throws IOException {
         try {
@@ -367,9 +427,12 @@ public class TimerController {
         secondsInput.positionCaret(2);
     }
 
+    /**
+     * Method to handle clicking the seconds up button
+     */
     @FXML
     protected void onSecondsUpClick() throws IOException {
-        // increment timer
+        // Increment the second slider value
         if (secondSlider.getValue() == 59) {
             secondSlider.setValue(0);
         } else {
@@ -379,9 +442,12 @@ public class TimerController {
         secondsInput.setText(FormatTime((int) secondSlider.getValue()));
     }
 
+    /**
+     * Method to handle clicking the seconds down button
+     */
     @FXML
     protected void onSecondsDownClick() throws IOException {
-        // decrement timer
+        // Decrement the second slider value
         if (secondSlider.getValue() == 0) {
             secondSlider.setValue(59);
         } else {

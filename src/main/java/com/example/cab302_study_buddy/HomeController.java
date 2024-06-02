@@ -34,6 +34,9 @@ public class HomeController {
     @FXML
     private Label welcomeText;
 
+    /**
+     * Method to initialize the HomeController and load images into the ImageViews
+     */
     public void initialize() {
         File tasksFile = new File("src/main/resources/images/tasks.png");
         Image tasksImage = new Image(tasksFile.toURI().toString());
@@ -61,54 +64,72 @@ public class HomeController {
         settingsImageView.setImage(settingsImage);
     }
 
+    /**
+     * Method to handle tasks button click event
+     */
     @FXML
     protected void onTasksClick() throws IOException {
-        // change scene to Tasks
+        // change scene to Tasks view
         Stage stage = (Stage)welcomeText.getScene().getWindow();
         FXMLLoader fxmlLoader = new FXMLLoader(StudyBuddyApplication.class.getResource("task-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(),640, 480);
         stage.setScene(scene);
     }
 
+    /**
+     * Method to handle calendar button click event
+     */
     @FXML
     protected void onCalendarClick() throws IOException {
-        // change scene to Calendar
+        // change scene to Calendar view
         Stage stage = (Stage)welcomeText.getScene().getWindow();
         FXMLLoader fxmlLoader = new FXMLLoader(StudyBuddyApplication.class.getResource("calendar-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(),640, 480);
         stage.setScene(scene);
     }
 
+    /**
+     * Method to handle timer button click event
+     */
     @FXML
     protected void onTimerClick() throws IOException {
-        // change scene to Timer
+        // change scene to Timer view
         Stage stage = (Stage)welcomeText.getScene().getWindow();
         FXMLLoader fxmlLoader = new FXMLLoader(StudyBuddyApplication.class.getResource("timer-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(),640, 480);
         stage.setScene(scene);
     }
 
+    /**
+     * Method to handle analytics button click event
+     */
     @FXML
     protected void onAnalyticsClick() throws IOException {
-        // change scene to Analytics
+        // change scene to Analytics view
         Stage stage = (Stage)welcomeText.getScene().getWindow();
         FXMLLoader fxmlLoader = new FXMLLoader(StudyBuddyApplication.class.getResource("analytics-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(),640, 480);
         stage.setScene(scene);
     }
 
+    /**
+     * Method to handle accessibility button click event
+     */
     @FXML
     protected void onAccessibilityClick() throws IOException {
-        // change scene to Accessibility
+        // change scene to Accessibility view
         Stage stage = (Stage)welcomeText.getScene().getWindow();
         FXMLLoader fxmlLoader = new FXMLLoader(StudyBuddyApplication.class.getResource("accessibility-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(),640, 480);
         stage.setScene(scene);
     }
 
+    /**
+     * Method to handle settings button click event
+     */
     @FXML
     protected void onSettingsClick() throws IOException {
-        // change scene to Settings
+        // change scene to Settings view
         Stage stage = (Stage)welcomeText.getScene().getWindow();
         FXMLLoader fxmlLoader = new FXMLLoader(StudyBuddyApplication.class.getResource("settings-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(),640, 480);

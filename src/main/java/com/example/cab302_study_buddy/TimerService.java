@@ -46,23 +46,27 @@ public class TimerService {
         return timerDisplayProperty;
     }
 
+    /**
+     * Method to start the timer
+     */
     public void startTimer(Task selectedTask, int hours, int minutes, int seconds) {
-        stopTimer();
+        stopTimer(); // Stop any existing timer
         stopCheck = false;
         pauseCheck = false;
         alertShown = false;
         timerState = TimerState.RUNNING;
 
+        // Convert input time to seconds
         convertedTime = hours * 3600 + minutes * 60 + seconds;
-        updateTimerDisplay();
+        updateTimerDisplay(); // Update the timer display
 
-        timer = new Timer();
+        timer = new Timer();  // Initialize a new timer
         timer.scheduleAtFixedRate(new TimerTask() {
             int elapsedSeconds = 0;
 
             @Override
             public void run() {
-                Platform.runLater(() -> {
+                Platform.runLater(() -> { // Run on the JavaFX application thread
                     if (stopCheck) {
                         stopTimer();
                     } else if (!pauseCheck) {
@@ -81,7 +85,7 @@ public class TimerService {
                                 pauseTimer(); // Pause timer
                                 showAlert("Take a 5-minute break!"); // Show break alert
 
-                                // Start a 5-minute break timer
+                                // Start a 5 minute break timer
                                 Timer breakTimer = new Timer();
                                 breakTimer.schedule(new TimerTask() {
                                     @Override
@@ -106,9 +110,12 @@ public class TimerService {
                     }
                 });
             }
-        }, 0, 1000);
+        }, 0, 1000); // Run every second
     }
 
+    /**
+     * Method to stop the timer
+     */
     public void stopTimer() {
         if (timer != null) {
             timer.cancel();
@@ -120,16 +127,25 @@ public class TimerService {
         timerState = TimerState.STOPPED;
     }
 
+    /**
+     * Method to pause the timer
+     */
     public void pauseTimer() {
         pauseCheck = true;
         timerState = TimerState.PAUSED;
     }
 
+    /**
+     * Method to resume the timer
+     */
     public void resumeTimer() {
         pauseCheck = false;
         timerState = TimerState.RUNNING;
     }
 
+    /**
+     * Method to update the timer display
+     */
     private void updateTimerDisplay() {
         int hours = convertedTime / 3600;
         int minutes = (convertedTime % 3600) / 60;
@@ -137,6 +153,9 @@ public class TimerService {
         timerDisplayProperty.set(String.format("%02d:%02d:%02d", hours, minutes, seconds));
     }
 
+    /**
+     * Method to show an alert with a given message
+     */
     private void showAlert(String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Timer Alert");
