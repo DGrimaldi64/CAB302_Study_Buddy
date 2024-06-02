@@ -1,5 +1,3 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.control.Button?>
@@ -7,35 +5,33 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
 
-<VBox alignment="CENTER" spacing="50.0" fillWidth="false"
-      xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.example.cab302_study_buddy.HomeController">
+<VBox alignment="CENTER" spacing="50.0" fillWidth="false" xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.cab302_study_buddy.HomeController" stylesheets="@default.css, @accessibility.css">
     <Label fx:id="welcomeText" text="Welcome To Study-Buddy" style="-fx-font-size: 48px;"/>
     <HBox spacing="50.0" alignment="CENTER">
         <VBox alignment="CENTER">
-            <ImageView fx:id="tasksImageView" fitHeight="96.0" fitWidth="96.0" preserveRatio="true" pickOnBounds="true" onMouseClicked="#onTasksClick"/>
+            <ImageView fx:id="tasksImageView" fitHeight="96.0" fitWidth="96.0" preserveRatio="true" pickOnBounds="true" onMouseClicked="#onTasksClick" styleClass="hoverableImage"/>
             <Label text="Tasks" style="-fx-font-size: 20px;"/>
         </VBox>
         <VBox alignment="CENTER">
-            <ImageView fx:id="calendarImageView" fitHeight="96.0" fitWidth="96.0" preserveRatio="true" pickOnBounds="true" onMouseClicked="#onCalendarClick"/>
+            <ImageView fx:id="calendarImageView" fitHeight="96.0" fitWidth="96.0" preserveRatio="true" pickOnBounds="true" onMouseClicked="#onCalendarClick" styleClass="hoverableImage"/>
             <Label text="Calendar" style="-fx-font-size: 20px;"/>
         </VBox>
         <VBox alignment="CENTER">
-            <ImageView fx:id="timerImageView" fitHeight="96.0" fitWidth="96.0" preserveRatio="true" pickOnBounds="true" onMouseClicked="#onTimerClick"/>
+            <ImageView fx:id="timerImageView" fitHeight="96.0" fitWidth="96.0" preserveRatio="true" pickOnBounds="true" onMouseClicked="#onTimerClick" styleClass="hoverableImage"/>
             <Label text="Timer" style="-fx-font-size: 20px;"/>
         </VBox>
     </HBox>
     <HBox spacing="50.0" alignment="CENTER">
         <VBox alignment="CENTER">
-            <ImageView fx:id="analyticsImageView" fitHeight="96.0" fitWidth="96.0" preserveRatio="true" pickOnBounds="true" onMouseClicked="#onAnalyticsClick"/>
+            <ImageView fx:id="analyticsImageView" fitHeight="96.0" fitWidth="96.0" preserveRatio="true" pickOnBounds="true" onMouseClicked="#onAnalyticsClick" styleClass="hoverableImage"/>
             <Label text="Analytics" style="-fx-font-size: 20px;"/>
         </VBox>
         <VBox alignment="CENTER">
-            <ImageView fx:id="accessibilityImageView" fitHeight="96.0" fitWidth="96.0" preserveRatio="true" pickOnBounds="true" onMouseClicked="#onAccessibilityClick"/>
+            <ImageView fx:id="accessibilityImageView" fitHeight="96.0" fitWidth="96.0" preserveRatio="true" pickOnBounds="true" onMouseClicked="#onAccessibilityClick" styleClass="hoverableImage"/>
             <Label text="Accessibility" style="-fx-font-size: 20px;"/>
         </VBox>
         <VBox alignment="CENTER">
-            <ImageView fx:id="settingsImageView" fitHeight="96.0" fitWidth="96.0" preserveRatio="true" pickOnBounds="true" onMouseClicked="#onSettingsClick"/>
+            <ImageView fx:id="settingsImageView" fitHeight="96.0" fitWidth="96.0" preserveRatio="true" pickOnBounds="true" onMouseClicked="#onSettingsClick" styleClass="hoverableImage"/>
             <Label text="Settings" style="-fx-font-size: 20px;"/>
         </VBox>
     </HBox>

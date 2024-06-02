@@ -46,6 +46,7 @@ public class CalendarController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
         currentDate = LocalDate.now();
 
         addBackButton();

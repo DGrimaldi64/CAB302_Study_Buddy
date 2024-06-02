@@ -8,7 +8,7 @@
 
 <VBox alignment="CENTER" spacing="15.0"
       xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.example.cab302_study_buddy.TimerController">
+      fx:controller="com.example.cab302_study_buddy.TimerController" stylesheets="@default.css, @accessibility.css">
     <HBox spacing="15.0">
         <Button text="←" onAction="#onBackClick"/>
     </HBox>

@@ -6,9 +6,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox alignment="CENTER" spacing="15.0"
-      xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.example.cab302_study_buddy.AnalyticsController">
+<VBox alignment="CENTER" spacing="15.0" xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.cab302_study_buddy.AnalyticsController" stylesheets="@default.css, @accessibility.css">
     <HBox spacing="15.0">
         <Button text="←" onAction="#onBackClick"/>
     </HBox>

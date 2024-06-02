@@ -33,6 +33,7 @@ public class TaskController {
     private int currentUserId;
 
     public void initialize() {
+
         this.currentUserId = current_user.getId();
         DatabaseHandler.createTable(); // Create the tables if they don't exist
         tasks = DatabaseHandler.getTasksForUser(currentUserId); // Retrieve tasks for the current user
