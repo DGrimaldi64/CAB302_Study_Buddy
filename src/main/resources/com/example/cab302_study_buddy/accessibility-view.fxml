@@ -50,11 +50,6 @@
                 </VBox>
             </children>
         </HBox>
-        <Button mnemonicParsing="false" text="Home">
-            <HBox.margin>
-                <Insets left="10.0" />
-            </HBox.margin>
-        </Button>
     </children>
     <padding>
         <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
