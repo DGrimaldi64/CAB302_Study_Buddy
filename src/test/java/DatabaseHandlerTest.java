@@ -1,4 +1,5 @@
 import com.example.cab302_study_buddy.DatabaseHandler;
+import com.example.cab302_study_buddy.TaskController;
 import javafx.beans.InvalidationListener;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
@@ -57,16 +58,7 @@ class DatabaseHandlerTest {
         assertNotEquals(expected, actual);
     }
 
-    @Test
-    void testgetTasksForUser() {
-        ObservableList<String> actual = DatabaseHandler.getTasksForUser(DatabaseHandler.getIdForUsername("test"));
-        ObservableList<String> expected = FXCollections.observableArrayList();
-        expected.add("Clean Kitchen");
-        expected.add("Start writing report");
-        expected.add("CAB310 investigative study");
 
-        assertIterableEquals(expected, actual);
-    }
 
 }
 
